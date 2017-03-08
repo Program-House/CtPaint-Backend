@@ -1,19 +1,19 @@
 module Main.Update exposing (update)
 
-import Main.Types exposing (Model, Msg(..))
+import Main.Model exposing (Model)
+import Main.Message exposing (Msg(..))
+import Main.Util as Util
+import Navigation
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update message model =
     case message of
-        UpdateField str ->
-            Model str ! []
-
-        CheckIfEnter code ->
-            if code == 13 then
-                Model "Submitted!" ! []
+        UrlChange location ->
+            if Util.isPossible location then
+                { model
+                    | location = location
+                }
+                    ! []
             else
-                model ! []
-
-        HandlePort str ->
-            Model str ! []
+                ( model, Navigation.newUrl "error" )

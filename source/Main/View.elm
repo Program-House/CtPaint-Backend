@@ -1,52 +1,19 @@
 module Main.View exposing (view)
 
 import Html exposing (..)
-import Html.Attributes exposing (..)
-import Html.Events exposing (on, onInput, keyCode)
-import Main.Types exposing (..)
-import Json.Decode as Json
+import Main.Model exposing (..)
+import Main.Message exposing (..)
+import Main.Util as Util
 
 
 -- VIEW
 
 
 view : Model -> Html Msg
-view { field } =
-    div
-        [ class "main" ]
-        [ title
-        , inputField field
-        ]
+view { location } =
+    case location.pathname of
+        "/" ->
+            h1 [] [ text "dank" ]
 
-
-
--- COMPONENTS
-
-
-title : Html Msg
-title =
-    p
-        [ class "point big" ]
-        [ text "Elm Project : Go!" ]
-
-
-inputField : String -> Html Msg
-inputField str =
-    input
-        [ class "input-field"
-        , value str
-        , onInput UpdateField
-        , spellcheck False
-        , placeholder "Check out these Msgs"
-        , onKeyDown CheckIfEnter
-        ]
-        []
-
-
-
--- UTIL
-
-
-onKeyDown : (Int -> Msg) -> Attribute Msg
-onKeyDown msg =
-    on "keydown" <| Json.map msg keyCode
+        _ ->
+            h1 [] [ text " not dank " ]

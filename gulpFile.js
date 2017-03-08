@@ -42,8 +42,8 @@ gulp.task("stylus", function() {
 
 
 // Uncomment out for automatic formatting
-// gulp.task("elm", ["elm-format", "elm-make"]);
-gulp.task("elm", ["elm-make"]);
+gulp.task("elm", ["elm-format", "elm-make"]);
+// gulp.task("elm", ["elm-make"]);
 
 
 

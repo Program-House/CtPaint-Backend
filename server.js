@@ -8,7 +8,7 @@ module.exports = function (PORT, log) {
 
   app.use(express.static(join(__dirname, '/development')));
 
-  app.get('/',function(req, res, next) {
+  app.get('/*',function(req, res, next) {
     var indexPage = join(__dirname, 'development/index.html');
     return res.status(200).sendFile(indexPage);
   })
