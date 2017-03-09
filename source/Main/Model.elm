@@ -14,3 +14,4 @@ type alias Model =
 type PageState
     = RegisterState RegisterModel
     | HomeState HomeModel
+    | ErrorState String

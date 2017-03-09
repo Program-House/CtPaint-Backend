@@ -19,7 +19,12 @@ view { location, pageState } =
             Home.view
 
         "/error" ->
-            Error.view
+            case pageState of
+                ErrorState errorMsg ->
+                    Error.view errorMsg
+
+                _ ->
+                    Error.view "Trying to view error page, without error page state"
 
         "/register" ->
             case pageState of
@@ -27,7 +32,7 @@ view { location, pageState } =
                     Register.view model
 
                 _ ->
-                    Error.view
+                    Error.view "Trying to view a page state that isnt register state"
 
         _ ->
             p [] [ text " not dank " ]

@@ -12,11 +12,12 @@ import Main.Components
         )
 
 
-view : Html Msg
-view =
+view : String -> Html Msg
+view error =
     card
         [ class "solitary" ]
         [ vectorWords "Error"
-        , words "Something went wrong"
+        , words "Something went wrong.."
+        , words error
         , button "Go home" True GoHome
         ]
