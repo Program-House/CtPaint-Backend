@@ -18,7 +18,7 @@ import Main.Init as Init
 main =
     Navigation.program
         UrlChange
-        { init = Init.model
+        { init = Init.tuple
         , view = view
         , update = update
         , subscriptions = subscriptions
