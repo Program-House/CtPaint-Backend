@@ -4,6 +4,8 @@ import Html exposing (..)
 import Main.Model exposing (..)
 import Main.Message exposing (..)
 import Main.Util as Util
+import Pages.Home as Home
+import Pages.Error as Error
 
 
 -- VIEW
@@ -13,7 +15,10 @@ view : Model -> Html Msg
 view { location } =
     case location.pathname of
         "/" ->
-            h1 [] [ text "dank" ]
+            Home.view
+
+        "/error" ->
+            Error.view
 
         _ ->
-            h1 [] [ text " not dank " ]
+            p [] [ text " not dank " ]
