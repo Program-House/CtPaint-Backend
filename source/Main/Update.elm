@@ -1,8 +1,9 @@
 module Main.Update exposing (update)
 
-import Main.Model exposing (Model)
+import Main.Model exposing (Model, PageState(..))
 import Main.Message exposing (Msg(..))
 import Main.Util as Util
+import Register.Update as Register
 import Navigation
 
 
@@ -21,5 +22,12 @@ update message model =
         GoHome ->
             ( model, Navigation.newUrl "/" )
 
-        SignUp msg_ ->
-            ( model, Cmd.none )
+        RegisterWrapper registerMsg ->
+            case model.pageState of
+                RegisterState registerModel ->
+                    registerModel
+                        |> Register.update registerMsg
+                        |> Register.incorporate model
+
+                _ ->
+                    ( model, Cmd.none )

@@ -13,7 +13,7 @@ import Register.View as Register
 
 
 view : Model -> Html Msg
-view { location } =
+view { location, pageState } =
     case location.pathname of
         "/" ->
             Home.view
@@ -22,7 +22,12 @@ view { location } =
             Error.view
 
         "/register" ->
-            Register.view
+            case pageState of
+                RegisterState model ->
+                    Register.view model
+
+                _ ->
+                    Error.view
 
         _ ->
             p [] [ text " not dank " ]

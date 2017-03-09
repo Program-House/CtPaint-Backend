@@ -2,20 +2,17 @@ module Register.View exposing (view)
 
 import Html exposing (Html)
 import Html.Attributes exposing (class, style)
-import Main.Message exposing (Msg(..), SignUpMsg(..))
-import Main.Components
-    exposing
-        ( card
-        , words
-        , vectorWords
-        , button
-        )
+import Register.Model exposing (RegisterModel)
+import Register.Message exposing (RegisterMsg(..))
+import Register.Button as Button
+import Main.Message exposing (Msg(..))
+import Main.Components exposing (card, words)
 
 
-view : Html Msg
-view =
+view : RegisterModel -> Html Msg
+view model =
     card
         [ class "solitary" ]
-        [ words "Something went wrong"
-        , button "Register" False (SignUp Register)
+        [ words "Register new CtPaint Account"
+        , Button.view model.problems
         ]

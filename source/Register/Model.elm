@@ -1,4 +1,4 @@
-module Register.Model exposing (RegisterModel)
+module Register.Model exposing (RegisterModel, Problem(..))
 
 
 type alias RegisterModel =
