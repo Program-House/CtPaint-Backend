@@ -1,4 +1,4 @@
-module Pages.Error exposing (view)
+module Error.View exposing (view)
 
 import Html exposing (Html, br)
 import Html.Attributes exposing (class, style)
@@ -15,12 +15,8 @@ import Main.Components
 view : Html Msg
 view =
     card
-        [ class "error-solitary" ]
-        [ vectorWords "Sorry"
-          --, br [] []
-          --, br [] []
-        , words "This page doesnt exist"
-          --, br [] []
-          --, br [] []
+        [ class "solitary" ]
+        [ vectorWords "Error"
+        , words "Something went wrong"
         , button "Go home" True GoHome
         ]

@@ -12,6 +12,6 @@ possiblePaths : List String
 possiblePaths =
     [ "/"
     , "/login"
-    , "/signup"
+    , "/register"
     , "/error"
     ]

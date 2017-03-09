@@ -16,7 +16,10 @@ update message model =
                 }
                     ! []
             else
-                ( model, Navigation.newUrl "error" )
+                ( model, Navigation.newUrl "/" )
 
         GoHome ->
-            ( model, Navigation.newUrl "" )
+            ( model, Navigation.newUrl "/" )
+
+        SignUp msg_ ->
+            ( model, Cmd.none )

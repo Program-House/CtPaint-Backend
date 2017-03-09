@@ -4,8 +4,9 @@ import Html exposing (..)
 import Main.Model exposing (..)
 import Main.Message exposing (..)
 import Main.Util as Util
-import Pages.Home as Home
-import Pages.Error as Error
+import Home.View as Home
+import Error.View as Error
+import Register.View as Register
 
 
 -- VIEW
@@ -19,6 +20,9 @@ view { location } =
 
         "/error" ->
             Error.view
+
+        "/register" ->
+            Register.view
 
         _ ->
             p [] [ text " not dank " ]

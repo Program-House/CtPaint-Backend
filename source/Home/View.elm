@@ -1,4 +1,4 @@
-module Pages.Home exposing (view)
+module Home.View exposing (view)
 
 import Html exposing (..)
 import Main.Message exposing (Msg(..))

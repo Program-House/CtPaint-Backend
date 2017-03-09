@@ -36,5 +36,6 @@ buttonAttributes label ready msg =
         ]
     else
         [ class "button not-ready"
-        , value "label"
+        , value label
+        , type_ "submit"
         ]
