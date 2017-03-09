@@ -5,3 +5,4 @@ import Navigation exposing (Location)
 
 type Msg
     = UrlChange Location
+    | GoHome

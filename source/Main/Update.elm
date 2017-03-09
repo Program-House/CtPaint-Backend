@@ -17,3 +17,6 @@ update message model =
                     ! []
             else
                 ( model, Navigation.newUrl "error" )
+
+        GoHome ->
+            ( model, Navigation.newUrl "" )
