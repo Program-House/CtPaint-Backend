@@ -1,4 +1,4 @@
-module Register.Update exposing (update, incorporate)
+module Register.Update exposing (handle)
 
 import Register.Message exposing (RegisterMsg(..))
 import Register.Model exposing (RegisterModel)
@@ -26,3 +26,10 @@ incorporateModel registerModel model =
     { model
         | pageState = RegisterState registerModel
     }
+
+
+handle : Model -> RegisterMsg -> RegisterModel -> ( Model, Cmd Msg )
+handle model msg registerModel =
+    registerModel
+        |> update msg
+        |> incorporate model

@@ -15,3 +15,4 @@ type PageState
     = RegisterState RegisterModel
     | HomeState HomeModel
     | ErrorState String
+    | None

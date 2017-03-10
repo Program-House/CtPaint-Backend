@@ -1,35 +1,44 @@
 module Main.Url exposing (handle)
 
 import Navigation exposing (Location)
-import Main.Model exposing (Model, PageState(ErrorState))
+import Main.Model exposing (Model, PageState(..))
+import Register.Init
 import Main.Message exposing (Msg(..))
 
 
 handle : Location -> Model -> ( Model, Cmd Msg )
 handle location model =
-    if isPossible location then
-        { model
-            | location =
-                location
-                --, pageState = getPageState
-        }
-            ! []
-    else
-        { model
-            | pageState = ErrorState "Page does not exist"
-        }
-            ! [ Navigation.newUrl "error" ]
+    model
+        |> setLocation location
+        |> handlePath
 
 
-isPossible : Location -> Bool
-isPossible location =
-    List.member location.pathname possiblePaths
+handlePath : Model -> ( Model, Cmd Msg )
+handlePath model =
+    case Debug.log "path" <| model.location.pathname of
+        "/" ->
+            ( setState (HomeState ()) model
+            , Cmd.none
+            )
+
+        "/register" ->
+            ( setState (Register.Init.model) model
+            , Cmd.none
+            )
+
+        _ ->
+            ( setState
+                (ErrorState "Page does not exist")
+                model
+            , Cmd.none
+            )
 
 
-possiblePaths : List String
-possiblePaths =
-    [ "/"
-    , "/login"
-    , "/register"
-    , "/error"
-    ]
+setLocation : Location -> Model -> Model
+setLocation location model =
+    { model | location = location }
+
+
+setState : PageState -> Model -> Model
+setState state model =
+    { model | pageState = state }
