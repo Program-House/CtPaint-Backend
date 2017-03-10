@@ -15,4 +15,5 @@ model : Location -> Model
 model location =
     { location = location
     , pageState = None
+    , user = Nothing
     }

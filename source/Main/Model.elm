@@ -8,6 +8,13 @@ import Home.Model exposing (HomeModel)
 type alias Model =
     { location : Location
     , pageState : PageState
+    , user : Maybe User
+    }
+
+
+type alias User =
+    { name : String
+    , email : String
     }
 
 
