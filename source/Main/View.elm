@@ -8,9 +8,6 @@ import Error.View as Error
 import Register.View as Register
 
 
--- VIEW
-
-
 view : Model -> Html Msg
 view { location, pageState } =
     case pageState of

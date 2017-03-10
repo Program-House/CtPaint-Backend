@@ -1,4 +1,9 @@
-module Register.Model exposing (RegisterModel, Problem(..))
+module Register.Model
+    exposing
+        ( RegisterModel
+        , Problem(..)
+        , Field(..)
+        )
 
 
 type alias RegisterModel =
@@ -6,13 +11,22 @@ type alias RegisterModel =
     , secondEmail : String
     , firstPassword : String
     , secondPassword : String
-    , username : String
+    , username : ( String, Bool )
     , problems : List Problem
+    , showIncomplete : Bool
     }
 
 
 type Problem
-    = FormIncomplete
-    | UsernameTaken
+    = FormIncomplete (List Field)
+    | UserNameTaken
     | EmailsDontMatch
     | PasswordsDontMatch
+
+
+type Field
+    = UserName
+    | FirstEmail
+    | SecondEmail
+    | FirstPassword
+    | SecondPassword

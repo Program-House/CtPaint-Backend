@@ -9,9 +9,7 @@ import Main.Components exposing (button)
 
 view : List Problem -> Html Msg
 view problems =
-    button "Register" (no problems) (RegisterWrapper Register)
-
-
-no : List Problem -> Bool
-no =
-    List.isEmpty
+    button
+        "Register"
+        (List.isEmpty problems)
+        (RegisterWrapper Register)

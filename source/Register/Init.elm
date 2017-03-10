@@ -1,8 +1,13 @@
 module Register.Init exposing (model)
 
 import Main.Model exposing (Model, PageState(..))
-import Register.Model exposing (RegisterModel)
 import Navigation exposing (Location)
+import Register.Model
+    exposing
+        ( RegisterModel
+        , Problem(..)
+        , Field(..)
+        )
 
 
 model : PageState
@@ -12,6 +17,19 @@ model =
         , secondEmail = ""
         , firstPassword = ""
         , secondPassword = ""
-        , username = ""
-        , problems = []
+        , username = ( "", False )
+        , problems = problems
+        , showIncomplete = False
         }
+
+
+problems : List Problem
+problems =
+    [ FormIncomplete
+        [ UserName
+        , FirstEmail
+        , SecondEmail
+        , FirstPassword
+        , SecondPassword
+        ]
+    ]

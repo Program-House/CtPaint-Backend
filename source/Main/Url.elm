@@ -15,7 +15,7 @@ handle location model =
 
 handlePath : Model -> ( Model, Cmd Msg )
 handlePath model =
-    case Debug.log "path" <| model.location.pathname of
+    case model.location.pathname of
         "/" ->
             ( setState (HomeState ()) model
             , Cmd.none
