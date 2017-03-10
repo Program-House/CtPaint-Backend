@@ -5,6 +5,7 @@ import Register.Model exposing (RegisterModel)
 import Main.Model exposing (Model, PageState(RegisterState))
 import Main.Message exposing (Msg(..))
 import Register.UserName as UserName
+import Register.Valid as Valid
 
 
 update : RegisterMsg -> RegisterModel -> ( RegisterModel, Cmd Msg )
@@ -14,34 +15,37 @@ update message model =
             ( model, Cmd.none )
 
         CheckIfValid ->
-            ( model, Cmd.none )
+            { model
+                | problems = Valid.check model
+            }
+                ! []
 
         UpdateUserNameField str ->
             ( UserName.handle str model, Cmd.none )
 
         UpdateFirstEmailField str ->
-            { model
-                | firstEmail = str
-            }
-                ! []
+            update CheckIfValid
+                { model
+                    | firstEmail = str
+                }
 
         UpdateSecondEmailField str ->
-            { model
-                | secondEmail = str
-            }
-                ! []
+            update CheckIfValid
+                { model
+                    | secondEmail = str
+                }
 
         UpdateFirstPasswordField str ->
-            { model
-                | firstPassword = str
-            }
-                ! []
+            update CheckIfValid
+                { model
+                    | firstPassword = str
+                }
 
         UpdateSecondPasswordField str ->
-            { model
-                | secondPassword = str
-            }
-                ! []
+            update CheckIfValid
+                { model
+                    | secondPassword = str
+                }
 
 
 incorporate : Model -> ( RegisterModel, Cmd Msg ) -> ( Model, Cmd Msg )

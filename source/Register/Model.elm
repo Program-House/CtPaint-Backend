@@ -22,6 +22,8 @@ type Problem
     | UserNameTaken
     | EmailsDontMatch
     | PasswordsDontMatch
+    | PasswordInvalid
+    | EmailInvalid
 
 
 type Field
