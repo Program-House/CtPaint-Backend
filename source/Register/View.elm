@@ -4,7 +4,6 @@ import Html exposing (Html, br)
 import Html.Attributes exposing (class, style)
 import Register.Model exposing (RegisterModel)
 import Register.Message exposing (RegisterMsg(..))
-import Register.Button as Button
 import Main.Message exposing (Msg(..))
 import Main.Components exposing (card, words)
 import Register.Components as Components
@@ -43,5 +42,5 @@ view { username, firstEmail, secondEmail, problems, firstPassword, secondPasswor
             secondPassword
             (RegisterWrapper << UpdateSecondPasswordField)
         , br [] []
-        , Button.view problems
+        , Components.button problems
         ]
