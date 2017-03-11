@@ -6,6 +6,11 @@ import Html.Events exposing (onClick)
 import Main.Message exposing (Msg(..))
 
 
+errorBox : List (Html Msg) -> Html Msg
+errorBox children =
+    node "errorbox" [] children
+
+
 card : List (Attribute Msg) -> List (Html Msg) -> Html Msg
 card =
     node "card"
@@ -14,6 +19,11 @@ card =
 words : String -> Html Msg
 words str =
     node "words" [] [ text str ]
+
+
+warning : String -> String -> Html Msg
+warning class_ str =
+    node "warning" [ class class_ ] [ text str ]
 
 
 vectorWords : String -> Html Msg

@@ -1,46 +1,70 @@
 module Register.View exposing (view)
 
-import Html exposing (Html, br)
+import Html exposing (Html, br, div)
 import Html.Attributes exposing (class, style)
-import Register.Model exposing (RegisterModel)
+import Register.Model exposing (RegisterModel, Problem(..))
 import Register.Message exposing (RegisterMsg(..))
 import Main.Message exposing (Msg(..))
-import Main.Components exposing (card, words)
+import Main.Components exposing (card, words, errorBox, warning)
 import Register.Components as Components
-import Register.UserName as UserName
+import Register.Fields as Fields
 
 
 view : RegisterModel -> Html Msg
-view { username, firstEmail, secondEmail, problems, firstPassword, secondPassword } =
-    card
-        [ class "solitary register" ]
-        [ words "Register new CtPaint account"
-        , UserName.field
-            "username"
-            "username"
-            username
-        , br [] []
-        , Components.field
-            "email"
-            "your email"
-            firstEmail
-            (RegisterWrapper << UpdateFirstEmailField)
-        , Components.field
-            "email"
-            "your email again"
-            secondEmail
-            (RegisterWrapper << UpdateSecondEmailField)
-        , br [] []
-        , Components.password
-            "password"
-            "password"
-            firstPassword
-            (RegisterWrapper << UpdateFirstPasswordField)
-        , Components.password
-            "password"
-            "password"
-            secondPassword
-            (RegisterWrapper << UpdateSecondPasswordField)
-        , br [] []
-        , Components.button problems
-        ]
+view { showProblems, username, firstEmail, secondEmail, problems, firstPassword, secondPassword } =
+    let
+        problemsToShow =
+            if showProblems then
+                problems
+            else
+                []
+    in
+        List.concat
+            [ [ words "Register new CtPaint account" ]
+            , Fields.username username problemsToShow
+            , Fields.emails firstEmail secondEmail problemsToShow
+            , Fields.passwords firstPassword secondPassword problemsToShow
+            , [ Components.register ]
+            ]
+            |> card [ class "solitary register" ]
+
+
+
+----card
+----    [ class "solitary register" ]
+--    [ words "Register new CtPaint account"
+--    , Fields.username username problems
+--    , Components.field
+--        "email"
+--        "your email"
+--        firstEmail
+--        (check showProblems problems (always True))
+--        (RegisterWrapper << UpdateFirstEmailField)
+--    , Components.field
+--        "email"
+--        "your email again"
+--        secondEmail
+--        True
+--        (RegisterWrapper << UpdateSecondEmailField)
+--    , errorBox [ warning "registration" "" ]
+--    , Components.password
+--        "password"
+--        "password"
+--        firstPassword
+--        True
+--        (RegisterWrapper << UpdateFirstPasswordField)
+--    , Components.password
+--        "password"
+--        "password"
+--        secondPassword
+--        True
+--        (RegisterWrapper << UpdateSecondPasswordField)
+--    , br [] []
+--    , Components.button problems
+--    ]
+--check : Bool -> List Problem -> List Problem -> Bool
+--check show problems forThisField =
+--    if show then
+--        forThisField problems
+--    else
+--        False

@@ -17,19 +17,17 @@ model =
         , secondEmail = ""
         , firstPassword = ""
         , secondPassword = ""
-        , username = ( "", False )
+        , username = ""
         , problems = problems
-        , showIncomplete = False
+        , showProblems = False
         }
 
 
 problems : List Problem
 problems =
-    [ FormIncomplete
-        [ UserName
-        , FirstEmail
-        , SecondEmail
-        , FirstPassword
-        , SecondPassword
-        ]
+    [ UserNameEmpty
+    , FirstEmailEmpty
+    , SecondEmailEmpty
+    , FirstPasswordEmpty
+    , SecondPasswordEmpty
     ]

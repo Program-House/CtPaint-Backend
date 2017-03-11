@@ -11,19 +11,24 @@ type alias RegisterModel =
     , secondEmail : String
     , firstPassword : String
     , secondPassword : String
-    , username : ( String, Bool )
+    , username : String
     , problems : List Problem
-    , showIncomplete : Bool
+    , showProblems : Bool
     }
 
 
 type Problem
-    = FormIncomplete (List Field)
-    | UserNameTaken
+    = UserNameTaken
+    | UserNameInvalid
+    | UserNameEmpty
     | EmailsDontMatch
-    | PasswordsDontMatch
-    | PasswordInvalid
+    | FirstEmailEmpty
+    | SecondEmailEmpty
     | EmailInvalid
+    | PasswordsDontMatch
+    | FirstPasswordEmpty
+    | SecondPasswordEmpty
+    | PasswordInvalid
 
 
 type Field

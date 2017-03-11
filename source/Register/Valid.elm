@@ -1,64 +1,39 @@
 module Register.Valid exposing (check)
 
-import Register.Model exposing (RegisterModel, Problem(..))
+import Register.Model exposing (RegisterModel, Problem(..), Field(..))
 import Register.Alphanumeric as Alphanumeric
 
 
-check : RegisterModel -> List Problem
+check : RegisterModel -> RegisterModel
 check model =
-    []
-        |> passwordsAreSame model
-        |> passwordIsValid model
-        |> emailsAreSame model
-        |> emailIsValid model
+    { model
+        | problems =
+            allPossibleProblems model
+                |> List.filter (not << Tuple.first)
+                |> List.map (Tuple.second)
+    }
 
 
-passwordsAreSame : RegisterModel -> List Problem -> List Problem
-passwordsAreSame model problems =
-    if model.firstPassword == model.secondPassword then
-        problems
-    else
-        PasswordsDontMatch :: problems
-
-
-emailsAreSame : RegisterModel -> List Problem -> List Problem
-emailsAreSame model problems =
-    if model.firstEmail == model.secondEmail then
-        problems
-    else
-        EmailsDontMatch :: problems
-
-
-emailIsValid : RegisterModel -> List Problem -> List Problem
-emailIsValid { firstEmail, secondEmail } problems =
-    let
-        valid =
-            allAreTrue
-                [ String.contains "@" firstEmail
-                , String.contains "." firstEmail
-                , not <| String.endsWith "." firstEmail
-                ]
-    in
-        if valid then
-            problems
-        else
-            EmailInvalid :: problems
-
-
-passwordIsValid : RegisterModel -> List Problem -> List Problem
-passwordIsValid model problems =
-    let
-        valid =
-            allAreTrue
-                [ String.length model.firstPassword > 8
-                , String.all Alphanumeric.is model.firstPassword
-                , String.any Alphanumeric.isNumeric model.firstPassword
-                ]
-    in
-        if valid then
-            problems
-        else
-            PasswordInvalid :: problems
+allPossibleProblems : RegisterModel -> List ( Bool, Problem )
+allPossibleProblems { firstEmail, secondEmail, firstPassword, secondPassword, username } =
+    [ ( username /= "", UserNameEmpty )
+    , ( firstPassword == secondPassword, PasswordsDontMatch )
+    , ( firstEmail == secondEmail, EmailsDontMatch )
+    , ( allAreTrue
+            [ String.length firstPassword > 8
+            , String.all Alphanumeric.is firstPassword
+            , String.any Alphanumeric.isNumeric firstPassword
+            ]
+      , PasswordInvalid
+      )
+    , ( allAreTrue
+            [ String.contains "@" firstEmail
+            , String.contains "." firstEmail
+            , not <| String.endsWith "." firstEmail
+            ]
+      , EmailInvalid
+      )
+    ]
 
 
 allAreTrue : List Bool -> Bool

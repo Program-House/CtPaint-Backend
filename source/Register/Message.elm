@@ -2,8 +2,8 @@ module Register.Message exposing (RegisterMsg(..))
 
 
 type RegisterMsg
-    = Register
-    | CheckIfValid
+    = TryRegister
+    | HandleEnter Bool
     | UpdateUserNameField String
     | UpdateFirstEmailField String
     | UpdateSecondEmailField String

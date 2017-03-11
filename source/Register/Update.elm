@@ -4,48 +4,51 @@ import Register.Message exposing (RegisterMsg(..))
 import Register.Model exposing (RegisterModel)
 import Main.Model exposing (Model, PageState(RegisterState))
 import Main.Message exposing (Msg(..))
-import Register.UserName as UserName
+import Register.Try as Register
 import Register.Valid as Valid
 
 
 update : RegisterMsg -> RegisterModel -> ( RegisterModel, Cmd Msg )
 update message model =
     case message of
-        Register ->
-            ( model, Cmd.none )
+        TryRegister ->
+            Register.try (Valid.check model)
 
-        CheckIfValid ->
+        HandleEnter isEnter ->
+            if isEnter then
+                update TryRegister model
+            else
+                ( model, Cmd.none )
+
+        UpdateUserNameField str ->
             { model
-                | problems = Valid.check model
+                | username = str
             }
                 ! []
 
-        UpdateUserNameField str ->
-            ( UserName.handle str model, Cmd.none )
-
         UpdateFirstEmailField str ->
-            update CheckIfValid
-                { model
-                    | firstEmail = str
-                }
+            { model
+                | firstEmail = str
+            }
+                ! []
 
         UpdateSecondEmailField str ->
-            update CheckIfValid
-                { model
-                    | secondEmail = str
-                }
+            { model
+                | secondEmail = str
+            }
+                ! []
 
         UpdateFirstPasswordField str ->
-            update CheckIfValid
-                { model
-                    | firstPassword = str
-                }
+            { model
+                | firstPassword = str
+            }
+                ! []
 
         UpdateSecondPasswordField str ->
-            update CheckIfValid
-                { model
-                    | secondPassword = str
-                }
+            { model
+                | secondPassword = str
+            }
+                ! []
 
 
 incorporate : Model -> ( RegisterModel, Cmd Msg ) -> ( Model, Cmd Msg )

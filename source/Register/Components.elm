@@ -1,19 +1,26 @@
-module Register.Components exposing (field, password, button)
+module Register.Components
+    exposing
+        ( field
+        , password
+        , register
+        , warning
+        )
 
 import Html exposing (node, div, input, text, Attribute, Html)
 import Html.Attributes exposing (class, value, type_, placeholder)
-import Html.Events exposing (onInput)
+import Html.Events exposing (onInput, onClick, keyCode, on)
 import Main.Message exposing (Msg(..))
-import Main.Components as Components
 import Register.Message exposing (RegisterMsg(..))
 import Register.Model exposing (Problem(..))
+import Main.Components as Components
+import Json.Decode as Json
 
 
-field : String -> String -> String -> (String -> Msg) -> Html Msg
-field labelText placerholder_ fieldContent msg =
+field : String -> String -> String -> Bool -> (String -> Msg) -> Html Msg
+field labelText placerholder_ fieldContent error msg =
     container labelText <|
         input
-            [ class "register-field"
+            [ fieldClass error
             , placeholder placerholder_
             , value fieldContent
             , onInput msg
@@ -21,17 +28,31 @@ field labelText placerholder_ fieldContent msg =
             []
 
 
-password : String -> String -> String -> (String -> Msg) -> Html Msg
-password labelText placerholder_ fieldContent msg =
+fieldClass : Bool -> Attribute Msg
+fieldClass error =
+    if error then
+        class "register-field error"
+    else
+        class "register-field"
+
+
+password : String -> String -> String -> Bool -> (String -> Msg) -> Html Msg
+password labelText placerholder_ fieldContent error msg =
     container labelText <|
         input
-            [ class "register-field"
+            [ fieldClass error
             , placeholder placerholder_
             , type_ "password"
             , value fieldContent
             , onInput msg
+            , ifEnter (RegisterWrapper << HandleEnter)
             ]
             []
+
+
+warning : String -> Html Msg
+warning =
+    Components.warning "registration"
 
 
 container : String -> Html Msg -> Html Msg
@@ -48,9 +69,17 @@ label str =
     node "fieldlabel" [] [ text str ]
 
 
-button : List Problem -> Html Msg
-button problems =
-    Components.button
-        "Register"
-        (List.isEmpty problems)
-        (RegisterWrapper Register)
+register : Html Msg
+register =
+    input
+        [ class "button"
+        , onClick (RegisterWrapper TryRegister)
+        , type_ "submit"
+        , value "Register"
+        ]
+        []
+
+
+ifEnter : (Bool -> Msg) -> Attribute Msg
+ifEnter msg =
+    on "keydown" <| Json.map (msg << (==) 13) keyCode
