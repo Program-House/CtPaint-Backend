@@ -11,7 +11,7 @@ var util = require("gulp-util");
 
 var paths = {
   development: "./development",
-  distribution: "./distributionribution",
+  distribution: "./distribution",
   mainElm: "./source/Main.elm",
   elm: "./source/**/*.elm",
   css: "./source/**/*.styl",
