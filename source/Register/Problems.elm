@@ -1,11 +1,11 @@
-module Register.Valid exposing (check)
+module Register.Problems exposing (set)
 
 import Register.Model exposing (RegisterModel, Problem(..), Field(..))
 import Register.Alphanumeric as Alphanumeric
 
 
-check : RegisterModel -> RegisterModel
-check model =
+set : RegisterModel -> RegisterModel
+set model =
     { model
         | problems =
             allPossibleProblems model

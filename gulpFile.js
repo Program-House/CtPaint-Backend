@@ -76,7 +76,7 @@ gulp.task("elm-make", function () {
 })
 
 gulp.task("server", function() {
-  return require("./server")(2984, util.log);
+  return require("./server");
 });
 
 
@@ -93,7 +93,7 @@ gulp.task("distribution", function() {
 gulp.watch(paths.elm, ["elm"]);
 gulp.watch(paths.css, ["stylus"]);
 gulp.watch(paths.js, ["js"]);
-gulp.watch("development/index.html", ["server"])
+gulp.watch(["development/index.html", "./server.js"], ["server"])
 
 
 gulp.task("default", ["elm", "js", "stylus", "server"]);
