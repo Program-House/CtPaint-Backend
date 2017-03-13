@@ -4,8 +4,7 @@
     "repository": "https://github.com/Chadtech/elm-gulp-browserify-boilerplate.git",
     "license": "you can use it",
     "source-directories": [
-        "./home/source",
-        "./paint/source"
+        "./source"
     ],
     "exposed-modules": [],
     "dependencies": {
