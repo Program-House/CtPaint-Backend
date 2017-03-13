@@ -25,7 +25,7 @@ gulp.task "elm-format", elm.format
 gulp.task "elm-make", elm.make app
 
 gulp.task "server", ->
-  require "./server/app.js"
+  require "./server/app.coffee"
 
 gulp.task "distribution", ->
   production = true
@@ -37,7 +37,7 @@ gulp.task "distribution", ->
 gulp.task "watch", ->
   serverFiles = [
     app.development + "/index.html"
-    "./server/app.js"
+    "./server/app.coffee"
   ]
 
   gulp.watch paths.elm, [ "elm" ]
