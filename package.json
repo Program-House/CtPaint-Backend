@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "browserify": "^13.0.0",
+    "coffee-script": "^1.12.4",
     "express": "^4.13.4",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
@@ -24,6 +25,7 @@
     "gulp-util": "^3.0.8",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
+    "rethinkdb": "^2.3.3",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
