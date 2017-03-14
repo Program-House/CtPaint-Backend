@@ -26,14 +26,15 @@ r.connect rPack, (err, conn) ->
 # ));
 
 app.use bodyParser.json()
-app.use (express.static (join __dirname, "/assets"))
+app.use (express.static (join __dirname, "../home/development"))
 app.use passport.initialize()
 app.use passport.session()
 
 app.get "/*", (req, res, next) ->
-  (res.state 200).sendFile (join __dirname, "home/development/index.html")
+  (res.status 200).sendFile (join __dirname, "../home/development/index.html")
 
 app.post "/api/register", (req, res, next) ->
+
   r.db "ctpaint" 
     .table "user"
     .insert [

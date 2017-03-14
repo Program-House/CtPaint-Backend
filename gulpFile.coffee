@@ -11,7 +11,7 @@ paths =
   distribution: "./" + app + "/distribution"
   mainElm: "./" + app + "/source/Main.elm"
   elm: "./" + app + "/source/**/*.elm"
-  mainCss: "./" + " ./source/Styles/main.styl"
+  mainCss: "./" + app + "/source/Styles/main.styl"
   css: "./" + app + "/source/**/*.styl"
   mainJs: "./" + app + "/source/app.js"
   js: "./" + app + "/source/*.js",
