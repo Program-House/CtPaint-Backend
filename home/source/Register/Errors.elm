@@ -40,9 +40,6 @@ msg msg =
 getErrorMessage : Problem -> String
 getErrorMessage problem =
     case problem of
-        UserNameTaken ->
-            "username is already taken"
-
         UserNameInvalid ->
             "alphanumeric characters only"
 

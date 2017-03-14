@@ -18,8 +18,7 @@ type alias RegisterModel =
 
 
 type Problem
-    = UserNameTaken
-    | UserNameInvalid
+    = UserNameInvalid
     | UserNameEmpty
     | EmailsDontMatch
     | FirstEmailEmpty

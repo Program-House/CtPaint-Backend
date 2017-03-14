@@ -17,7 +17,6 @@ username str problems =
                 problems
                 [ UserNameEmpty
                 , UserNameInvalid
-                , UserNameTaken
                 ]
     in
         [ Components.field
