@@ -11,32 +11,39 @@ db = r.db "ctpaint"
   #   .table "user"
   #   .insert 
 
-module.exports.newUser = newUser = (req) ->
+module.exports.newUser = newUser = (connection, body, next) ->
+  emailExists connection, body.email, (exists) ->
+    if exists
+      next (msg: "Email already exists")
+    else
+      db.table "user"
+        .insert [ makeUser body ]
+        .run connection, (err, result) ->
+          if err then throw err
+          next (msg:  "Successfully created user")
+    # else
+      # console.log "Doesnt exist!"
 
 
-module.exports.emailExists = emailExists = (connection, email) ->
+
+module.exports.emailExists = emailExists = (connection, email, next) ->
   db.table "user" 
-    .filter (r.row "email" .eq email)
+    .filter ((r.row "email").eq email)
     .run connection, (err, cursor) ->
       if err then throw err
       cursor.toArray (err, result) ->
         if err then throw err
-        console.log (JSON.stringify result, null, 2)
+        next (result.length > 0)
 
-    #     cursor.toArray(function(err, result) {
-    #         if (err) throw err;
-    #         console.log(JSON.stringify(result, null, 2));
-    #     });
-    # });
 
-module.exports.makeUser = makeUser = (req) ->
+module.exports.makeUser = makeUser = (body) ->
   salt = makeSalt()
 
-  username: req.username
-  email: req.email
+  username: body.username
+  email: body.email
   verified: false
   salt: salt
-  hash: hash (salt + req.password)
+  hash: hash (salt + body.password)
 
 
 

@@ -8,6 +8,7 @@ passport = require "passport"
 Strategy = (require "passport-local").Strategy
 r = require "rethinkdb"
 log = (require "./log").log
+register = require "./db/register"
 
 dbConnection = null
 PORT = process.argv[3] or 2984
@@ -34,12 +35,15 @@ app.get "/*", (req, res, next) ->
   (res.status 200).sendFile (join __dirname, "../home/development/index.html")
 
 app.post "/api/register", (req, res, next) ->
+  register.newUser dbConnection, req.body, (pack) ->
+    res.send (JSON.stringify pack)
 
-  r.db "ctpaint" 
-    .table "user"
-    .insert [
-      Object.assign {}, req.body, { verified: false }
-    ]
+
+  # r.db "ctpaint" 
+  #   .table "user"
+  #   .insert [
+  #     Object.assign {}, req.body, { verified: false }
+  #   ]
 
   res.status 200
 

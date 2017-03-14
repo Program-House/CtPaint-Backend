@@ -5,6 +5,7 @@ import Register.Model exposing (RegisterModel)
 import Main.Model exposing (Model, PageState(RegisterState))
 import Main.Message exposing (Msg(..))
 import Register.Try as Register
+import Register.Result as Result
 import Register.Problems as Problems
 import Debug exposing (log)
 
@@ -15,11 +16,8 @@ update message model =
         TryRegister ->
             Register.try (Problems.set model)
 
-        RegistrationResult (Ok result) ->
-            ( log "RESULT" model, Cmd.none )
-
-        RegistrationResult (Err err) ->
-            ( log "ERR" model, Cmd.none )
+        RegistrationResult result ->
+            ( Result.handle result model, Cmd.none )
 
         HandleEnter isEnter ->
             if isEnter then

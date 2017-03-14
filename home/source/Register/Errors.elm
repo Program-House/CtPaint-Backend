@@ -72,3 +72,9 @@ getErrorMessage problem =
 
         SecondPasswordEmpty ->
             "enter the same password twice"
+
+        ConnectionFailure ->
+            "trouble connecting to the server"
+
+        EmailTaken ->
+            "email is taken"

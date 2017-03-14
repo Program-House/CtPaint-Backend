@@ -13,7 +13,7 @@ import Debug exposing (log)
 try : RegisterModel -> ( RegisterModel, Cmd Msg )
 try model =
     if List.isEmpty model.problems then
-        ( model, register model )
+        ( model, submitRegistration model )
     else
         { model
             | showProblems = True
@@ -21,12 +21,12 @@ try model =
             ! []
 
 
-register : RegisterModel -> Cmd Msg
-register model =
+submitRegistration : RegisterModel -> Cmd Msg
+submitRegistration model =
     Http.post
         "http://localhost:2984/api/register"
         (Http.jsonBody <| toJson model)
-        (Decode.string)
+        (Decode.value)
         |> Http.send (RegisterWrapper << RegistrationResult)
 
 

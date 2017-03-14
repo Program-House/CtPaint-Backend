@@ -29,6 +29,8 @@ type Problem
     | FirstPasswordEmpty
     | SecondPasswordEmpty
     | PasswordInvalid
+    | ConnectionFailure
+    | EmailTaken
 
 
 type Field
