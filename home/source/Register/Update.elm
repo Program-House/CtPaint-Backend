@@ -3,11 +3,10 @@ module Register.Update exposing (handle)
 import Register.Message exposing (RegisterMsg(..))
 import Register.Model exposing (RegisterModel)
 import Main.Model exposing (Model, PageState(RegisterState))
-import Main.Message exposing (Msg(..))
+import Main.Message exposing (Msg)
 import Register.Try as Register
 import Register.Result as Result
 import Register.Problems as Problems
-import Debug exposing (log)
 
 
 update : RegisterMsg -> RegisterModel -> ( PageState, Cmd Msg )
@@ -26,32 +25,31 @@ update message model =
                 ( RegisterState model, Cmd.none )
 
         UpdateUserNameField str ->
-            RegisterState { model | username = str } ! []
+            pack { model | username = str }
 
         UpdateFirstEmailField str ->
-            RegisterState { model | firstEmail = str } ! []
+            pack { model | firstEmail = str }
 
         UpdateSecondEmailField str ->
-            RegisterState { model | secondEmail = str } ! []
+            pack { model | secondEmail = str }
 
         UpdateFirstPasswordField str ->
-            RegisterState { model | firstPassword = str } ! []
+            pack { model | firstPassword = str }
 
         UpdateSecondPasswordField str ->
-            RegisterState { model | secondPassword = str } ! []
+            pack { model | secondPassword = str }
 
 
-incorporate : Model -> ( PageState, Cmd Msg ) -> ( Model, Cmd Msg )
-incorporate model ( pageState, cmd ) =
-    ( { model
-        | pageState = pageState
-      }
-    , cmd
-    )
+pack : RegisterModel -> ( PageState, Cmd Msg )
+pack model =
+    RegisterState model ! []
+
+
+incorporatePageState : Model -> ( PageState, Cmd Msg ) -> ( Model, Cmd Msg )
+incorporatePageState model ( pageState, cmd ) =
+    ( { model | pageState = pageState }, cmd )
 
 
 handle : Model -> RegisterMsg -> RegisterModel -> ( Model, Cmd Msg )
 handle model msg registerModel =
-    registerModel
-        |> update msg
-        |> incorporate model
+    incorporatePageState model (update msg registerModel)

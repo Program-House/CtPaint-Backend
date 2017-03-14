@@ -62,7 +62,7 @@ emails firstEmail secondEmail problems showField =
             (RegisterWrapper << UpdateFirstEmailField)
         , Components.field
             "email"
-            "your email"
+            "your email again"
             secondEmailContent
             (error /= Nothing)
             (RegisterWrapper << UpdateSecondEmailField)

@@ -15,7 +15,6 @@ type alias RegisterModel =
     , problems : List Problem
     , showProblems : Bool
     , showFields : Bool
-    , successfulRegistrationOccured : Bool
     }
 
 

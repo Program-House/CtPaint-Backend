@@ -53,7 +53,7 @@ getErrorMessage problem =
             "passwords dont match"
 
         PasswordInvalid ->
-            "Password can contain numbers and letters only, at least one number"
+            "Password can contain numbers and letters only, and must contain at least one number, and have a minimum length of 8"
 
         EmailInvalid ->
             "email is invalid"
