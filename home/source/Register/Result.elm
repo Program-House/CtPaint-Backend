@@ -4,10 +4,11 @@ import Json.Decode exposing (Decoder)
 import Json.Decode as Json
 import Http
 import Register.Model exposing (RegisterModel, Problem(..))
+import Main.Model exposing (PageState(..))
 import Debug exposing (log)
 
 
-handle : Result Http.Error Json.Value -> RegisterModel -> RegisterModel
+handle : Result Http.Error Json.Value -> RegisterModel -> PageState
 handle result model =
     case result of
         Err err ->
@@ -21,14 +22,15 @@ handle result model =
                     |> showProblems
 
         Ok body ->
-            readJson body (showProblems model)
+            readJson body model
 
 
-showProblems : RegisterModel -> RegisterModel
+showProblems : RegisterModel -> PageState
 showProblems model =
     { model
         | showProblems = True
     }
+        |> RegisterState
 
 
 getMsg : Decoder String
@@ -36,7 +38,7 @@ getMsg =
     Json.map identity (Json.field "msg" Json.string)
 
 
-readJson : Json.Value -> RegisterModel -> RegisterModel
+readJson : Json.Value -> RegisterModel -> PageState
 readJson json model =
     case Json.decodeValue getMsg json of
         Ok msg ->
@@ -50,9 +52,10 @@ readJson json model =
                 { model
                     | problems = [ ConnectionFailure ]
                 }
+                    |> RegisterState
 
 
-handleMsg : String -> RegisterModel -> RegisterModel
+handleMsg : String -> RegisterModel -> PageState
 handleMsg msg model =
     case msg of
         "Email already exists" ->
@@ -60,11 +63,10 @@ handleMsg msg model =
                 | problems = [ EmailAlreadyRegistered ]
                 , showFields = True
             }
+                |> showProblems
 
         "Successfully created user" ->
-            { model
-                | successfulRegistrationOccured = True
-            }
+            SuccessfulRegisterState model.firstEmail
 
         _ ->
-            model
+            RegisterState model

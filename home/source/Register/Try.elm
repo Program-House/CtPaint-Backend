@@ -8,21 +8,16 @@ import Json.Encode as Encode
 import Json.Decode as Decode
 import Http
 import Main.Api as Api
-import Debug exposing (log)
 
 
-try : RegisterModel -> ( RegisterModel, Cmd Msg )
+try : RegisterModel -> ( PageState, Cmd Msg )
 try model =
     if List.isEmpty model.problems then
-        { model
-            | showFields = False
-        }
-            ! [ submitRegistration model ]
+        ( RegisterState { model | showFields = False }
+        , submitRegistration model
+        )
     else
-        { model
-            | showProblems = True
-        }
-            ! []
+        RegisterState { model | showProblems = True } ! []
 
 
 submitRegistration : RegisterModel -> Cmd Msg

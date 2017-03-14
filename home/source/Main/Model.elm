@@ -20,6 +20,7 @@ type alias User =
 
 type PageState
     = RegisterState RegisterModel
+    | SuccessfulRegisterState String
     | HomeState HomeModel
     | ErrorState String
     | None
