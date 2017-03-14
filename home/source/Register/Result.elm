@@ -61,5 +61,10 @@ handleMsg msg model =
                 , showFields = True
             }
 
+        "Successfully created user" ->
+            { model
+                | successfulRegistrationOccured = True
+            }
+
         _ ->
             model

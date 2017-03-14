@@ -3,14 +3,6 @@ _ = require "lodash"
 sha = require "js-sha256"
 db = r.db "ctpaint"
 
-# module.exports = (req) ->
-#   salt = makeSalt()
-
-
-  # r.db "ctpaint"
-  #   .table "user"
-  #   .insert 
-
 module.exports.newUser = newUser = (connection, body, next) ->
   emailExists connection, body.email, (exists) ->
     if exists
@@ -21,12 +13,9 @@ module.exports.newUser = newUser = (connection, body, next) ->
         .run connection, (err, result) ->
           if err then throw err
           next (msg:  "Successfully created user")
-    # else
-      # console.log "Doesnt exist!"
 
 
-
-module.exports.emailExists = emailExists = (connection, email, next) ->
+emailExists = (connection, email, next) ->
   db.table "user" 
     .filter ((r.row "email").eq email)
     .run connection, (err, cursor) ->
@@ -52,10 +41,6 @@ module.exports.hash = hash = (password) ->
 
 module.exports.makeSalt = makeSalt = ->
   (_.times 32, randomCharacter).join ""
-
-
-
-
 
 
 #   UTIL

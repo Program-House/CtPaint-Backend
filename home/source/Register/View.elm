@@ -11,30 +11,34 @@ import Register.Fields as Fields
 
 
 view : RegisterModel -> Html Msg
-view { showFields, showProblems, username, firstEmail, secondEmail, problems, firstPassword, secondPassword } =
-    let
-        problemsToShow =
-            if showProblems then
-                problems
-            else
-                []
-    in
-        List.concat
-            [ [ words "Register new CtPaint account" ]
-            , Fields.username
-                username
-                problemsToShow
-                showFields
-            , Fields.emails
-                firstEmail
-                secondEmail
-                problemsToShow
-                showFields
-            , Fields.passwords
-                firstPassword
-                secondPassword
-                problemsToShow
-                showFields
-            , [ Components.register ]
-            ]
-            |> card [ class "solitary register" ]
+view model =
+    if model.successfulRegistrationOccured then
+        card
+            [ class "solitary register-success" ]
+            [ words <| "You are registered! One last thing, you need to verify your email address. " ++ model.firstEmail ++ " should get an email containing your verifcation link. Click that link and you are good to go." ]
+    else
+        let
+            problemsToShow =
+                if model.showProblems then
+                    model.problems
+                else
+                    []
+        in
+            (card [ class "solitary register" ] << List.concat)
+                [ [ words "Register new CtPaint account" ]
+                , Fields.username
+                    model.username
+                    problemsToShow
+                    model.showFields
+                , Fields.emails
+                    model.firstEmail
+                    model.secondEmail
+                    problemsToShow
+                    model.showFields
+                , Fields.passwords
+                    model.firstPassword
+                    model.secondPassword
+                    problemsToShow
+                    model.showFields
+                , [ Components.register ]
+                ]
