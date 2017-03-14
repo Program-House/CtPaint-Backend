@@ -20,11 +20,7 @@ handle result model =
                 }
 
         Ok body ->
-            let
-                _ =
-                    log "BODY!" body
-            in
-                readJson body model
+            readJson body model
 
 
 getMsg : Decoder String
@@ -36,18 +32,16 @@ readJson : Json.Value -> RegisterModel -> RegisterModel
 readJson json model =
     case Json.decodeValue getMsg json of
         Ok msg ->
-            let
-                _ =
-                    log "MESSAGE!" msg
-            in
-                handleMsg msg model
+            handleMsg msg model
 
         Err err ->
             let
                 _ =
-                    log "Uh oh" err
+                    log "Json decode error" err
             in
-                model
+                { model
+                    | problems = [ ConnectionFailure ]
+                }
 
 
 handleMsg : String -> RegisterModel -> RegisterModel
@@ -55,12 +49,10 @@ handleMsg msg model =
     case msg of
         "Email already exists" ->
             { model
-                | problems = [ EmailTaken ]
+                | problems = [ EmailAlreadyRegistered ]
+                , showFields = True
+                , showProblems = True
             }
 
         _ ->
             model
-
-
-
---model

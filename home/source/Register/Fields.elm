@@ -9,8 +9,8 @@ import Main.Components exposing (errorBox)
 import Register.Errors as Error
 
 
-username : String -> List Problem -> List (Html Msg)
-username str problems =
+username : String -> List Problem -> Bool -> List (Html Msg)
+username str problems showField =
     let
         error =
             Error.get
@@ -18,19 +18,25 @@ username str problems =
                 [ UserNameEmpty
                 , UserNameInvalid
                 ]
+
+        content =
+            if showField then
+                str
+            else
+                "********"
     in
         [ Components.field
             "username"
             "username"
-            str
+            content
             (error /= Nothing)
             (RegisterWrapper << UpdateUserNameField)
         , errorBox (Error.msg error)
         ]
 
 
-emails : String -> String -> List Problem -> List (Html Msg)
-emails firstEmail secondEmail problems =
+emails : String -> String -> List Problem -> Bool -> List (Html Msg)
+emails firstEmail secondEmail problems showField =
     let
         error =
             Error.get
@@ -39,26 +45,33 @@ emails firstEmail secondEmail problems =
                 , EmailInvalid
                 , SecondEmailEmpty
                 , EmailsDontMatch
+                , EmailAlreadyRegistered
                 ]
+
+        ( firstEmailContent, secondEmailContent ) =
+            if showField then
+                ( firstEmail, secondEmail )
+            else
+                ( "********", "********" )
     in
         [ Components.field
             "email"
             "your email"
-            firstEmail
+            firstEmailContent
             (error /= Nothing)
             (RegisterWrapper << UpdateFirstEmailField)
         , Components.field
             "email"
             "your email"
-            secondEmail
+            secondEmailContent
             (error /= Nothing)
             (RegisterWrapper << UpdateSecondEmailField)
         , errorBox (Error.msg error)
         ]
 
 
-passwords : String -> String -> List Problem -> List (Html Msg)
-passwords firstPassword secondPassword problems =
+passwords : String -> String -> List Problem -> Bool -> List (Html Msg)
+passwords firstPassword secondPassword problems showField =
     let
         error =
             Error.get
@@ -68,17 +81,23 @@ passwords firstPassword secondPassword problems =
                 , SecondPasswordEmpty
                 , PasswordsDontMatch
                 ]
+
+        ( firstPasswordContent, secondPasswordContent ) =
+            if showField then
+                ( firstPassword, secondPassword )
+            else
+                ( "********", "********" )
     in
         [ Components.password
             "password"
             "enter a password"
-            firstPassword
+            firstPasswordContent
             (error /= Nothing)
             (RegisterWrapper << UpdateFirstPasswordField)
         , Components.password
             "password"
             "enter it again"
-            secondPassword
+            secondPasswordContent
             (error /= Nothing)
             (RegisterWrapper << UpdateSecondPasswordField)
         , errorBox (Error.msg error)

@@ -7,13 +7,17 @@ import Main.Message exposing (Msg(..))
 import Json.Encode as Encode
 import Json.Decode as Decode
 import Http
+import Main.Api as Api
 import Debug exposing (log)
 
 
 try : RegisterModel -> ( RegisterModel, Cmd Msg )
 try model =
     if List.isEmpty model.problems then
-        ( model, submitRegistration model )
+        { model
+            | showFields = False
+        }
+            ! [ submitRegistration model ]
     else
         { model
             | showProblems = True
@@ -24,7 +28,7 @@ try model =
 submitRegistration : RegisterModel -> Cmd Msg
 submitRegistration model =
     Http.post
-        "http://localhost:2984/api/register"
+        (Api.root "/api/register")
         (Http.jsonBody <| toJson model)
         (Decode.value)
         |> Http.send (RegisterWrapper << RegistrationResult)

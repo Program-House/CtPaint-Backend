@@ -11,7 +11,7 @@ import Register.Fields as Fields
 
 
 view : RegisterModel -> Html Msg
-view { showProblems, username, firstEmail, secondEmail, problems, firstPassword, secondPassword } =
+view { showFields, showProblems, username, firstEmail, secondEmail, problems, firstPassword, secondPassword } =
     let
         problemsToShow =
             if showProblems then
@@ -21,50 +21,20 @@ view { showProblems, username, firstEmail, secondEmail, problems, firstPassword,
     in
         List.concat
             [ [ words "Register new CtPaint account" ]
-            , Fields.username username problemsToShow
-            , Fields.emails firstEmail secondEmail problemsToShow
-            , Fields.passwords firstPassword secondPassword problemsToShow
+            , Fields.username
+                username
+                problemsToShow
+                showFields
+            , Fields.emails
+                firstEmail
+                secondEmail
+                problemsToShow
+                showFields
+            , Fields.passwords
+                firstPassword
+                secondPassword
+                problemsToShow
+                showFields
             , [ Components.register ]
             ]
             |> card [ class "solitary register" ]
-
-
-
-----card
-----    [ class "solitary register" ]
---    [ words "Register new CtPaint account"
---    , Fields.username username problems
---    , Components.field
---        "email"
---        "your email"
---        firstEmail
---        (check showProblems problems (always True))
---        (RegisterWrapper << UpdateFirstEmailField)
---    , Components.field
---        "email"
---        "your email again"
---        secondEmail
---        True
---        (RegisterWrapper << UpdateSecondEmailField)
---    , errorBox [ warning "registration" "" ]
---    , Components.password
---        "password"
---        "password"
---        firstPassword
---        True
---        (RegisterWrapper << UpdateFirstPasswordField)
---    , Components.password
---        "password"
---        "password"
---        secondPassword
---        True
---        (RegisterWrapper << UpdateSecondPasswordField)
---    , br [] []
---    , Components.button problems
---    ]
---check : Bool -> List Problem -> List Problem -> Bool
---check show problems forThisField =
---    if show then
---        forThisField problems
---    else
---        False

@@ -20,6 +20,7 @@ model =
         , username = ""
         , problems = problems
         , showProblems = False
+        , showFields = True
         }
 
 

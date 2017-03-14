@@ -73,5 +73,5 @@ getErrorMessage problem =
         ConnectionFailure ->
             "trouble connecting to the server"
 
-        EmailTaken ->
-            "email is taken"
+        EmailAlreadyRegistered ->
+            "email is already registered"

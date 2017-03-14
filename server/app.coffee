@@ -20,12 +20,6 @@ r.connect rPack, (err, conn) ->
   dbConnection = conn
   log "Connected to database"
 
-# passport.use(new Strategy(
-#   function(username, password, callback) {
-#     log("cool", username, password);
-#   }
-# ));
-
 app.use bodyParser.json()
 app.use (express.static (join __dirname, "../home/development"))
 app.use passport.initialize()
@@ -38,14 +32,6 @@ app.post "/api/register", (req, res, next) ->
   register.newUser dbConnection, req.body, (pack) ->
     res.send (JSON.stringify pack)
 
-
-  # r.db "ctpaint" 
-  #   .table "user"
-  #   .insert [
-  #     Object.assign {}, req.body, { verified: false }
-  #   ]
-
-  res.status 200
 
 app.post "/api/login",
   (passport.authenticate "local", { failureRedirect: "/login" })

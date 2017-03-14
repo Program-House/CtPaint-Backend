@@ -14,6 +14,7 @@ type alias RegisterModel =
     , username : String
     , problems : List Problem
     , showProblems : Bool
+    , showFields : Bool
     }
 
 
@@ -29,7 +30,7 @@ type Problem
     | SecondPasswordEmpty
     | PasswordInvalid
     | ConnectionFailure
-    | EmailTaken
+    | EmailAlreadyRegistered
 
 
 type Field
