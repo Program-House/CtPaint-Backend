@@ -18,9 +18,17 @@ handle result model =
                 { model
                     | problems = [ ConnectionFailure ]
                 }
+                    |> showProblems
 
         Ok body ->
-            readJson body model
+            readJson body (showProblems model)
+
+
+showProblems : RegisterModel -> RegisterModel
+showProblems model =
+    { model
+        | showProblems = True
+    }
 
 
 getMsg : Decoder String
@@ -51,7 +59,6 @@ handleMsg msg model =
             { model
                 | problems = [ EmailAlreadyRegistered ]
                 , showFields = True
-                , showProblems = True
             }
 
         _ ->

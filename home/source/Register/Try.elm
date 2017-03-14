@@ -27,11 +27,17 @@ try model =
 
 submitRegistration : RegisterModel -> Cmd Msg
 submitRegistration model =
+    Http.send
+        (RegisterWrapper << RegistrationResult)
+        (post model)
+
+
+post : RegisterModel -> Http.Request Decode.Value
+post model =
     Http.post
         (Api.root "/api/register")
         (Http.jsonBody <| toJson model)
-        (Decode.value)
-        |> Http.send (RegisterWrapper << RegistrationResult)
+        Decode.value
 
 
 toJson : RegisterModel -> Encode.Value
