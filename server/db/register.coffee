@@ -2,6 +2,7 @@ r = require "rethinkdb"
 _ = require "lodash"
 sha = require "js-sha256"
 db = r.db "ctpaint"
+emailer = require "nodemailer"
 
 module.exports.newUser = newUser = (connection, body, next) ->
   emailExists connection, body.email, (exists) ->

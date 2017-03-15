@@ -12,3 +12,5 @@ home/distribution
 
 node_modules
 rethinkdb_data
+
+secrets.json
