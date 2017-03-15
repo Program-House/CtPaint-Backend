@@ -1,10 +1,10 @@
 r = require "rethinkdb"
-_ = require "lodash"
-sha = require "js-sha256"
 db = r.db "ctpaint"
-emailer = require "nodemailer"
+email = require "../email"
+hash = require "../hash"
+verification = require "./verification"
 
-module.exports.newUser = newUser = (connection, body, next) ->
+module.exports.new = (connection, body, next) ->
   emailExists connection, body.email, (exists) ->
     if exists
       next (msg: "Email already exists")
@@ -13,7 +13,10 @@ module.exports.newUser = newUser = (connection, body, next) ->
         .insert [ makeUser body ]
         .run connection, (err, result) ->
           if err then throw err
-          next (msg:  "Successfully created user")
+          code = hash.salt() + hash.salt()
+          email.sendVerification body.email code
+          verification.new_ connection email code, ->
+            next (msg: "Successfully created user")
 
 
 emailExists = (connection, email, next) ->
@@ -26,8 +29,8 @@ emailExists = (connection, email, next) ->
         next (result.length > 0)
 
 
-module.exports.makeUser = makeUser = (body) ->
-  salt = makeSalt()
+makeUser = (body) ->
+  salt = hash.salt()
 
   username: body.username
   email: body.email
@@ -37,19 +40,3 @@ module.exports.makeUser = makeUser = (body) ->
 
 
 
-module.exports.hash = hash = (password) ->
-  sha password
-
-module.exports.makeSalt = makeSalt = ->
-  (_.times 32, randomCharacter).join ""
-
-
-#   UTIL
-
-randomCharacter = ->
-  alphanumeric[ randomIndex() ]
-
-alphanumeric = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-
-randomIndex = ->
-  Math.floor (Math.random() * (alphanumeric.length - 1))

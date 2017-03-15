@@ -32,7 +32,6 @@ app.post "/api/register", (req, res, next) ->
   register.newUser dbConnection, req.body, (pack) ->
     res.send (JSON.stringify pack)
 
-
 app.post "/api/login",
   (passport.authenticate "local", { failureRedirect: "/login" })
   (req, res) ->

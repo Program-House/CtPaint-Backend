@@ -1,1 +1,1 @@
-require "./register.coffee"
+require "./hash.coffee"
