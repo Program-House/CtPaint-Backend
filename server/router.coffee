@@ -13,7 +13,7 @@ homeApp = (req, res) ->
 
 module.exports = (app, dbConnection) ->
 
-  _.forEach homeAppPaths, (path) -> app.get path homeApp
+  _.forEach homeAppPaths, (path) -> app.get path, homeApp
 
   app.post "/api/register", (req, res) ->
     user.new_ dbConnection, req.body, (pack) ->
