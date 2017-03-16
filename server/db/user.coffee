@@ -4,7 +4,7 @@ email = require "../email"
 hash = require "../hash"
 verification = require "./verification"
 
-module.exports.new = (connection, body, next) ->
+module.exports.new_ = (connection, body, next) ->
   emailExists connection, body.email, (exists) ->
     if exists
       next (msg: "Email already exists")
