@@ -35,5 +35,5 @@ view model =
                 model.secondPassword
                 problemsToShow
                 model.showFields
-            , [ Components.register ]
+            , [ Components.register True ]
             ]

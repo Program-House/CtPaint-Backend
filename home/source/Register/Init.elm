@@ -21,6 +21,7 @@ model =
         , problems = problems
         , showProblems = False
         , showFields = True
+        , registrationPending = False
         }
 
 

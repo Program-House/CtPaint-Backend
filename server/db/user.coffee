@@ -14,8 +14,8 @@ module.exports.new_ = (connection, body, next) ->
         .run connection, (err, result) ->
           if err then throw err
           code = hash.salt() + hash.salt()
-          email.sendVerification body.email code
-          verification.new_ connection email code, ->
+          email.sendVerification body.email, code
+          verification.new_ connection, body.email, code, ->
             next (msg: "Successfully created user")
 
 
@@ -36,7 +36,7 @@ makeUser = (body) ->
   email: body.email
   verified: false
   salt: salt
-  hash: hash (salt + body.password)
+  hash: hash.get (salt + body.password)
 
 
 

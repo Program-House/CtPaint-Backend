@@ -18,17 +18,20 @@ r.connect rPack, (err, conn) ->
   if err then throw err
   dbConnection = conn
   log "Connected to database"
+  start()
 
 app.use bodyParser.json()
 app.use (express.static (join __dirname, "../home/development"))
 app.use passport.initialize()
 app.use passport.session()
 
-router app, dbConnection
+start = ->
 
-httpServer = http.createServer app
+    router app, dbConnection
 
-httpServer.listen PORT, ->
-  log ("Running on " + PORT)
+    httpServer = http.createServer app
+
+    httpServer.listen PORT, ->
+      log ("Running on " + PORT)
 
 

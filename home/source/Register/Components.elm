@@ -69,15 +69,31 @@ label str =
     node "fieldlabel" [] [ text str ]
 
 
-register : Html Msg
-register =
-    input
+register : Bool -> Html Msg
+register ready =
+    let
+        attr =
+            buttonAttributes
+                "Register"
+                ready
+                (RegisterWrapper TryRegister)
+    in
+        input attr []
+
+
+buttonAttributes : String -> Bool -> Msg -> List (Attribute Msg)
+buttonAttributes label ready msg =
+    if ready then
         [ class "button"
-        , onClick (RegisterWrapper TryRegister)
+        , onClick msg
         , type_ "submit"
-        , value "Register"
+        , value label
         ]
-        []
+    else
+        [ class "button not-ready"
+        , value label
+        , type_ "submit"
+        ]
 
 
 ifEnter : (Bool -> Msg) -> Attribute Msg

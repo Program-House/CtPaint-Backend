@@ -13,11 +13,20 @@ import Main.Api as Api
 try : RegisterModel -> ( PageState, Cmd Msg )
 try model =
     if List.isEmpty model.problems then
-        ( RegisterState { model | showFields = False }
+        ( registrationPending model
         , submitRegistration model
         )
     else
         RegisterState { model | showProblems = True } ! []
+
+
+registrationPending : RegisterModel -> PageState
+registrationPending model =
+    { model
+        | showFields = False
+        , registrationPending = True
+    }
+        |> RegisterState
 
 
 submitRegistration : RegisterModel -> Cmd Msg
