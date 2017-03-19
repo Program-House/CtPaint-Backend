@@ -9,6 +9,7 @@ type alias Model =
     { location : Location
     , pageState : PageState
     , user : Maybe User
+    , publicKey : Maybe String
     }
 
 

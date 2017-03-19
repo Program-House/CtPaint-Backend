@@ -4,23 +4,26 @@ import Register.Message exposing (RegisterMsg(..))
 import Register.Model exposing (RegisterModel)
 import Main.Model exposing (Model, PageState(RegisterState))
 import Main.Message exposing (Msg)
-import Register.Try as Register
+import Register.Submit as Submit
 import Register.Result as Result
 import Register.Problems as Problems
 
 
-update : RegisterMsg -> RegisterModel -> ( PageState, Cmd Msg )
-update message model =
+update : RegisterMsg -> RegisterModel -> Maybe String -> ( PageState, Cmd Msg )
+update message model publicKey =
     case message of
-        TryRegister ->
-            (Register.try (Problems.set model))
+        BeginRegister ->
+            Submit.begin publicKey (Problems.set model)
+
+        SubmitRegistration cipher ->
+            Submit.submit cipher model
 
         RegistrationResult result ->
             ( Result.handle result model, Cmd.none )
 
         HandleEnter isEnter ->
             if isEnter then
-                update TryRegister model
+                update BeginRegister model publicKey
             else
                 ( RegisterState model, Cmd.none )
 
@@ -50,6 +53,8 @@ incorporatePageState model ( pageState, cmd ) =
     ( { model | pageState = pageState }, cmd )
 
 
-handle : Model -> RegisterMsg -> RegisterModel -> ( Model, Cmd Msg )
-handle model msg registerModel =
-    incorporatePageState model (update msg registerModel)
+handle : RegisterMsg -> Model -> RegisterModel -> ( Model, Cmd Msg )
+handle msg model registerModel =
+    incorporatePageState
+        model
+        (update msg registerModel model.publicKey)

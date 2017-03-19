@@ -1,7 +1,7 @@
 _ = require "lodash"
 join = (require "path").join
 user = require "./db/user"
-key = require "./public-key"
+crypto = require "./crypto"
 
 homeAppPaths = [
   "/"
@@ -16,10 +16,11 @@ module.exports = (app, dbConnection) ->
   _.forEach homeAppPaths, (path) -> app.get path, homeApp
 
   app.post "/api/register", (req, res) ->
-    user.new_ dbConnection, req.body, (pack) ->
-      res.send (JSON.stringify pack)
+    console.log("REQUEST", crypto.decrypt req.body.cipher)
+    # user.new_ dbConnection, req.body, (pack) ->
+    #   res.send (JSON.stringify pack)
 
   app.get "/api/key", (req, res) ->
-    res.send key
+    res.send crypto.publicKey
 
 

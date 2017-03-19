@@ -1,0 +1,77 @@
+module Register.Submit exposing (begin, submit)
+
+import Register.Message exposing (RegisterMsg(..))
+import Register.Model exposing (RegisterModel)
+import Main.Model exposing (Model, PageState(RegisterState))
+import Main.Message exposing (Msg(..))
+import Json.Encode as Encode
+import Json.Decode as Decode
+import Http
+import Main.Api as Api
+import Main.Auth as Auth
+import Ports
+
+
+submit : String -> RegisterModel -> ( PageState, Cmd Msg )
+submit cipher model =
+    ( RegisterState model
+    , submitRegistration cipher
+    )
+
+
+begin : Maybe String -> RegisterModel -> ( PageState, Cmd Msg )
+begin publicKey model =
+    if List.isEmpty model.problems then
+        case publicKey of
+            Just key ->
+                ( registrationPending model
+                , Ports.encrypt ( "Register", model.firstPassword, key )
+                  --, Auth.getPublicKey (Ports.encrypt model.firstPassword)
+                  --, (Auth.getPublicKey (submitRegistration model))
+                )
+
+            Nothing ->
+                ( registrationPending model
+                , Auth.getPublicKey
+                    (\k -> Ports.encrypt ( "Register", model.firstPassword, k ))
+                )
+    else
+        RegisterState { model | showProblems = True } ! []
+
+
+registrationPending : RegisterModel -> PageState
+registrationPending model =
+    { model
+        | showFields = False
+        , registrationPending = True
+    }
+        |> RegisterState
+
+
+submitRegistration : String -> Cmd Msg
+submitRegistration cipher =
+    Http.send
+        (RegisterWrapper << RegistrationResult)
+        (post cipher)
+
+
+post : String -> Http.Request Decode.Value
+post cipher =
+    Http.post
+        (Api.root "/api/register")
+        (Http.jsonBody <| toJson cipher)
+        Decode.value
+
+
+toJson : String -> Encode.Value
+toJson cipher =
+    Encode.object
+        [ ( "cipher", Encode.string cipher ) ]
+
+
+
+--Encode.object
+--    [ ( "username", Encode.string model.username )
+--    , ( "email", Encode.string model.firstEmail )
+--    , ( "password", Encode.string model.firstPassword )
+--    ]

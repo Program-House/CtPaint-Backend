@@ -7,8 +7,4 @@ import Ports exposing (..)
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
-
-
-
---fromJS HandlePort
+    encryption GetEncryption

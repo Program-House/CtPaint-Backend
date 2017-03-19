@@ -76,7 +76,7 @@ register ready =
             buttonAttributes
                 "Register"
                 ready
-                (RegisterWrapper TryRegister)
+                (RegisterWrapper BeginRegister)
     in
         input attr []
 

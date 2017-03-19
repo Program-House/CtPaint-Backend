@@ -5,7 +5,8 @@ import Json.Decode as Json
 
 
 type RegisterMsg
-    = TryRegister
+    = BeginRegister
+    | SubmitRegistration String
     | RegistrationResult (Result Http.Error Json.Value)
     | HandleEnter Bool
     | UpdateUserNameField String

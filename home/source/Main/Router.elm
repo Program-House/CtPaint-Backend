@@ -1,10 +1,10 @@
-module Main.Url exposing (handle)
+module Main.Router exposing (handle)
 
 import Navigation exposing (Location)
 import Main.Model exposing (Model, PageState(..))
 import Register.Init
 import Main.Message exposing (Msg(..))
-import Debug exposing (log)
+import Main.Auth as Auth
 
 
 handle : Location -> Model -> ( Model, Cmd Msg )
@@ -34,7 +34,7 @@ mainPaths paths model =
 
         "register" :: _ ->
             ( setState (Register.Init.model) model
-            , Cmd.none
+            , Auth.getPublicKey (always Cmd.none)
             )
 
         head :: rest_ ->
