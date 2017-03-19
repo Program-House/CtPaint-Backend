@@ -21,7 +21,7 @@ r.connect rPack, (err, conn) ->
   start()
 
 app.use bodyParser.json()
-app.use (express.static (join __dirname, "../home/development"))
+app.use "/home", (express.static (join __dirname, "../home/development"))
 app.use passport.initialize()
 app.use passport.session()
 
