@@ -27,7 +27,7 @@ begin publicKey model =
                 ( registrationPending model
                 , Ports.encrypt
                     ( "Register"
-                    , registrationToString model
+                    , toString model
                     , key
                     )
                 )
@@ -42,8 +42,7 @@ begin publicKey model =
 
 thenRegister : RegisterModel -> (String -> Cmd Msg)
 thenRegister model =
-    (,,) "Register" (registrationToString model)
-        >> Ports.encrypt
+    (,,) "Register" (toString model) >> Ports.encrypt
 
 
 registrationPending : RegisterModel -> PageState
@@ -66,18 +65,18 @@ post : String -> Http.Request Decode.Value
 post cipher =
     Http.post
         (Api.root "/api/register")
-        (Http.jsonBody <| toJson cipher)
+        (toBody cipher)
         Decode.value
 
 
-toJson : String -> Encode.Value
-toJson cipher =
-    Encode.object
+toBody : String -> Http.Body
+toBody cipher =
+    (Http.jsonBody << Encode.object)
         [ ( "cipher", Encode.string cipher ) ]
 
 
-registrationToString : RegisterModel -> String
-registrationToString model =
+toString : RegisterModel -> String
+toString model =
     [ ( "username", Encode.string model.username )
     , ( "email", Encode.string model.firstEmail )
     , ( "password", Encode.string model.firstPassword )
