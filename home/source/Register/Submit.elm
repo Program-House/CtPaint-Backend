@@ -15,7 +15,9 @@ import Ports
 submit : String -> RegisterModel -> ( PageState, Cmd Msg )
 submit cipher model =
     ( RegisterState model
-    , submitRegistration cipher
+    , Http.send
+        (RegisterWrapper << RegistrationResult)
+        (post cipher)
     )
 
 
@@ -24,7 +26,7 @@ begin publicKey model =
     if List.isEmpty model.problems then
         case publicKey of
             Just key ->
-                ( registrationPending model
+                ( pending model
                 , Ports.encrypt
                     ( "Register"
                     , toString model
@@ -33,7 +35,7 @@ begin publicKey model =
                 )
 
             Nothing ->
-                ( registrationPending model
+                ( pending model
                 , Auth.getPublicKey (thenRegister model)
                 )
     else
@@ -45,20 +47,13 @@ thenRegister model =
     (,,) "Register" (toString model) >> Ports.encrypt
 
 
-registrationPending : RegisterModel -> PageState
-registrationPending model =
+pending : RegisterModel -> PageState
+pending model =
     { model
         | showFields = False
         , registrationPending = True
     }
         |> RegisterState
-
-
-submitRegistration : String -> Cmd Msg
-submitRegistration cipher =
-    Http.send
-        (RegisterWrapper << RegistrationResult)
-        (post cipher)
 
 
 post : String -> Http.Request Decode.Value
