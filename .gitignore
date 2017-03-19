@@ -10,6 +10,12 @@ home/development/elm.js
 home/development/style.css
 home/distribution
 
+admin/elm-stuff
+admin/development/app.js
+admin/development/elm.js
+admin/development/style.css
+admin/distribution
+
 node_modules
 rethinkdb_data
 
