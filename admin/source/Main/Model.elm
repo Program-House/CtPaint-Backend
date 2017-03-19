@@ -1,5 +1,15 @@
-module Main.Model exposing (Model)
+module Main.Model exposing (Model, Page(..))
 
 
 type alias Model =
-    { user : Maybe String }
+    { page : Page
+    , publicKey : Maybe String
+    }
+
+
+type Page
+    = User
+    | Verification
+    | Project
+    | Administrator
+    | None

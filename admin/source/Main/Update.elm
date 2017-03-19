@@ -7,5 +7,8 @@ import Main.Model exposing (Model)
 update : Msg -> Model -> ( Model, Cmd Msg )
 update message model =
     case message of
-        NoOp ->
-            ( model, Cmd.none )
+        SetPage page ->
+            { model
+                | page = page
+            }
+                ! []

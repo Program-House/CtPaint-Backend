@@ -2,9 +2,10 @@ module Main.View exposing (view)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (on, onInput, keyCode)
 import Main.Model exposing (Model)
 import Main.Message exposing (Msg(..))
+import View.Components exposing (words)
+import View.AppBar as AppBar
 
 
 -- VIEW
@@ -14,19 +15,4 @@ view : Model -> Html Msg
 view model =
     div
         [ class "main" ]
-        [ title
-        ]
-
-
-
--- COMPONENTS
-
-
-title : Html Msg
-title =
-    words "Admin Panel"
-
-
-words : String -> Html Msg
-words str =
-    node "words" [] [ text str ]
+        [ AppBar.view model ]

@@ -7795,9 +7795,15 @@ var _elm_lang$html$Html$summary = _elm_lang$html$Html$node('summary');
 var _elm_lang$html$Html$menuitem = _elm_lang$html$Html$node('menuitem');
 var _elm_lang$html$Html$menu = _elm_lang$html$Html$node('menu');
 
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Model = function (a) {
-	return {user: a};
-};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Model = F2(
+	function (a, b) {
+		return {page: a, publicKey: b};
+	});
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$None = {ctor: 'None'};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Administrator = {ctor: 'Administrator'};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Project = {ctor: 'Project'};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Verification = {ctor: 'Verification'};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$User = {ctor: 'User'};
 
 var _Chadtech$elm_gulp_browserify_boilerplate$Ports$toJS = _elm_lang$core$Native_Platform.outgoingPort(
 	'toJS',
@@ -8156,6 +8162,23 @@ var _elm_lang$html$Html_Attributes$classList = function (list) {
 };
 var _elm_lang$html$Html_Attributes$style = _elm_lang$virtual_dom$VirtualDom$style;
 
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$SetPage = function (a) {
+	return {ctor: 'SetPage', _0: a};
+};
+
+var _Chadtech$elm_gulp_browserify_boilerplate$View_Components$words = F2(
+	function (attributes, txt) {
+		return A3(
+			_elm_lang$html$Html$node,
+			'words',
+			attributes,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(txt),
+				_1: {ctor: '[]'}
+			});
+	});
+
 var _elm_lang$html$Html_Events$keyCode = A2(_elm_lang$core$Json_Decode$field, 'keyCode', _elm_lang$core$Json_Decode$int);
 var _elm_lang$html$Html_Events$targetChecked = A2(
 	_elm_lang$core$Json_Decode$at,
@@ -8271,20 +8294,76 @@ var _elm_lang$html$Html_Events$Options = F2(
 		return {stopPropagation: a, preventDefault: b};
 	});
 
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$NoOp = {ctor: 'NoOp'};
-
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_View$words = function (str) {
+var _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$button = F2(
+	function (currentPage, thisPage) {
+		var selected = _elm_lang$core$Native_Utils.eq(currentPage, thisPage) ? ' selected' : '';
+		return A3(
+			_elm_lang$html$Html$node,
+			'appbarbutton',
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Events$onClick(
+					_Chadtech$elm_gulp_browserify_boilerplate$Main_Message$SetPage(thisPage)),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class(selected),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_Chadtech$elm_gulp_browserify_boilerplate$View_Components$words,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class(selected),
+						_1: {ctor: '[]'}
+					},
+					_elm_lang$core$Basics$toString(thisPage)),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$hr,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class(
+								A2(_elm_lang$core$Basics_ops['++'], 'button-bottom-border', selected)),
+							_1: {ctor: '[]'}
+						},
+						{ctor: '[]'}),
+					_1: {ctor: '[]'}
+				}
+			});
+	});
+var _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$appbar = function (children) {
 	return A3(
 		_elm_lang$html$Html$node,
-		'words',
+		'appbar',
 		{ctor: '[]'},
+		children);
+};
+var _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$view = function (model) {
+	var button_ = _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$button(model.page);
+	return _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$appbar(
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html$text(str),
-			_1: {ctor: '[]'}
+			_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Model$User),
+			_1: {
+				ctor: '::',
+				_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Verification),
+				_1: {
+					ctor: '::',
+					_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Project),
+					_1: {
+						ctor: '::',
+						_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Administrator),
+						_1: {ctor: '[]'}
+					}
+				}
+			}
 		});
 };
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_View$title = _Chadtech$elm_gulp_browserify_boilerplate$Main_View$words('Admin Panel');
+
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_View$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
@@ -8295,7 +8374,7 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_View$view = function (model) 
 		},
 		{
 			ctor: '::',
-			_0: _Chadtech$elm_gulp_browserify_boilerplate$Main_View$title,
+			_0: _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$view(model),
 			_1: {ctor: '[]'}
 		});
 };
@@ -8303,20 +8382,23 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_View$view = function (model) 
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Update$update = F2(
 	function (message, model) {
 		var _p0 = message;
-		return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+		return A2(
+			_elm_lang$core$Platform_Cmd_ops['!'],
+			_elm_lang$core$Native_Utils.update(
+				model,
+				{page: _p0._0}),
+			{ctor: '[]'});
 	});
 
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Subscriptions$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$none;
 };
 
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Init$model = {page: _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$None, publicKey: _elm_lang$core$Maybe$Nothing};
+
 var _Chadtech$elm_gulp_browserify_boilerplate$Main$main = _elm_lang$html$Html$program(
 	{
-		init: {
-			ctor: '_Tuple2',
-			_0: _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Model(_elm_lang$core$Maybe$Nothing),
-			_1: _elm_lang$core$Platform_Cmd$none
-		},
+		init: {ctor: '_Tuple2', _0: _Chadtech$elm_gulp_browserify_boilerplate$Main_Init$model, _1: _elm_lang$core$Platform_Cmd$none},
 		view: _Chadtech$elm_gulp_browserify_boilerplate$Main_View$view,
 		update: _Chadtech$elm_gulp_browserify_boilerplate$Main_Update$update,
 		subscriptions: _Chadtech$elm_gulp_browserify_boilerplate$Main_Subscriptions$subscriptions

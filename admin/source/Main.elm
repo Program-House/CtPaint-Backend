@@ -6,6 +6,7 @@ import Ports exposing (..)
 import Main.View exposing (view)
 import Main.Update exposing (update)
 import Main.Subscriptions exposing (subscriptions)
+import Main.Init as Init
 
 
 -- MAIN
@@ -13,7 +14,7 @@ import Main.Subscriptions exposing (subscriptions)
 
 main =
     Html.program
-        { init = ( Model Nothing, Cmd.none )
+        { init = ( Init.model, Cmd.none )
         , view = view
         , update = update
         , subscriptions = subscriptions
