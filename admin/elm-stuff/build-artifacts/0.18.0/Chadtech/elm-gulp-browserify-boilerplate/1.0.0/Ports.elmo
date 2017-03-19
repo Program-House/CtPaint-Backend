@@ -1,0 +1,6 @@
+var _Chadtech$elm_gulp_browserify_boilerplate$Ports$toJS = _elm_lang$core$Native_Platform.outgoingPort(
+	'toJS',
+	function (v) {
+		return v;
+	});
+var _Chadtech$elm_gulp_browserify_boilerplate$Ports$fromJS = _elm_lang$core$Native_Platform.incomingPort('fromJS', _elm_lang$core$Json_Decode$string);

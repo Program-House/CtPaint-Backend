@@ -1,0 +1,3 @@
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Model = function (a) {
+	return {user: a};
+};

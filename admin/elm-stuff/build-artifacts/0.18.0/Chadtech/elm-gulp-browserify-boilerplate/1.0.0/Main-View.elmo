@@ -1,0 +1,26 @@
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_View$words = function (str) {
+	return A3(
+		_elm_lang$html$Html$node,
+		'words',
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(str),
+			_1: {ctor: '[]'}
+		});
+};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_View$title = _Chadtech$elm_gulp_browserify_boilerplate$Main_View$words('Admin Panel');
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_View$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('main'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _Chadtech$elm_gulp_browserify_boilerplate$Main_View$title,
+			_1: {ctor: '[]'}
+		});
+};

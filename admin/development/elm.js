@@ -7795,17 +7795,8 @@ var _elm_lang$html$Html$summary = _elm_lang$html$Html$node('summary');
 var _elm_lang$html$Html$menuitem = _elm_lang$html$Html$node('menuitem');
 var _elm_lang$html$Html$menu = _elm_lang$html$Html$node('menu');
 
-var _Chadtech$elm_gulp_browserify_boilerplate$Types$Model = function (a) {
-	return {field: a};
-};
-var _Chadtech$elm_gulp_browserify_boilerplate$Types$HandlePort = function (a) {
-	return {ctor: 'HandlePort', _0: a};
-};
-var _Chadtech$elm_gulp_browserify_boilerplate$Types$CheckIfEnter = function (a) {
-	return {ctor: 'CheckIfEnter', _0: a};
-};
-var _Chadtech$elm_gulp_browserify_boilerplate$Types$UpdateField = function (a) {
-	return {ctor: 'UpdateField', _0: a};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Model = function (a) {
+	return {user: a};
 };
 
 var _Chadtech$elm_gulp_browserify_boilerplate$Ports$toJS = _elm_lang$core$Native_Platform.outgoingPort(
@@ -8280,56 +8271,21 @@ var _elm_lang$html$Html_Events$Options = F2(
 		return {stopPropagation: a, preventDefault: b};
 	});
 
-var _Chadtech$elm_gulp_browserify_boilerplate$View$onKeyDown = function (msg) {
-	return A2(
-		_elm_lang$html$Html_Events$on,
-		'keydown',
-		A2(_elm_lang$core$Json_Decode$map, msg, _elm_lang$html$Html_Events$keyCode));
-};
-var _Chadtech$elm_gulp_browserify_boilerplate$View$inputField = function (str) {
-	return A2(
-		_elm_lang$html$Html$input,
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$NoOp = {ctor: 'NoOp'};
+
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_View$words = function (str) {
+	return A3(
+		_elm_lang$html$Html$node,
+		'words',
+		{ctor: '[]'},
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('input-field'),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$value(str),
-				_1: {
-					ctor: '::',
-					_0: _elm_lang$html$Html_Events$onInput(_Chadtech$elm_gulp_browserify_boilerplate$Types$UpdateField),
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$spellcheck(false),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$placeholder('Check out these Msgs'),
-							_1: {
-								ctor: '::',
-								_0: _Chadtech$elm_gulp_browserify_boilerplate$View$onKeyDown(_Chadtech$elm_gulp_browserify_boilerplate$Types$CheckIfEnter),
-								_1: {ctor: '[]'}
-							}
-						}
-					}
-				}
-			}
-		},
-		{ctor: '[]'});
+			_0: _elm_lang$html$Html$text(str),
+			_1: {ctor: '[]'}
+		});
 };
-var _Chadtech$elm_gulp_browserify_boilerplate$View$title = A2(
-	_elm_lang$html$Html$p,
-	{
-		ctor: '::',
-		_0: _elm_lang$html$Html_Attributes$class('point big'),
-		_1: {ctor: '[]'}
-	},
-	{
-		ctor: '::',
-		_0: _elm_lang$html$Html$text('Elm Project : Go!'),
-		_1: {ctor: '[]'}
-	});
-var _Chadtech$elm_gulp_browserify_boilerplate$View$view = function (_p0) {
-	var _p1 = _p0;
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_View$title = _Chadtech$elm_gulp_browserify_boilerplate$Main_View$words('Admin Panel');
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_View$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
 		{
@@ -8339,53 +8295,31 @@ var _Chadtech$elm_gulp_browserify_boilerplate$View$view = function (_p0) {
 		},
 		{
 			ctor: '::',
-			_0: _Chadtech$elm_gulp_browserify_boilerplate$View$title,
-			_1: {
-				ctor: '::',
-				_0: _Chadtech$elm_gulp_browserify_boilerplate$View$inputField(_p1.field),
-				_1: {ctor: '[]'}
-			}
+			_0: _Chadtech$elm_gulp_browserify_boilerplate$Main_View$title,
+			_1: {ctor: '[]'}
 		});
 };
 
-var _Chadtech$elm_gulp_browserify_boilerplate$Subscriptions$subscriptions = function (model) {
-	return _Chadtech$elm_gulp_browserify_boilerplate$Ports$fromJS(_Chadtech$elm_gulp_browserify_boilerplate$Types$HandlePort);
-};
-
-var _Chadtech$elm_gulp_browserify_boilerplate$Main$update = F2(
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Update$update = F2(
 	function (message, model) {
 		var _p0 = message;
-		switch (_p0.ctor) {
-			case 'UpdateField':
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					_Chadtech$elm_gulp_browserify_boilerplate$Types$Model(_p0._0),
-					{ctor: '[]'});
-			case 'CheckIfEnter':
-				return _elm_lang$core$Native_Utils.eq(_p0._0, 13) ? A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					_Chadtech$elm_gulp_browserify_boilerplate$Types$Model('Submitted!'),
-					{ctor: '[]'}) : A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					model,
-					{ctor: '[]'});
-			default:
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					_Chadtech$elm_gulp_browserify_boilerplate$Types$Model(_p0._0),
-					{ctor: '[]'});
-		}
+		return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 	});
+
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Subscriptions$subscriptions = function (model) {
+	return _elm_lang$core$Platform_Sub$none;
+};
+
 var _Chadtech$elm_gulp_browserify_boilerplate$Main$main = _elm_lang$html$Html$program(
 	{
 		init: {
 			ctor: '_Tuple2',
-			_0: _Chadtech$elm_gulp_browserify_boilerplate$Types$Model(''),
+			_0: _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Model(_elm_lang$core$Maybe$Nothing),
 			_1: _elm_lang$core$Platform_Cmd$none
 		},
-		view: _Chadtech$elm_gulp_browserify_boilerplate$View$view,
-		update: _Chadtech$elm_gulp_browserify_boilerplate$Main$update,
-		subscriptions: _Chadtech$elm_gulp_browserify_boilerplate$Subscriptions$subscriptions
+		view: _Chadtech$elm_gulp_browserify_boilerplate$Main_View$view,
+		update: _Chadtech$elm_gulp_browserify_boilerplate$Main_Update$update,
+		subscriptions: _Chadtech$elm_gulp_browserify_boilerplate$Main_Subscriptions$subscriptions
 	})();
 
 var Elm = {};

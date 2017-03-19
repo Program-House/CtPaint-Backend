@@ -1,0 +1,5 @@
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Update$update = F2(
+	function (message, model) {
+		var _p0 = message;
+		return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+	});

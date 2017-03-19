@@ -5,7 +5,7 @@ elm = require "./gulp-processes/elm"
 tests = require "./gulp-processes/tests"
 
 production = false
-app = "home"
+app = "admin"
 paths =
   development: "./" + app + "/development"
   distribution: "./" + app + "/distribution"
