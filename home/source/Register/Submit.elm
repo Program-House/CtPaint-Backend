@@ -25,18 +25,25 @@ begin publicKey model =
         case publicKey of
             Just key ->
                 ( registrationPending model
-                , Ports.encrypt ( "Register", model.firstPassword, key )
-                  --, Auth.getPublicKey (Ports.encrypt model.firstPassword)
-                  --, (Auth.getPublicKey (submitRegistration model))
+                , Ports.encrypt
+                    ( "Register"
+                    , registrationToString model
+                    , key
+                    )
                 )
 
             Nothing ->
                 ( registrationPending model
-                , Auth.getPublicKey
-                    (\k -> Ports.encrypt ( "Register", model.firstPassword, k ))
+                , Auth.getPublicKey (thenRegister model)
                 )
     else
         RegisterState { model | showProblems = True } ! []
+
+
+thenRegister : RegisterModel -> (String -> Cmd Msg)
+thenRegister model =
+    (,,) "Register" (registrationToString model)
+        >> Ports.encrypt
 
 
 registrationPending : RegisterModel -> PageState
@@ -69,9 +76,11 @@ toJson cipher =
         [ ( "cipher", Encode.string cipher ) ]
 
 
-
---Encode.object
---    [ ( "username", Encode.string model.username )
---    , ( "email", Encode.string model.firstEmail )
---    , ( "password", Encode.string model.firstPassword )
---    ]
+registrationToString : RegisterModel -> String
+registrationToString model =
+    [ ( "username", Encode.string model.username )
+    , ( "email", Encode.string model.firstEmail )
+    , ( "password", Encode.string model.firstPassword )
+    ]
+        |> Encode.object
+        |> Encode.encode 0

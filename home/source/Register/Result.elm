@@ -22,15 +22,7 @@ handle result model =
                     |> showProblems
 
         Ok body ->
-            let
-                _ =
-                    log "BODY" body
-            in
-                RegisterState model
-
-
-
---readJson body model
+            readJson body model
 
 
 showProblems : RegisterModel -> PageState
