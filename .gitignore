@@ -20,3 +20,5 @@ node_modules
 rethinkdb_data
 
 secrets.json
+
+config.coffee

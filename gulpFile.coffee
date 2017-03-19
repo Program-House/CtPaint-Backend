@@ -3,9 +3,9 @@ stylus = require "./gulp-processes/stylus"
 browserify = require "./gulp-processes/browserify"
 elm = require "./gulp-processes/elm"
 tests = require "./gulp-processes/tests"
+{app} = require "./config"
 
 production = false
-app = "admin"
 paths =
   development: "./" + app + "/development"
   distribution: "./" + app + "/distribution"
