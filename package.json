@@ -1,11 +1,11 @@
 {
-  "name": "elm-gulp-browserify-boilerplate",
+  "name": "CtPaint",
   "version": "1.0.0",
-  "description": "Elm Gulp Browserify Boilerplate",
+  "description": "An in-browser image editor",
   "main": "gulpFile.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Chadtech/elm-gulp-browserify-boilerplate"
+    "url": "https://github.com/Program-House/CtPaint"
   },
   "keywords": [
     "elm",

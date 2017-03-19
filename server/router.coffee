@@ -31,4 +31,7 @@ module.exports = (app, dbConnection) ->
   app.get "/api/key", (req, res) ->
     res.send crypto.publicKey
 
+  app.get "/app", (req, res) ->
+    (res.status 200).sendFile (join __dirname, "../paint/development/index.html")
+
 
