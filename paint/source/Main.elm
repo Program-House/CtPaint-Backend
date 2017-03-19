@@ -1,10 +1,11 @@
 module Main exposing (..)
 
 import Html
-import Types exposing (..)
+import Main.Model exposing (Model)
 import Ports exposing (..)
-import View exposing (view)
-import Subscriptions exposing (subscriptions)
+import Main.View exposing (view)
+import Main.Update exposing (update)
+import Main.Subscriptions exposing (subscriptions)
 
 
 -- MAIN
@@ -12,28 +13,8 @@ import Subscriptions exposing (subscriptions)
 
 main =
     Html.program
-        { init = ( Model "", Cmd.none )
+        { init = ( Model Nothing, Cmd.none )
         , view = view
         , update = update
         , subscriptions = subscriptions
         }
-
-
-
--- UPDATE
-
-
-update : Msg -> Model -> ( Model, Cmd Msg )
-update message model =
-    case message of
-        UpdateField str ->
-            Model str ! []
-
-        CheckIfEnter code ->
-            if code == 13 then
-                Model "Submitted!" ! []
-            else
-                model ! []
-
-        HandlePort str ->
-            Model str ! []
