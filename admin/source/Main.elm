@@ -14,7 +14,7 @@ import Main.Init as Init
 
 main =
     Html.program
-        { init = ( Init.model, Cmd.none )
+        { init = ( Init.model, Init.cmd )
         , view = view
         , update = update
         , subscriptions = subscriptions

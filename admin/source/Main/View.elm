@@ -6,6 +6,7 @@ import Main.Model exposing (Model)
 import Main.Message exposing (Msg(..))
 import View.Components exposing (words)
 import View.AppBar as AppBar
+import LogIn.View as LogIn
 
 
 -- VIEW
@@ -13,6 +14,11 @@ import View.AppBar as AppBar
 
 view : Model -> Html Msg
 view model =
-    div
-        [ class "main" ]
-        [ AppBar.view model ]
+    if model.loggedIn then
+        div
+            [ class "main logged-in" ]
+            [ AppBar.view model ]
+    else
+        div
+            [ class "main" ]
+            [ LogIn.view model ]

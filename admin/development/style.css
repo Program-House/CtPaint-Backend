@@ -15,9 +15,17 @@
   src: url("./hftin.ttf");
 }
 body {
-  background: #2c2826;
+  background: #06120e;
   padding: 0;
   margin: 0;
+}
+.main {
+  width: 100%;
+  height: 100vh;
+  overflow: scroll;
+}
+.logged-in {
+  background: #2c2826;
 }
 @font-face {
   font-family: HFNSS;
@@ -36,14 +44,23 @@ body {
   src: url("./hftin.ttf");
 }
 body {
-  background: #2c2826;
+  background: #06120e;
   padding: 0;
   margin: 0;
+}
+.main {
+  width: 100%;
+  height: 100vh;
+  overflow: scroll;
+}
+.logged-in {
+  background: #2c2826;
 }
 appbarbutton {
   border-top: 2px solid #57524f;
   border-left: 2px solid #57524f;
   border-right: 2px solid #131610;
+  padding-top: 2px;
   height: 22px;
   display: inline;
   padding-left: 4px;
@@ -76,10 +93,111 @@ appbar {
   top: 0;
   left: 0;
   width: 100%;
-  height: 26px;
+  height: 28px;
   margin-top: 4px;
   background: #2c2826;
   border-bottom: 2px solid #57524f;
+}
+.button {
+  border-top: 2px solid #57524f;
+  border-left: 2px solid #57524f;
+  border-right: 2px solid #131610;
+  border-bottom: 2px solid #131610;
+  outline: none;
+  font-family: HFNSS;
+  color: #b0a69a;
+  font-size: 2em;
+  background: #2c2826;
+  -webkit-font-smoothing: none;
+  font-smooth: none;
+  min-width: 96px;
+}
+.button:hover {
+  color: #e0d6ca;
+}
+.button:active {
+  border-top: 2px solid #131610;
+  border-left: 2px solid #131610;
+  border-right: 2px solid #57524f;
+  border-bottom: 2px solid #57524f;
+}
+.button.not-ready {
+  color: #807672;
+  background: #57524f;
+}
+.button.not-ready:active {
+  border-top: 2px solid #57524f;
+  border-left: 2px solid #57524f;
+  border-right: 2px solid #131610;
+  border-bottom: 2px solid #131610;
+}
+card {
+  background: #2c2826;
+  border-top: 2px solid #57524f;
+  border-left: 2px solid #57524f;
+  border-right: 2px solid #131610;
+  border-bottom: 2px solid #131610;
+}
+card.solitary {
+  width: 500px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding-top: 40px;
+  padding-bottom: 40px;
+  position: absolute;
+  text-align: center;
+}
+card.solitary words {
+  margin-bottom: 20px;
+  display: block;
+}
+card.solitary.register {
+  width: 600px;
+}
+card.solitary.register-success {
+  width: 520px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+card.solitary.register-success words {
+  text-align: left;
+  margin-bottom: 0px;
+}
+fieldlabel {
+  float: left;
+  font-family: hfnss;
+  color: #b0a69a;
+  font-size: 2em;
+  -webkit-font-smoothing: none;
+  margin-top: 5px;
+}
+.field-container {
+  height: 29px;
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 4px;
+}
+.field {
+  border-top: 2px solid #131610;
+  border-left: 2px solid #131610;
+  border-right: 2px solid #57524f;
+  border-bottom: 2px solid #57524f;
+  outline: none;
+  font-family: HFNSS;
+  color: #b0a69a;
+  font-size: 2em;
+  background: #06120e;
+  -webkit-font-smoothing: none;
+  font-smooth: none;
+  height: 29px;
+  width: 300px;
+  display: block;
+  float: right;
+}
+.field.error {
+  border: 2px solid #f21d23;
+  background: #143b2e;
 }
 .input-field {
   font-family: Arial;
