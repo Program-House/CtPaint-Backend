@@ -5,6 +5,7 @@ import Main.Model exposing (Model)
 import Api.PublicKey as PublicKey
 import Ports
 import Api.SignIn exposing (signIn)
+import SignIn.Handle as SignIn
 import Json.Encode as Encode
 import Debug exposing (log)
 
@@ -53,23 +54,10 @@ update message model =
                 ! []
 
         SignIn ->
-            case ( model.sessionToken, model.publicKey ) of
-                ( Just sessionToken, Just publicKey ) ->
-                    ( model
-                    , Ports.encrypt
-                        ( "Sign In"
-                        , toRequest model sessionToken
-                        , publicKey
-                        )
-                    )
-
-                _ ->
-                    ( model
-                    , Cmd.batch
-                        [ PublicKey.get
-                        , Ports.requestSessionToken ()
-                        ]
-                    )
+            { model
+                | withEncryption = signIn
+            }
+                |> SignIn.handle
 
         SignInResult (Ok str) ->
             let
@@ -81,28 +69,5 @@ update message model =
         SignInResult (Err err) ->
             ( model, Cmd.none )
 
-        GetEncryption ( next, cipher ) ->
-            case next of
-                "Sign In" ->
-                    ( model, signIn cipher )
-
-                _ ->
-                    ( model, Cmd.none )
-
-
-toRequest : Model -> String -> String
-toRequest model sessionKey =
-    [ ( "username", Encode.string model.usernameField )
-    , ( "password", Encode.string model.passwordField )
-    , ( "sessionKey", Encode.string sessionKey )
-    ]
-        |> Encode.object
-        |> Encode.encode 0
-
-
-
---, Ports.encrypt
---    ( "Register"
---    , toString model
---    , key
---    )
+        GetEncryption cipher ->
+            ( model, model.withEncryption cipher )

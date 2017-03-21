@@ -13,4 +13,4 @@ type Msg
     | UpdatePasswordField String
     | SignIn
     | SignInResult (Result Http.Error Decode.Value)
-    | GetEncryption ( String, String )
+    | GetEncryption String

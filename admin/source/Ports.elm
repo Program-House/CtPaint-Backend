@@ -7,7 +7,7 @@ port requestSessionToken : () -> Cmd msg
 port getSessionToken : (String -> msg) -> Sub msg
 
 
-port encrypt : ( String, String, String ) -> Cmd msg
+port encrypt : ( String, String ) -> Cmd msg
 
 
-port getEncryption : (( String, String ) -> msg) -> Sub msg
+port getEncryption : (String -> msg) -> Sub msg

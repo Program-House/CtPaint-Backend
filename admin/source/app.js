@@ -26,14 +26,13 @@ app.ports.requestSessionToken.subscribe(function() {
 
 
 app.ports.encrypt.subscribe(function(payload) {
-  var msg = payload[0];
-  var plainText = payload[1];
-  var publicKey = payload[2];
+  var plainText = payload[0];
+  var publicKey = payload[1];
 
   var cipher = cryptico.encrypt(plainText, publicKey);
 
   if (cipher.status === "success") {
-    app.ports.encryption.send([ msg, cipher.cipher ]);
+    app.ports.getEncryption.send(cipher.cipher);
   } else {
     console.log(cipher);
   }

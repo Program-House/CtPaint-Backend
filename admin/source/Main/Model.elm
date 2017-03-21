@@ -11,5 +11,5 @@ type alias Model =
     , usernameField : String
     , passwordField : String
     , loggedIn : Bool
-    , withEncryption : Maybe (String -> Cmd Msg)
+    , withEncryption : String -> Cmd Msg
     }

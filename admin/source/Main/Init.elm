@@ -15,7 +15,7 @@ model =
     , usernameField = ""
     , passwordField = ""
     , loggedIn = False
-    , withEncryption = Nothing
+    , withEncryption = always Cmd.none
     }
 
 

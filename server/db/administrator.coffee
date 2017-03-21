@@ -10,11 +10,12 @@ module.exports.update = (connection, body, next) ->
     if result.length > 0
       if (hash.get body.password) is result[0].hash
         db.table "administrator"
-          .update (session : body.sessionKey)
+          .update (session : body.sessionToken)
           .run connection, (err, result) ->
             if err then throw err
-            encryption = cryptico.encrypt "Success", body.sessionKey
-            next (cipher: encryption.cipher)
+            # encryption = cryptico.encrypt "Success", body.sessionToken
+            # next (cipher: encryption.cipher)
+            next (msg : "Success")
       else
         next (msg : "Failure")
     else
