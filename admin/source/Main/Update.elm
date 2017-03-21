@@ -5,8 +5,8 @@ import Main.Model exposing (Model)
 import Api.PublicKey as PublicKey
 import Ports
 import Api.SignIn exposing (signIn)
-import SignIn.Handle as SignIn
 import Json.Encode as Encode
+import SignIn.Update as SignIn
 import Debug exposing (log)
 
 
@@ -41,33 +41,8 @@ update message model =
             }
                 ! []
 
-        UpdateUsernameField str ->
-            { model
-                | usernameField = str
-            }
-                ! []
-
-        UpdatePasswordField str ->
-            { model
-                | passwordField = str
-            }
-                ! []
-
-        SignIn ->
-            { model
-                | withEncryption = signIn
-            }
-                |> SignIn.handle
-
-        SignInResult (Ok str) ->
-            let
-                _ =
-                    log "RESULT" str
-            in
-                ( model, Cmd.none )
-
-        SignInResult (Err err) ->
-            ( model, Cmd.none )
-
         GetEncryption cipher ->
             ( model, model.withEncryption cipher )
+
+        SignInWrapper signInMessage ->
+            SignIn.update model signInMessage

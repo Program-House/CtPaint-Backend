@@ -6535,18 +6535,22 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Project = {ctor: 'Proje
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Verification = {ctor: 'Verification'};
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$User = {ctor: 'User'};
 
+var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Message$UpdatePasswordField = function (a) {
+	return {ctor: 'UpdatePasswordField', _0: a};
+};
+var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Message$UpdateUsernameField = function (a) {
+	return {ctor: 'UpdateUsernameField', _0: a};
+};
+var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Message$SignInResult = function (a) {
+	return {ctor: 'SignInResult', _0: a};
+};
+var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Message$SignIn = {ctor: 'SignIn'};
+
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetEncryption = function (a) {
 	return {ctor: 'GetEncryption', _0: a};
 };
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$SignInResult = function (a) {
-	return {ctor: 'SignInResult', _0: a};
-};
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$SignIn = {ctor: 'SignIn'};
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$UpdatePasswordField = function (a) {
-	return {ctor: 'UpdatePasswordField', _0: a};
-};
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$UpdateUsernameField = function (a) {
-	return {ctor: 'UpdateUsernameField', _0: a};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$SignInWrapper = function (a) {
+	return {ctor: 'SignInWrapper', _0: a};
 };
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetSessionToken = function (a) {
 	return {ctor: 'GetSessionToken', _0: a};
@@ -6596,7 +6600,10 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Api_SignIn$post = function (cipher
 var _Chadtech$elm_gulp_browserify_boilerplate$Api_SignIn$signIn = function (cipher) {
 	return A2(
 		_elm_lang$http$Http$send,
-		_Chadtech$elm_gulp_browserify_boilerplate$Main_Message$SignInResult,
+		function (_p1) {
+			return _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$SignInWrapper(
+				_Chadtech$elm_gulp_browserify_boilerplate$SignIn_Message$SignInResult(_p1));
+		},
 		_Chadtech$elm_gulp_browserify_boilerplate$Api_SignIn$post(cipher));
 };
 
@@ -9348,10 +9355,26 @@ var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_View$view = function (model
 				'Log In'),
 			_1: {
 				ctor: '::',
-				_0: A4(_Chadtech$elm_gulp_browserify_boilerplate$View_Components$field, 'username', 'username', model.usernameField, _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$UpdateUsernameField),
+				_0: A4(
+					_Chadtech$elm_gulp_browserify_boilerplate$View_Components$field,
+					'username',
+					'username',
+					model.usernameField,
+					function (_p2) {
+						return _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$SignInWrapper(
+							_Chadtech$elm_gulp_browserify_boilerplate$SignIn_Message$UpdateUsernameField(_p2));
+					}),
 				_1: {
 					ctor: '::',
-					_0: A4(_Chadtech$elm_gulp_browserify_boilerplate$View_Components$password, 'password', 'password', model.passwordField, _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$UpdatePasswordField),
+					_0: A4(
+						_Chadtech$elm_gulp_browserify_boilerplate$View_Components$password,
+						'password',
+						'password',
+						model.passwordField,
+						function (_p3) {
+							return _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$SignInWrapper(
+								_Chadtech$elm_gulp_browserify_boilerplate$SignIn_Message$UpdatePasswordField(_p3));
+						}),
 					_1: {
 						ctor: '::',
 						_0: A2(
@@ -9364,7 +9387,7 @@ var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_View$view = function (model
 								_Chadtech$elm_gulp_browserify_boilerplate$View_Components$button,
 								'Sign In',
 								_Chadtech$elm_gulp_browserify_boilerplate$SignIn_View$ready(model),
-								_Chadtech$elm_gulp_browserify_boilerplate$Main_Message$SignIn),
+								_Chadtech$elm_gulp_browserify_boilerplate$Main_Message$SignInWrapper(_Chadtech$elm_gulp_browserify_boilerplate$SignIn_Message$SignIn)),
 							_1: {ctor: '[]'}
 						}
 					}
@@ -9463,6 +9486,39 @@ var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Handle$handle = function (m
 	}
 };
 
+var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Update$update = F2(
+	function (model, signInMessage) {
+		var _p0 = signInMessage;
+		switch (_p0.ctor) {
+			case 'UpdateUsernameField':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{usernameField: _p0._0}),
+					{ctor: '[]'});
+			case 'UpdatePasswordField':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{passwordField: _p0._0}),
+					{ctor: '[]'});
+			case 'SignIn':
+				return _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Handle$handle(
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{withEncryption: _Chadtech$elm_gulp_browserify_boilerplate$Api_SignIn$signIn}));
+			default:
+				if (_p0._0.ctor === 'Ok') {
+					var _p1 = A2(_elm_lang$core$Debug$log, 'RESULT', _p0._0._0);
+					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				} else {
+					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				}
+		}
+	});
+
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Update$update = F2(
 	function (message, model) {
 		var _p0 = message;
@@ -9506,38 +9562,14 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Update$update = F2(
 							sessionToken: _elm_lang$core$Maybe$Just(_p0._0)
 						}),
 					{ctor: '[]'});
-			case 'UpdateUsernameField':
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					_elm_lang$core$Native_Utils.update(
-						model,
-						{usernameField: _p0._0}),
-					{ctor: '[]'});
-			case 'UpdatePasswordField':
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					_elm_lang$core$Native_Utils.update(
-						model,
-						{passwordField: _p0._0}),
-					{ctor: '[]'});
-			case 'SignIn':
-				return _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Handle$handle(
-					_elm_lang$core$Native_Utils.update(
-						model,
-						{withEncryption: _Chadtech$elm_gulp_browserify_boilerplate$Api_SignIn$signIn}));
-			case 'SignInResult':
-				if (_p0._0.ctor === 'Ok') {
-					var _p2 = A2(_elm_lang$core$Debug$log, 'RESULT', _p0._0._0);
-					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
-				} else {
-					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
-				}
-			default:
+			case 'GetEncryption':
 				return {
 					ctor: '_Tuple2',
 					_0: model,
 					_1: model.withEncryption(_p0._0)
 				};
+			default:
+				return A2(_Chadtech$elm_gulp_browserify_boilerplate$SignIn_Update$update, model, _p0._0);
 		}
 	});
 

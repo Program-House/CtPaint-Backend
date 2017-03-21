@@ -2,6 +2,7 @@ module Api.SignIn exposing (signIn)
 
 import Main.Model exposing (Model)
 import Main.Message exposing (Msg(..))
+import SignIn.Message exposing (SignInMsg(..))
 import Json.Decode as Decode
 import Json.Encode as Encode
 import Api.Util as Api
@@ -10,7 +11,9 @@ import Http
 
 signIn : String -> Cmd Msg
 signIn cipher =
-    Http.send SignInResult (post cipher)
+    Http.send
+        (SignInWrapper << SignInResult)
+        (post cipher)
 
 
 post : String -> Http.Request Decode.Value
