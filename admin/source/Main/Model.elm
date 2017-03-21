@@ -6,8 +6,9 @@ import Main.Types exposing (Page(..))
 
 type alias Model =
     { page : Page
-    , publicKey : Maybe String
+    , serversPublicKey : Maybe String
     , sessionToken : Maybe String
+    , clientsPublicKey : Maybe String
     , usernameField : String
     , passwordField : String
     , loggedIn : Bool

@@ -6555,8 +6555,8 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$SignInWrapper = funct
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetSessionToken = function (a) {
 	return {ctor: 'GetSessionToken', _0: a};
 };
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetPublicKey = function (a) {
-	return {ctor: 'GetPublicKey', _0: a};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetServersPublicKey = function (a) {
+	return {ctor: 'GetServersPublicKey', _0: a};
 };
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$SetPage = function (a) {
 	return {ctor: 'SetPage', _0: a};
@@ -6569,13 +6569,13 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Api_Util$root = function (path) {
 
 var _Chadtech$elm_gulp_browserify_boilerplate$Api_PublicKey$get = A2(
 	_elm_lang$http$Http$send,
-	_Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetPublicKey,
+	_Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetServersPublicKey,
 	_elm_lang$http$Http$getString(
 		_Chadtech$elm_gulp_browserify_boilerplate$Api_Util$root('/api/key')));
 
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Model = F7(
-	function (a, b, c, d, e, f, g) {
-		return {page: a, publicKey: b, sessionToken: c, usernameField: d, passwordField: e, loggedIn: f, withEncryption: g};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Model = F8(
+	function (a, b, c, d, e, f, g, h) {
+		return {page: a, serversPublicKey: b, sessionToken: c, clientsPublicKey: d, usernameField: e, passwordField: f, loggedIn: g, withEncryption: h};
 	});
 
 var _Chadtech$elm_gulp_browserify_boilerplate$Api_SignIn$toBody = function (_p0) {
@@ -9455,7 +9455,7 @@ var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Handle$toRequest = F2(
 				}));
 	});
 var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Handle$handle = function (model) {
-	var _p0 = {ctor: '_Tuple2', _0: model.sessionToken, _1: model.publicKey};
+	var _p0 = {ctor: '_Tuple2', _0: model.sessionToken, _1: model.serversPublicKey};
 	if (((_p0.ctor === '_Tuple2') && (_p0._0.ctor === 'Just')) && (_p0._1.ctor === 'Just')) {
 		return {
 			ctor: '_Tuple2',
@@ -9530,14 +9530,14 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Update$update = F2(
 						model,
 						{page: _p0._0}),
 					{ctor: '[]'});
-			case 'GetPublicKey':
+			case 'GetServersPublicKey':
 				if (_p0._0.ctor === 'Ok') {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
 							model,
 							{
-								publicKey: _elm_lang$core$Maybe$Just(_p0._0._0)
+								serversPublicKey: _elm_lang$core$Maybe$Just(_p0._0._0)
 							}),
 						{ctor: '[]'});
 				} else {
@@ -9546,7 +9546,7 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Update$update = F2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
 							model,
-							{publicKey: _elm_lang$core$Maybe$Nothing}),
+							{serversPublicKey: _elm_lang$core$Maybe$Nothing}),
 						{
 							ctor: '::',
 							_0: _Chadtech$elm_gulp_browserify_boilerplate$Api_PublicKey$get,
@@ -9599,8 +9599,9 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Init$cmd = _elm_lang$core$Pla
 	});
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Init$model = {
 	page: _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$User,
-	publicKey: _elm_lang$core$Maybe$Nothing,
+	serversPublicKey: _elm_lang$core$Maybe$Nothing,
 	sessionToken: _elm_lang$core$Maybe$Nothing,
+	clientsPublicKey: _elm_lang$core$Maybe$Nothing,
 	usernameField: '',
 	passwordField: '',
 	loggedIn: false,

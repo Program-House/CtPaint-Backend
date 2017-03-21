@@ -8,7 +8,7 @@ import SignIn.Message exposing (SignInMsg(..))
 
 type Msg
     = SetPage Page
-    | GetPublicKey (Result Http.Error String)
+    | GetServersPublicKey (Result Http.Error String)
     | GetSessionToken String
     | SignInWrapper SignInMsg
     | GetEncryption String

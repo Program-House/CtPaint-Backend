@@ -19,19 +19,19 @@ update message model =
             }
                 ! []
 
-        GetPublicKey (Ok key) ->
+        GetServersPublicKey (Ok key) ->
             { model
-                | publicKey = Just key
+                | serversPublicKey = Just key
             }
                 ! []
 
-        GetPublicKey (Err err) ->
+        GetServersPublicKey (Err err) ->
             let
                 _ =
                     log "ERROR" err
             in
                 { model
-                    | publicKey = Nothing
+                    | serversPublicKey = Nothing
                 }
                     ! [ PublicKey.get ]
 

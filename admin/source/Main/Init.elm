@@ -10,8 +10,9 @@ import Ports
 model : Model
 model =
     { page = User
-    , publicKey = Nothing
+    , serversPublicKey = Nothing
     , sessionToken = Nothing
+    , clientsPublicKey = Nothing
     , usernameField = ""
     , passwordField = ""
     , loggedIn = False

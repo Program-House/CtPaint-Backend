@@ -9,4 +9,4 @@ get : Cmd Msg
 get =
     root "/api/key"
         |> Http.getString
-        |> Http.send (GetPublicKey)
+        |> Http.send (GetServersPublicKey)

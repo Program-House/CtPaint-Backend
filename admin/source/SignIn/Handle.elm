@@ -9,12 +9,12 @@ import Api.PublicKey as PublicKey
 
 handle : Model -> ( Model, Cmd Msg )
 handle model =
-    case ( model.sessionToken, model.publicKey ) of
-        ( Just sessionToken, Just publicKey ) ->
+    case ( model.sessionToken, model.serversPublicKey ) of
+        ( Just sessionToken, Just serversPublicKey ) ->
             ( model
             , Ports.encrypt
                 ( toRequest model sessionToken
-                , publicKey
+                , serversPublicKey
                 )
             )
 
