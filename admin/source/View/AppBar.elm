@@ -4,7 +4,8 @@ import Html exposing (Html, node, hr)
 import Html.Attributes exposing (style, class)
 import Html.Events exposing (onClick)
 import Main.Message exposing (Msg(..))
-import Main.Model exposing (Model, Page(..))
+import Main.Model exposing (Model)
+import Main.Types exposing (Page(..))
 import View.Components exposing (words)
 
 

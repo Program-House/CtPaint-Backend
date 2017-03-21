@@ -6530,14 +6530,10 @@ var _elm_lang$http$Http$StringPart = F2(
 	});
 var _elm_lang$http$Http$stringPart = _elm_lang$http$Http$StringPart;
 
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Model = F6(
-	function (a, b, c, d, e, f) {
-		return {page: a, publicKey: b, sessionToken: c, usernameField: d, passwordField: e, loggedIn: f};
-	});
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Administrator = {ctor: 'Administrator'};
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Project = {ctor: 'Project'};
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Verification = {ctor: 'Verification'};
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$User = {ctor: 'User'};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Administrator = {ctor: 'Administrator'};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Project = {ctor: 'Project'};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Verification = {ctor: 'Verification'};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$User = {ctor: 'User'};
 
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetEncryption = function (a) {
 	return {ctor: 'GetEncryption', _0: a};
@@ -6572,6 +6568,11 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Api_PublicKey$get = A2(
 	_Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetPublicKey,
 	_elm_lang$http$Http$getString(
 		_Chadtech$elm_gulp_browserify_boilerplate$Api_Util$root('/api/key')));
+
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Model = F7(
+	function (a, b, c, d, e, f, g) {
+		return {page: a, publicKey: b, sessionToken: c, usernameField: d, passwordField: e, loggedIn: f, withEncryption: g};
+	});
 
 var _Chadtech$elm_gulp_browserify_boilerplate$Api_SignIn$toBody = function (_p0) {
 	return _elm_lang$http$Http$jsonBody(
@@ -9323,16 +9324,16 @@ var _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$view = function (model
 	return _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$appbar(
 		{
 			ctor: '::',
-			_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Model$User),
+			_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Types$User),
 			_1: {
 				ctor: '::',
-				_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Verification),
+				_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Verification),
 				_1: {
 					ctor: '::',
-					_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Project),
+					_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Project),
 					_1: {
 						ctor: '::',
-						_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Administrator),
+						_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Administrator),
 						_1: {ctor: '[]'}
 					}
 				}
@@ -9576,7 +9577,7 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Init$cmd = _elm_lang$core$Pla
 			_1: {ctor: '[]'}
 		}
 	});
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Init$model = {page: _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$User, publicKey: _elm_lang$core$Maybe$Nothing, sessionToken: _elm_lang$core$Maybe$Nothing, usernameField: '', passwordField: '', loggedIn: false};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Init$model = {page: _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$User, publicKey: _elm_lang$core$Maybe$Nothing, sessionToken: _elm_lang$core$Maybe$Nothing, usernameField: '', passwordField: '', loggedIn: false, withEncryption: _elm_lang$core$Maybe$Nothing};
 
 var _Chadtech$elm_gulp_browserify_boilerplate$Main$main = _elm_lang$html$Html$program(
 	{

@@ -1,4 +1,7 @@
-module Main.Model exposing (Model, Page(..))
+module Main.Model exposing (Model)
+
+import Main.Message exposing (Msg(..))
+import Main.Types exposing (Page(..))
 
 
 type alias Model =
@@ -8,11 +11,5 @@ type alias Model =
     , usernameField : String
     , passwordField : String
     , loggedIn : Bool
+    , withEncryption : Maybe (String -> Cmd Msg)
     }
-
-
-type Page
-    = User
-    | Verification
-    | Project
-    | Administrator

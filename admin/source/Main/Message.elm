@@ -1,6 +1,6 @@
 module Main.Message exposing (Msg(..))
 
-import Main.Model exposing (Page(..))
+import Main.Types exposing (Page(..))
 import Http
 import Json.Decode as Decode
 
