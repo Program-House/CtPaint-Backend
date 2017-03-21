@@ -6532,7 +6532,7 @@ var _elm_lang$http$Http$stringPart = _elm_lang$http$Http$StringPart;
 
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Model = F6(
 	function (a, b, c, d, e, f) {
-		return {page: a, publicKey: b, sessionKey: c, usernameField: d, passwordField: e, loggedIn: f};
+		return {page: a, publicKey: b, sessionToken: c, usernameField: d, passwordField: e, loggedIn: f};
 	});
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Administrator = {ctor: 'Administrator'};
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Project = {ctor: 'Project'};
@@ -6552,8 +6552,8 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$UpdatePasswordField =
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$UpdateUsernameField = function (a) {
 	return {ctor: 'UpdateUsernameField', _0: a};
 };
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetSessionKey = function (a) {
-	return {ctor: 'GetSessionKey', _0: a};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetSessionToken = function (a) {
+	return {ctor: 'GetSessionToken', _0: a};
 };
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetPublicKey = function (a) {
 	return {ctor: 'GetPublicKey', _0: a};
@@ -8637,19 +8637,19 @@ var _elm_lang$html$Html$summary = _elm_lang$html$Html$node('summary');
 var _elm_lang$html$Html$menuitem = _elm_lang$html$Html$node('menuitem');
 var _elm_lang$html$Html$menu = _elm_lang$html$Html$node('menu');
 
-var _Chadtech$elm_gulp_browserify_boilerplate$Ports$requestSessionKey = _elm_lang$core$Native_Platform.outgoingPort(
-	'requestSessionKey',
+var _Chadtech$elm_gulp_browserify_boilerplate$Ports$requestSessionToken = _elm_lang$core$Native_Platform.outgoingPort(
+	'requestSessionToken',
 	function (v) {
 		return null;
 	});
-var _Chadtech$elm_gulp_browserify_boilerplate$Ports$getSessionKey = _elm_lang$core$Native_Platform.incomingPort('getSessionKey', _elm_lang$core$Json_Decode$string);
+var _Chadtech$elm_gulp_browserify_boilerplate$Ports$getSessionToken = _elm_lang$core$Native_Platform.incomingPort('getSessionToken', _elm_lang$core$Json_Decode$string);
 var _Chadtech$elm_gulp_browserify_boilerplate$Ports$encrypt = _elm_lang$core$Native_Platform.outgoingPort(
 	'encrypt',
 	function (v) {
 		return [v._0, v._1, v._2];
 	});
-var _Chadtech$elm_gulp_browserify_boilerplate$Ports$encryption = _elm_lang$core$Native_Platform.incomingPort(
-	'encryption',
+var _Chadtech$elm_gulp_browserify_boilerplate$Ports$getEncryption = _elm_lang$core$Native_Platform.incomingPort(
+	'getEncryption',
 	A2(
 		_elm_lang$core$Json_Decode$andThen,
 		function (x0) {
@@ -9445,7 +9445,7 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Update$toRequest = F2(
 	});
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Update$update = F2(
 	function (message, model) {
-		var _p0 = A2(_elm_lang$core$Debug$log, 'MESSAGE', message);
+		var _p0 = message;
 		switch (_p0.ctor) {
 			case 'SetPage':
 				return A2(
@@ -9477,13 +9477,13 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Update$update = F2(
 							_1: {ctor: '[]'}
 						});
 				}
-			case 'GetSessionKey':
+			case 'GetSessionToken':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
 						{
-							sessionKey: _elm_lang$core$Maybe$Just(_p0._0)
+							sessionToken: _elm_lang$core$Maybe$Just(_p0._0)
 						}),
 					{ctor: '[]'});
 			case 'UpdateUsernameField':
@@ -9501,7 +9501,7 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Update$update = F2(
 						{passwordField: _p0._0}),
 					{ctor: '[]'});
 			case 'SignIn':
-				var _p2 = {ctor: '_Tuple2', _0: model.sessionKey, _1: model.publicKey};
+				var _p2 = {ctor: '_Tuple2', _0: model.sessionToken, _1: model.publicKey};
 				if (((_p2.ctor === '_Tuple2') && (_p2._0.ctor === 'Just')) && (_p2._1.ctor === 'Just')) {
 					return {
 						ctor: '_Tuple2',
@@ -9524,7 +9524,7 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Update$update = F2(
 								_0: _Chadtech$elm_gulp_browserify_boilerplate$Api_PublicKey$get,
 								_1: {
 									ctor: '::',
-									_0: _Chadtech$elm_gulp_browserify_boilerplate$Ports$requestSessionKey(
+									_0: _Chadtech$elm_gulp_browserify_boilerplate$Ports$requestSessionToken(
 										{ctor: '_Tuple0'}),
 									_1: {ctor: '[]'}
 								}
@@ -9556,10 +9556,10 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Subscriptions$subscriptions =
 	return _elm_lang$core$Platform_Sub$batch(
 		{
 			ctor: '::',
-			_0: _Chadtech$elm_gulp_browserify_boilerplate$Ports$getSessionKey(_Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetSessionKey),
+			_0: _Chadtech$elm_gulp_browserify_boilerplate$Ports$getSessionToken(_Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetSessionToken),
 			_1: {
 				ctor: '::',
-				_0: _Chadtech$elm_gulp_browserify_boilerplate$Ports$encryption(_Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetEncryption),
+				_0: _Chadtech$elm_gulp_browserify_boilerplate$Ports$getEncryption(_Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetEncryption),
 				_1: {ctor: '[]'}
 			}
 		});
@@ -9571,12 +9571,12 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Init$cmd = _elm_lang$core$Pla
 		_0: _Chadtech$elm_gulp_browserify_boilerplate$Api_PublicKey$get,
 		_1: {
 			ctor: '::',
-			_0: _Chadtech$elm_gulp_browserify_boilerplate$Ports$requestSessionKey(
+			_0: _Chadtech$elm_gulp_browserify_boilerplate$Ports$requestSessionToken(
 				{ctor: '_Tuple0'}),
 			_1: {ctor: '[]'}
 		}
 	});
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Init$model = {page: _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$User, publicKey: _elm_lang$core$Maybe$Nothing, sessionKey: _elm_lang$core$Maybe$Nothing, usernameField: '', passwordField: '', loggedIn: false};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Init$model = {page: _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$User, publicKey: _elm_lang$core$Maybe$Nothing, sessionToken: _elm_lang$core$Maybe$Nothing, usernameField: '', passwordField: '', loggedIn: false};
 
 var _Chadtech$elm_gulp_browserify_boilerplate$Main$main = _elm_lang$html$Html$program(
 	{

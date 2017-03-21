@@ -8,7 +8,7 @@ import Json.Decode as Decode
 type Msg
     = SetPage Page
     | GetPublicKey (Result Http.Error String)
-    | GetSessionKey String
+    | GetSessionToken String
     | UpdateUsernameField String
     | UpdatePasswordField String
     | SignIn

@@ -11,7 +11,7 @@ import Debug exposing (log)
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update message model =
-    case (log "MESSAGE" message) of
+    case message of
         SetPage page ->
             { model
                 | page = page
@@ -34,9 +34,9 @@ update message model =
                 }
                     ! [ PublicKey.get ]
 
-        GetSessionKey key ->
+        GetSessionToken token ->
             { model
-                | sessionKey = Just key
+                | sessionToken = Just token
             }
                 ! []
 
@@ -53,12 +53,12 @@ update message model =
                 ! []
 
         SignIn ->
-            case ( model.sessionKey, model.publicKey ) of
-                ( Just sessionKey, Just publicKey ) ->
+            case ( model.sessionToken, model.publicKey ) of
+                ( Just sessionToken, Just publicKey ) ->
                     ( model
                     , Ports.encrypt
                         ( "Sign In"
-                        , toRequest model sessionKey
+                        , toRequest model sessionToken
                         , publicKey
                         )
                     )
@@ -67,7 +67,7 @@ update message model =
                     ( model
                     , Cmd.batch
                         [ PublicKey.get
-                        , Ports.requestSessionKey ()
+                        , Ports.requestSessionToken ()
                         ]
                     )
 
