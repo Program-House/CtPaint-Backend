@@ -6,7 +6,7 @@ import Main.Model exposing (Model)
 import Main.Message exposing (Msg(..))
 import View.Components exposing (words)
 import View.AppBar as AppBar
-import LogIn.View as LogIn
+import SignIn.View as SignIn
 
 
 -- VIEW
@@ -21,4 +21,4 @@ view model =
     else
         div
             [ class "main" ]
-            [ LogIn.view model ]
+            [ SignIn.view model ]

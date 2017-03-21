@@ -2,11 +2,15 @@ module Main.Message exposing (Msg(..))
 
 import Main.Model exposing (Page(..))
 import Http
+import Json.Decode as Decode
 
 
 type Msg
     = SetPage Page
     | GetPublicKey (Result Http.Error String)
+    | GetSessionKey String
     | UpdateUsernameField String
     | UpdatePasswordField String
     | SignIn
+    | SignInResult (Result Http.Error Decode.Value)
+    | GetEncryption ( String, String )

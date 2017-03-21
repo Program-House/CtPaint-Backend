@@ -6530,21 +6530,30 @@ var _elm_lang$http$Http$StringPart = F2(
 	});
 var _elm_lang$http$Http$stringPart = _elm_lang$http$Http$StringPart;
 
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Model = F5(
-	function (a, b, c, d, e) {
-		return {page: a, publicKey: b, usernameField: c, passwordField: d, loggedIn: e};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Model = F6(
+	function (a, b, c, d, e, f) {
+		return {page: a, publicKey: b, sessionKey: c, usernameField: d, passwordField: e, loggedIn: f};
 	});
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Administrator = {ctor: 'Administrator'};
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Project = {ctor: 'Project'};
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$Verification = {ctor: 'Verification'};
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$User = {ctor: 'User'};
 
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetEncryption = function (a) {
+	return {ctor: 'GetEncryption', _0: a};
+};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$SignInResult = function (a) {
+	return {ctor: 'SignInResult', _0: a};
+};
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$SignIn = {ctor: 'SignIn'};
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$UpdatePasswordField = function (a) {
 	return {ctor: 'UpdatePasswordField', _0: a};
 };
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$UpdateUsernameField = function (a) {
 	return {ctor: 'UpdateUsernameField', _0: a};
+};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetSessionKey = function (a) {
+	return {ctor: 'GetSessionKey', _0: a};
 };
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetPublicKey = function (a) {
 	return {ctor: 'GetPublicKey', _0: a};
@@ -6563,6 +6572,32 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Api_PublicKey$get = A2(
 	_Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetPublicKey,
 	_elm_lang$http$Http$getString(
 		_Chadtech$elm_gulp_browserify_boilerplate$Api_Util$root('/api/key')));
+
+var _Chadtech$elm_gulp_browserify_boilerplate$Api_SignIn$toBody = function (_p0) {
+	return _elm_lang$http$Http$jsonBody(
+		_elm_lang$core$Json_Encode$object(
+			_elm_lang$core$List$singleton(
+				A2(
+					F2(
+						function (v0, v1) {
+							return {ctor: '_Tuple2', _0: v0, _1: v1};
+						}),
+					'cipher',
+					_elm_lang$core$Json_Encode$string(_p0)))));
+};
+var _Chadtech$elm_gulp_browserify_boilerplate$Api_SignIn$post = function (cipher) {
+	return A3(
+		_elm_lang$http$Http$post,
+		_Chadtech$elm_gulp_browserify_boilerplate$Api_Util$root('/api/admin/login'),
+		_Chadtech$elm_gulp_browserify_boilerplate$Api_SignIn$toBody(cipher),
+		_elm_lang$core$Json_Decode$value);
+};
+var _Chadtech$elm_gulp_browserify_boilerplate$Api_SignIn$signIn = function (cipher) {
+	return A2(
+		_elm_lang$http$Http$send,
+		_Chadtech$elm_gulp_browserify_boilerplate$Main_Message$SignInResult,
+		_Chadtech$elm_gulp_browserify_boilerplate$Api_SignIn$post(cipher));
+};
 
 var _elm_lang$virtual_dom$VirtualDom_Debug$wrap;
 var _elm_lang$virtual_dom$VirtualDom_Debug$wrapWithFlags;
@@ -8602,6 +8637,32 @@ var _elm_lang$html$Html$summary = _elm_lang$html$Html$node('summary');
 var _elm_lang$html$Html$menuitem = _elm_lang$html$Html$node('menuitem');
 var _elm_lang$html$Html$menu = _elm_lang$html$Html$node('menu');
 
+var _Chadtech$elm_gulp_browserify_boilerplate$Ports$requestSessionKey = _elm_lang$core$Native_Platform.outgoingPort(
+	'requestSessionKey',
+	function (v) {
+		return null;
+	});
+var _Chadtech$elm_gulp_browserify_boilerplate$Ports$getSessionKey = _elm_lang$core$Native_Platform.incomingPort('getSessionKey', _elm_lang$core$Json_Decode$string);
+var _Chadtech$elm_gulp_browserify_boilerplate$Ports$encrypt = _elm_lang$core$Native_Platform.outgoingPort(
+	'encrypt',
+	function (v) {
+		return [v._0, v._1, v._2];
+	});
+var _Chadtech$elm_gulp_browserify_boilerplate$Ports$encryption = _elm_lang$core$Native_Platform.incomingPort(
+	'encryption',
+	A2(
+		_elm_lang$core$Json_Decode$andThen,
+		function (x0) {
+			return A2(
+				_elm_lang$core$Json_Decode$andThen,
+				function (x1) {
+					return _elm_lang$core$Json_Decode$succeed(
+						{ctor: '_Tuple2', _0: x0, _1: x1});
+				},
+				A2(_elm_lang$core$Json_Decode$index, 1, _elm_lang$core$Json_Decode$string));
+		},
+		A2(_elm_lang$core$Json_Decode$index, 0, _elm_lang$core$Json_Decode$string)));
+
 var _elm_lang$html$Html_Attributes$map = _elm_lang$virtual_dom$VirtualDom$mapProperty;
 var _elm_lang$html$Html_Attributes$attribute = _elm_lang$virtual_dom$VirtualDom$attribute;
 var _elm_lang$html$Html_Attributes$contextmenu = function (value) {
@@ -9209,58 +9270,6 @@ var _Chadtech$elm_gulp_browserify_boilerplate$View_Components$words = F2(
 			});
 	});
 
-var _Chadtech$elm_gulp_browserify_boilerplate$LogIn_View$ready = function (_p0) {
-	var _p1 = _p0;
-	return (!_elm_lang$core$Native_Utils.eq(_p1.usernameField, '')) && (!_elm_lang$core$Native_Utils.eq(_p1.passwordField, ''));
-};
-var _Chadtech$elm_gulp_browserify_boilerplate$LogIn_View$view = function (model) {
-	return A2(
-		_Chadtech$elm_gulp_browserify_boilerplate$View_Components$card,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('solitary'),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_Chadtech$elm_gulp_browserify_boilerplate$View_Components$words,
-				{ctor: '[]'},
-				'Log In'),
-			_1: {
-				ctor: '::',
-				_0: A4(_Chadtech$elm_gulp_browserify_boilerplate$View_Components$field, 'username', 'username', model.usernameField, _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$UpdateUsernameField),
-				_1: {
-					ctor: '::',
-					_0: A4(_Chadtech$elm_gulp_browserify_boilerplate$View_Components$password, 'password', 'password', model.passwordField, _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$UpdatePasswordField),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$br,
-							{ctor: '[]'},
-							{ctor: '[]'}),
-						_1: {
-							ctor: '::',
-							_0: A3(
-								_Chadtech$elm_gulp_browserify_boilerplate$View_Components$button,
-								'Sign In',
-								_Chadtech$elm_gulp_browserify_boilerplate$LogIn_View$ready(model),
-								_Chadtech$elm_gulp_browserify_boilerplate$Main_Message$SignIn),
-							_1: {ctor: '[]'}
-						}
-					}
-				}
-			}
-		});
-};
-
-var _Chadtech$elm_gulp_browserify_boilerplate$Ports$toJS = _elm_lang$core$Native_Platform.outgoingPort(
-	'toJS',
-	function (v) {
-		return v;
-	});
-var _Chadtech$elm_gulp_browserify_boilerplate$Ports$fromJS = _elm_lang$core$Native_Platform.incomingPort('fromJS', _elm_lang$core$Json_Decode$string);
-
 var _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$button = F2(
 	function (currentPage, thisPage) {
 		var selected = _elm_lang$core$Native_Utils.eq(currentPage, thisPage) ? ' selected' : '';
@@ -9331,6 +9340,51 @@ var _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$view = function (model
 		});
 };
 
+var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_View$ready = function (_p0) {
+	var _p1 = _p0;
+	return (!_elm_lang$core$Native_Utils.eq(_p1.usernameField, '')) && (!_elm_lang$core$Native_Utils.eq(_p1.passwordField, ''));
+};
+var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_View$view = function (model) {
+	return A2(
+		_Chadtech$elm_gulp_browserify_boilerplate$View_Components$card,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('solitary'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_Chadtech$elm_gulp_browserify_boilerplate$View_Components$words,
+				{ctor: '[]'},
+				'Log In'),
+			_1: {
+				ctor: '::',
+				_0: A4(_Chadtech$elm_gulp_browserify_boilerplate$View_Components$field, 'username', 'username', model.usernameField, _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$UpdateUsernameField),
+				_1: {
+					ctor: '::',
+					_0: A4(_Chadtech$elm_gulp_browserify_boilerplate$View_Components$password, 'password', 'password', model.passwordField, _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$UpdatePasswordField),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$br,
+							{ctor: '[]'},
+							{ctor: '[]'}),
+						_1: {
+							ctor: '::',
+							_0: A3(
+								_Chadtech$elm_gulp_browserify_boilerplate$View_Components$button,
+								'Sign In',
+								_Chadtech$elm_gulp_browserify_boilerplate$SignIn_View$ready(model),
+								_Chadtech$elm_gulp_browserify_boilerplate$Main_Message$SignIn),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}
+		});
+};
+
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_View$view = function (model) {
 	return model.loggedIn ? A2(
 		_elm_lang$html$Html$div,
@@ -9352,14 +9406,46 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_View$view = function (model) 
 		},
 		{
 			ctor: '::',
-			_0: _Chadtech$elm_gulp_browserify_boilerplate$LogIn_View$view(model),
+			_0: _Chadtech$elm_gulp_browserify_boilerplate$SignIn_View$view(model),
 			_1: {ctor: '[]'}
 		});
 };
 
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Update$toRequest = F2(
+	function (model, sessionKey) {
+		return A2(
+			_elm_lang$core$Json_Encode$encode,
+			0,
+			_elm_lang$core$Json_Encode$object(
+				{
+					ctor: '::',
+					_0: {
+						ctor: '_Tuple2',
+						_0: 'username',
+						_1: _elm_lang$core$Json_Encode$string(model.usernameField)
+					},
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: 'password',
+							_1: _elm_lang$core$Json_Encode$string(model.passwordField)
+						},
+						_1: {
+							ctor: '::',
+							_0: {
+								ctor: '_Tuple2',
+								_0: 'sessionKey',
+								_1: _elm_lang$core$Json_Encode$string(sessionKey)
+							},
+							_1: {ctor: '[]'}
+						}
+					}
+				}));
+	});
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Update$update = F2(
 	function (message, model) {
-		var _p0 = message;
+		var _p0 = A2(_elm_lang$core$Debug$log, 'MESSAGE', message);
 		switch (_p0.ctor) {
 			case 'SetPage':
 				return A2(
@@ -9379,6 +9465,7 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Update$update = F2(
 							}),
 						{ctor: '[]'});
 				} else {
+					var _p1 = A2(_elm_lang$core$Debug$log, 'ERROR', _p0._0._0);
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
@@ -9390,6 +9477,15 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Update$update = F2(
 							_1: {ctor: '[]'}
 						});
 				}
+			case 'GetSessionKey':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							sessionKey: _elm_lang$core$Maybe$Just(_p0._0)
+						}),
+					{ctor: '[]'});
 			case 'UpdateUsernameField':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
@@ -9404,17 +9500,83 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Update$update = F2(
 						model,
 						{passwordField: _p0._0}),
 					{ctor: '[]'});
+			case 'SignIn':
+				var _p2 = {ctor: '_Tuple2', _0: model.sessionKey, _1: model.publicKey};
+				if (((_p2.ctor === '_Tuple2') && (_p2._0.ctor === 'Just')) && (_p2._1.ctor === 'Just')) {
+					return {
+						ctor: '_Tuple2',
+						_0: model,
+						_1: _Chadtech$elm_gulp_browserify_boilerplate$Ports$encrypt(
+							{
+								ctor: '_Tuple3',
+								_0: 'Sign In',
+								_1: A2(_Chadtech$elm_gulp_browserify_boilerplate$Main_Update$toRequest, model, _p2._0._0),
+								_2: _p2._1._0
+							})
+					};
+				} else {
+					return {
+						ctor: '_Tuple2',
+						_0: model,
+						_1: _elm_lang$core$Platform_Cmd$batch(
+							{
+								ctor: '::',
+								_0: _Chadtech$elm_gulp_browserify_boilerplate$Api_PublicKey$get,
+								_1: {
+									ctor: '::',
+									_0: _Chadtech$elm_gulp_browserify_boilerplate$Ports$requestSessionKey(
+										{ctor: '_Tuple0'}),
+									_1: {ctor: '[]'}
+								}
+							})
+					};
+				}
+			case 'SignInResult':
+				if (_p0._0.ctor === 'Ok') {
+					var _p3 = A2(_elm_lang$core$Debug$log, 'RESULT', _p0._0._0);
+					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				} else {
+					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				}
 			default:
-				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				var _p4 = _p0._0._0;
+				if (_p4 === 'Sign In') {
+					return {
+						ctor: '_Tuple2',
+						_0: model,
+						_1: _Chadtech$elm_gulp_browserify_boilerplate$Api_SignIn$signIn(_p0._0._1)
+					};
+				} else {
+					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				}
 		}
 	});
 
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Subscriptions$subscriptions = function (model) {
-	return _elm_lang$core$Platform_Sub$none;
+	return _elm_lang$core$Platform_Sub$batch(
+		{
+			ctor: '::',
+			_0: _Chadtech$elm_gulp_browserify_boilerplate$Ports$getSessionKey(_Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetSessionKey),
+			_1: {
+				ctor: '::',
+				_0: _Chadtech$elm_gulp_browserify_boilerplate$Ports$encryption(_Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetEncryption),
+				_1: {ctor: '[]'}
+			}
+		});
 };
 
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Init$cmd = _Chadtech$elm_gulp_browserify_boilerplate$Api_PublicKey$get;
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Init$model = {page: _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$User, publicKey: _elm_lang$core$Maybe$Nothing, usernameField: '', passwordField: '', loggedIn: false};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Init$cmd = _elm_lang$core$Platform_Cmd$batch(
+	{
+		ctor: '::',
+		_0: _Chadtech$elm_gulp_browserify_boilerplate$Api_PublicKey$get,
+		_1: {
+			ctor: '::',
+			_0: _Chadtech$elm_gulp_browserify_boilerplate$Ports$requestSessionKey(
+				{ctor: '_Tuple0'}),
+			_1: {ctor: '[]'}
+		}
+	});
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Init$model = {page: _Chadtech$elm_gulp_browserify_boilerplate$Main_Model$User, publicKey: _elm_lang$core$Maybe$Nothing, sessionKey: _elm_lang$core$Maybe$Nothing, usernameField: '', passwordField: '', loggedIn: false};
 
 var _Chadtech$elm_gulp_browserify_boilerplate$Main$main = _elm_lang$html$Html$program(
 	{

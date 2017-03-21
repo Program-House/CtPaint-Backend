@@ -7,4 +7,7 @@ import Ports exposing (..)
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
+    Sub.batch
+        [ getSessionKey GetSessionKey
+        , encryption GetEncryption
+        ]

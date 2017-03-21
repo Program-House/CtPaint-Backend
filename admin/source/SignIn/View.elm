@@ -1,4 +1,4 @@
-module LogIn.View exposing (view)
+module SignIn.View exposing (view)
 
 import Html exposing (Html, br)
 import Html.Attributes exposing (class)
