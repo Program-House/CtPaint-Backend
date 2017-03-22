@@ -2,8 +2,10 @@ module View.Components exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (class, placeholder, value, type_)
-import Html.Events exposing (onInput, onClick)
+import Html.Events exposing (onInput, onClick, on, keyCode)
 import Main.Message exposing (Msg(..))
+import SignIn.Message exposing (SignInMsg(..))
+import Json.Decode as Json
 
 
 words : List (Attribute Msg) -> String -> Html Msg
@@ -37,8 +39,14 @@ password labelText placeholder_ content msg =
             , value content
             , onInput msg
             , type_ "password"
+            , ifEnter (SignInWrapper << HandleEnter)
             ]
             []
+
+
+ifEnter : (Bool -> Msg) -> Attribute Msg
+ifEnter msg =
+    on "keydown" <| Json.map (msg << (==) 13) keyCode
 
 
 container : String -> Html Msg -> Html Msg

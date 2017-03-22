@@ -17,6 +17,7 @@ model =
     , passwordField = ""
     , loggedIn = False
     , withEncryption = always Cmd.none
+    , withPlaintext = Nothing
     }
 
 
@@ -25,4 +26,5 @@ cmd =
     Cmd.batch
         [ PublicKey.get
         , Ports.requestSessionToken ()
+        , Ports.requestPublicKey ()
         ]

@@ -35,6 +35,12 @@ update message model =
                 }
                     ! [ PublicKey.get ]
 
+        GetClientsPublicKey key ->
+            { model
+                | clientsPublicKey = Just key
+            }
+                ! []
+
         GetSessionToken token ->
             { model
                 | sessionToken = Just token
@@ -44,5 +50,13 @@ update message model =
         GetEncryption cipher ->
             ( model, model.withEncryption cipher )
 
+        GetPlaintext text ->
+            case model.withPlaintext of
+                Just msg ->
+                    update (msg text) model
+
+                Nothing ->
+                    ( model, Cmd.none )
+
         SignInWrapper signInMessage ->
-            SignIn.update model signInMessage
+            SignIn.update signInMessage model

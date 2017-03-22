@@ -10,4 +10,6 @@ subscriptions model =
     Sub.batch
         [ Ports.getSessionToken GetSessionToken
         , Ports.getEncryption GetEncryption
+        , Ports.getPublicKey GetClientsPublicKey
+        , Ports.getPlaintext GetPlaintext
         ]

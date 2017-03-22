@@ -5,11 +5,13 @@ import Main.Message exposing (Msg(..))
 import SignIn.Message exposing (SignInMsg(..))
 import SignIn.Handle as SignIn
 import Api.SignIn exposing (signIn)
-import Debug exposing (log)
+import Ports
+import Json.Decode as Json
+import SignIn.Result as Result
 
 
-update : Model -> SignInMsg -> ( Model, Cmd Msg )
-update model signInMessage =
+update : SignInMsg -> Model -> ( Model, Cmd Msg )
+update signInMessage model =
     case signInMessage of
         UpdateUsernameField str ->
             { model
@@ -29,12 +31,18 @@ update model signInMessage =
             }
                 |> SignIn.handle
 
-        SignInResult (Ok str) ->
-            let
-                _ =
-                    log "RESULT" str
-            in
-                ( model, Cmd.none )
+        SignInResult (Ok json) ->
+            Result.handle json model
 
+        SignInPlaintext json ->
+            Result.plaintext json model
+
+        --( model, Cmd.none )
         SignInResult (Err err) ->
+            ( model, Cmd.none )
+
+        HandleEnter True ->
+            update SignIn model
+
+        HandleEnter False ->
             ( model, Cmd.none )

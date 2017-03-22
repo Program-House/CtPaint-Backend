@@ -2,6 +2,7 @@ r = require "rethinkdb"
 db = r.db "ctpaint"
 hash = require "../hash"
 cryptico = require "cryptico"
+hash = require "../hash"
 
 
 module.exports.update = (connection, body, next) ->
@@ -13,9 +14,15 @@ module.exports.update = (connection, body, next) ->
           .update (session : body.sessionToken)
           .run connection, (err, result) ->
             if err then throw err
-            # encryption = cryptico.encrypt "Success", body.sessionToken
-            # next (cipher: encryption.cipher)
-            next (msg : "Success")
+
+            reply =
+              msg: "Success"
+              salt: hash.salt()
+
+            stringifiedReply = JSON.stringify reply
+
+            encryption = cryptico.encrypt stringifiedReply, body.publicKey
+            next (cipher: encryption.cipher)
       else
         next (msg : "Failure")
     else
