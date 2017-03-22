@@ -6530,6 +6530,22 @@ var _elm_lang$http$Http$StringPart = F2(
 	});
 var _elm_lang$http$Http$stringPart = _elm_lang$http$Http$StringPart;
 
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$UsersState = F2(
+	function (a, b) {
+		return {users: a, current: b};
+	});
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$AdministratorsState = F2(
+	function (a, b) {
+		return {administrators: a, current: b};
+	});
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$ProjectsState = F2(
+	function (a, b) {
+		return {projects: a, current: b};
+	});
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$VerificationsState = F2(
+	function (a, b) {
+		return {verifications: a, current: b};
+	});
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$User = F3(
 	function (a, b, c) {
 		return {username: a, email: b, verified: c};
@@ -6545,10 +6561,18 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Project = F2(
 	function (a, b) {
 		return {owner: a, members: b};
 	});
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Administrators = {ctor: 'Administrators'};
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Projects = {ctor: 'Projects'};
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Verifications = {ctor: 'Verifications'};
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Users = {ctor: 'Users'};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$AdministratorsPage = function (a) {
+	return {ctor: 'AdministratorsPage', _0: a};
+};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$ProjectsPage = function (a) {
+	return {ctor: 'ProjectsPage', _0: a};
+};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$VerificationsPage = function (a) {
+	return {ctor: 'VerificationsPage', _0: a};
+};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$UsersPage = function (a) {
+	return {ctor: 'UsersPage', _0: a};
+};
 
 var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Message$HandleEnter = function (a) {
 	return {ctor: 'HandleEnter', _0: a};
@@ -9330,9 +9354,47 @@ var _Chadtech$elm_gulp_browserify_boilerplate$View_Components$words = F2(
 			});
 	});
 
+var _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$areSame = F2(
+	function (page, str) {
+		var _p0 = {ctor: '_Tuple2', _0: str, _1: page};
+		_v0_4:
+		do {
+			if (_p0.ctor === '_Tuple2') {
+				switch (_p0._1.ctor) {
+					case 'UsersPage':
+						if (_p0._0 === 'Users') {
+							return true;
+						} else {
+							break _v0_4;
+						}
+					case 'VerificationsPage':
+						if (_p0._0 === 'Verifications') {
+							return true;
+						} else {
+							break _v0_4;
+						}
+					case 'ProjectsPage':
+						if (_p0._0 === 'Projects') {
+							return true;
+						} else {
+							break _v0_4;
+						}
+					default:
+						if (_p0._0 === 'Administrators') {
+							return true;
+						} else {
+							break _v0_4;
+						}
+				}
+			} else {
+				break _v0_4;
+			}
+		} while(false);
+		return false;
+	});
 var _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$button = F2(
 	function (currentPage, thisPage) {
-		var selected = _elm_lang$core$Native_Utils.eq(currentPage, thisPage) ? ' selected' : '';
+		var selected = A2(_Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$areSame, currentPage, thisPage) ? ' selected' : '';
 		return A3(
 			_elm_lang$html$Html$node,
 			'appbarbutton',
@@ -9355,7 +9417,7 @@ var _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$button = F2(
 						_0: _elm_lang$html$Html_Attributes$class(selected),
 						_1: {ctor: '[]'}
 					},
-					_elm_lang$core$Basics$toString(thisPage)),
+					thisPage),
 				_1: {
 					ctor: '::',
 					_0: A2(
@@ -9383,16 +9445,16 @@ var _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$view = function (model
 	return _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$appbar(
 		{
 			ctor: '::',
-			_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Users),
+			_0: button_('Users'),
 			_1: {
 				ctor: '::',
-				_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Verifications),
+				_0: button_('Verifications'),
 				_1: {
 					ctor: '::',
-					_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Projects),
+					_0: button_('Projects'),
 					_1: {
 						ctor: '::',
-						_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Administrators),
+						_0: button_('Administrators'),
 						_1: {ctor: '[]'}
 					}
 				}
@@ -9662,6 +9724,39 @@ var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Update$update = F2(
 		}
 	});
 
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_SetPage$handle = F2(
+	function (str, page) {
+		var _p0 = str;
+		switch (_p0) {
+			case 'Users':
+				return _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$UsersPage(
+					{
+						users: {ctor: '[]'},
+						current: _elm_lang$core$Maybe$Nothing
+					});
+			case 'Verifications':
+				return _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$VerificationsPage(
+					{
+						verifications: {ctor: '[]'},
+						current: _elm_lang$core$Maybe$Nothing
+					});
+			case 'Projects':
+				return _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$ProjectsPage(
+					{
+						projects: {ctor: '[]'},
+						current: _elm_lang$core$Maybe$Nothing
+					});
+			case 'Adminstrators':
+				return _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$AdministratorsPage(
+					{
+						administrators: {ctor: '[]'},
+						current: _elm_lang$core$Maybe$Nothing
+					});
+			default:
+				return page;
+		}
+	});
+
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Update$update = F2(
 	function (message, model) {
 		update:
@@ -9673,7 +9768,9 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Update$update = F2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
 							model,
-							{page: _p0._0}),
+							{
+								page: A2(_Chadtech$elm_gulp_browserify_boilerplate$Main_SetPage$handle, _p0._0, model.page)
+							}),
 						{ctor: '[]'});
 				case 'GetServersPublicKey':
 					if (_p0._0.ctor === 'Ok') {
@@ -9777,7 +9874,11 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Init$cmd = _elm_lang$core$Pla
 		}
 	});
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Init$model = {
-	page: _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Users,
+	page: _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$UsersPage(
+		{
+			users: {ctor: '[]'},
+			current: _elm_lang$core$Maybe$Nothing
+		}),
 	serversPublicKey: _elm_lang$core$Maybe$Nothing,
 	sessionToken: _elm_lang$core$Maybe$Nothing,
 	clientsPublicKey: _elm_lang$core$Maybe$Nothing,

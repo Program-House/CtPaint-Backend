@@ -7,7 +7,7 @@ import SignIn.Message exposing (SignInMsg(..))
 
 
 type Msg
-    = SetPage Page
+    = SetPage String
     | GetServersPublicKey (Result Http.Error String)
     | GetClientsPublicKey String
     | GetSessionToken String

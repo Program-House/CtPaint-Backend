@@ -7,6 +7,7 @@ import Ports
 import Api.SignIn exposing (signIn)
 import Json.Encode as Encode
 import SignIn.Update as SignIn
+import Main.SetPage as SetPage
 import Debug exposing (log)
 
 
@@ -15,7 +16,8 @@ update message model =
     case message of
         SetPage page ->
             { model
-                | page = page
+                | page =
+                    SetPage.handle page model.page
             }
                 ! []
 

@@ -16,10 +16,10 @@ view model =
             button model.page
     in
         appbar
-            [ button_ Users
-            , button_ Verifications
-            , button_ Projects
-            , button_ Administrators
+            [ button_ "Users"
+            , button_ "Verifications"
+            , button_ "Projects"
+            , button_ "Administrators"
             ]
 
 
@@ -28,11 +28,11 @@ appbar children =
     node "appbar" [] children
 
 
-button : Page -> Page -> Html Msg
+button : Page -> String -> Html Msg
 button currentPage thisPage =
     let
         selected =
-            if currentPage == thisPage then
+            if areSame currentPage thisPage then
                 " selected"
             else
                 ""
@@ -44,8 +44,27 @@ button currentPage thisPage =
             ]
             [ words
                 [ class selected ]
-                (toString thisPage)
+                thisPage
             , hr
                 [ class ("button-bottom-border" ++ selected) ]
                 []
             ]
+
+
+areSame : Page -> String -> Bool
+areSame page str =
+    case ( str, page ) of
+        ( "Users", UsersPage _ ) ->
+            True
+
+        ( "Verifications", VerificationsPage _ ) ->
+            True
+
+        ( "Projects", ProjectsPage _ ) ->
+            True
+
+        ( "Administrators", AdministratorsPage _ ) ->
+            True
+
+        _ ->
+            False

@@ -9,7 +9,11 @@ import Ports
 
 model : Model
 model =
-    { page = Users
+    { page =
+        UsersPage
+            { users = []
+            , current = Nothing
+            }
     , serversPublicKey = Nothing
     , sessionToken = Nothing
     , clientsPublicKey = Nothing
