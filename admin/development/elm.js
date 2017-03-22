@@ -6530,10 +6530,25 @@ var _elm_lang$http$Http$StringPart = F2(
 	});
 var _elm_lang$http$Http$stringPart = _elm_lang$http$Http$StringPart;
 
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Administrator = {ctor: 'Administrator'};
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Project = {ctor: 'Project'};
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Verification = {ctor: 'Verification'};
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$User = {ctor: 'User'};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$User = F3(
+	function (a, b, c) {
+		return {username: a, email: b, verified: c};
+	});
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Admin = function (a) {
+	return {username: a};
+};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Verification = F2(
+	function (a, b) {
+		return {email: a, code: b};
+	});
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Project = F2(
+	function (a, b) {
+		return {owner: a, members: b};
+	});
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Administrators = {ctor: 'Administrators'};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Projects = {ctor: 'Projects'};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Verifications = {ctor: 'Verifications'};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Users = {ctor: 'Users'};
 
 var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Message$HandleEnter = function (a) {
 	return {ctor: 'HandleEnter', _0: a};
@@ -9368,16 +9383,16 @@ var _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$view = function (model
 	return _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$appbar(
 		{
 			ctor: '::',
-			_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Types$User),
+			_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Users),
 			_1: {
 				ctor: '::',
-				_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Verification),
+				_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Verifications),
 				_1: {
 					ctor: '::',
-					_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Project),
+					_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Projects),
 					_1: {
 						ctor: '::',
-						_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Administrator),
+						_0: button_(_Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Administrators),
 						_1: {ctor: '[]'}
 					}
 				}
@@ -9561,7 +9576,7 @@ var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Result$plaintext = F2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
-						{loggedIn: true}),
+						{loggedIn: true, withPlaintext: _elm_lang$core$Maybe$Nothing}),
 					{ctor: '[]'});
 			} else {
 				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
@@ -9762,7 +9777,7 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Init$cmd = _elm_lang$core$Pla
 		}
 	});
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Init$model = {
-	page: _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$User,
+	page: _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Users,
 	serversPublicKey: _elm_lang$core$Maybe$Nothing,
 	sessionToken: _elm_lang$core$Maybe$Nothing,
 	clientsPublicKey: _elm_lang$core$Maybe$Nothing,

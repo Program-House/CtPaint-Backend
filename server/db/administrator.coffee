@@ -29,7 +29,6 @@ module.exports.update = (connection, body, next) ->
       next (msg : "Failure")
 
 
-
 adminExists = (connection, username, next) ->
   db.table "administrator"
     .filter ((r.row "username").eq username)

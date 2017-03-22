@@ -46,6 +46,7 @@ plaintext json model =
                     "Success" ->
                         { model
                             | loggedIn = True
+                            , withPlaintext = Nothing
                         }
                             ! []
 

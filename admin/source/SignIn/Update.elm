@@ -37,7 +37,6 @@ update signInMessage model =
         SignInPlaintext json ->
             Result.plaintext json model
 
-        --( model, Cmd.none )
         SignInResult (Err err) ->
             ( model, Cmd.none )
 

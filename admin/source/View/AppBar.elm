@@ -16,10 +16,10 @@ view model =
             button model.page
     in
         appbar
-            [ button_ User
-            , button_ Verification
-            , button_ Project
-            , button_ Administrator
+            [ button_ Users
+            , button_ Verifications
+            , button_ Projects
+            , button_ Administrators
             ]
 
 
