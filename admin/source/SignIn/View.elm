@@ -5,7 +5,8 @@ import Html.Attributes exposing (class)
 import Main.Message exposing (Msg(..))
 import SignIn.Message exposing (SignInMsg(..))
 import Main.Model exposing (Model)
-import View.Components exposing (card, words, field, password, button)
+import SignIn.Components exposing (field, password, button)
+import View.Basics exposing (card, words)
 
 
 view : Model -> Html Msg

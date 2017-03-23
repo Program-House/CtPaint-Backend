@@ -6,7 +6,7 @@ import Html.Events exposing (onClick)
 import Main.Message exposing (Msg(..))
 import Main.Model exposing (Model)
 import Main.Types exposing (Page(..))
-import View.Components exposing (words)
+import View.Basics exposing (words)
 
 
 view : Model -> Html Msg

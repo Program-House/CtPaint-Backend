@@ -174,9 +174,17 @@ fieldlabel {
 }
 .field-container {
   height: 29px;
-  width: 400px;
   margin: 0 auto;
   margin-top: 4px;
+}
+.field-container.sign-in {
+  width: 400px;
+}
+.field-container.user {
+  width: 450px;
+}
+.field-container.user fieldlabel {
+  width: 120px;
 }
 .field {
   border-top: 2px solid #131610;
@@ -206,6 +214,22 @@ fieldlabel {
   background-color: offWhite;
   border: 2px solid lightGray;
   outline: none;
+}
+page {
+  width: 100%;
+  height: calc(100vh - 30px);
+  top: 34px;
+  position: absolute;
+}
+leftcontainer {
+  width: 600px;
+  height: 600px;
+  position: absolute;
+  top: 16;
+  left: 16;
+}
+leftcontainer .field-container {
+  float: left;
 }
 .point {
   font-family: Arial;

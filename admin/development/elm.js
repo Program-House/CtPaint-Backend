@@ -6530,10 +6530,15 @@ var _elm_lang$http$Http$StringPart = F2(
 	});
 var _elm_lang$http$Http$stringPart = _elm_lang$http$Http$StringPart;
 
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$UsersState = F2(
-	function (a, b) {
-		return {users: a, current: b};
+var _Chadtech$elm_gulp_browserify_boilerplate$User_Model$User = F3(
+	function (a, b, c) {
+		return {username: a, email: b, verified: c};
 	});
+var _Chadtech$elm_gulp_browserify_boilerplate$User_Model$Model = F3(
+	function (a, b, c) {
+		return {users: a, current: b, usernameField: c};
+	});
+
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$AdministratorsState = F2(
 	function (a, b) {
 		return {administrators: a, current: b};
@@ -6545,10 +6550,6 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$ProjectsState = F2(
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$VerificationsState = F2(
 	function (a, b) {
 		return {verifications: a, current: b};
-	});
-var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$User = F3(
-	function (a, b, c) {
-		return {username: a, email: b, verified: c};
 	});
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$Admin = function (a) {
 	return {username: a};
@@ -6591,11 +6592,18 @@ var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Message$SignInResult = func
 };
 var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Message$SignIn = {ctor: 'SignIn'};
 
+var _Chadtech$elm_gulp_browserify_boilerplate$User_Message$UpdateUsernameField = function (a) {
+	return {ctor: 'UpdateUsernameField', _0: a};
+};
+
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetPlaintext = function (a) {
 	return {ctor: 'GetPlaintext', _0: a};
 };
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$GetEncryption = function (a) {
 	return {ctor: 'GetEncryption', _0: a};
+};
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$UserWrapper = function (a) {
+	return {ctor: 'UserWrapper', _0: a};
 };
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$SignInWrapper = function (a) {
 	return {ctor: 'SignInWrapper', _0: a};
@@ -9071,6 +9079,72 @@ var _elm_lang$html$Html_Attributes$classList = function (list) {
 };
 var _elm_lang$html$Html_Attributes$style = _elm_lang$virtual_dom$VirtualDom$style;
 
+var _Chadtech$elm_gulp_browserify_boilerplate$View_Basics$field = function (attributes) {
+	return A2(
+		_elm_lang$html$Html$input,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('field'),
+			_1: attributes
+		},
+		{ctor: '[]'});
+};
+var _Chadtech$elm_gulp_browserify_boilerplate$View_Basics$label = function (str) {
+	return A3(
+		_elm_lang$html$Html$node,
+		'fieldlabel',
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(str),
+			_1: {ctor: '[]'}
+		});
+};
+var _Chadtech$elm_gulp_browserify_boilerplate$View_Basics$leftContainer = A2(
+	_elm_lang$html$Html$node,
+	'leftcontainer',
+	{ctor: '[]'});
+var _Chadtech$elm_gulp_browserify_boilerplate$View_Basics$container = F3(
+	function (extraClass, labelText, input) {
+		return A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class(
+					A2(_elm_lang$core$Basics_ops['++'], 'field-container ', extraClass)),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: _Chadtech$elm_gulp_browserify_boilerplate$View_Basics$label(labelText),
+				_1: {
+					ctor: '::',
+					_0: input,
+					_1: {ctor: '[]'}
+				}
+			});
+	});
+var _Chadtech$elm_gulp_browserify_boilerplate$View_Basics$page = A2(
+	_elm_lang$html$Html$node,
+	'page',
+	{ctor: '[]'});
+var _Chadtech$elm_gulp_browserify_boilerplate$View_Basics$card = F2(
+	function (attributes, children) {
+		return A3(_elm_lang$html$Html$node, 'card', attributes, children);
+	});
+var _Chadtech$elm_gulp_browserify_boilerplate$View_Basics$words = F2(
+	function (attributes, txt) {
+		return A3(
+			_elm_lang$html$Html$node,
+			'words',
+			attributes,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(txt),
+				_1: {ctor: '[]'}
+			});
+	});
+
 var _elm_lang$html$Html_Events$keyCode = A2(_elm_lang$core$Json_Decode$field, 'keyCode', _elm_lang$core$Json_Decode$int);
 var _elm_lang$html$Html_Events$targetChecked = A2(
 	_elm_lang$core$Json_Decode$at,
@@ -9186,174 +9260,6 @@ var _elm_lang$html$Html_Events$Options = F2(
 		return {stopPropagation: a, preventDefault: b};
 	});
 
-var _Chadtech$elm_gulp_browserify_boilerplate$View_Components$buttonAttributes = F3(
-	function (label, ready, msg) {
-		return ready ? {
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('button'),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$html$Html_Events$onClick(msg),
-				_1: {
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$type_('submit'),
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$value(label),
-						_1: {ctor: '[]'}
-					}
-				}
-			}
-		} : {
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('button not-ready'),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$value(label),
-				_1: {
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$type_('submit'),
-					_1: {ctor: '[]'}
-				}
-			}
-		};
-	});
-var _Chadtech$elm_gulp_browserify_boilerplate$View_Components$button = F3(
-	function (label, ready, msg) {
-		return A2(
-			_elm_lang$html$Html$input,
-			A3(_Chadtech$elm_gulp_browserify_boilerplate$View_Components$buttonAttributes, label, ready, msg),
-			{ctor: '[]'});
-	});
-var _Chadtech$elm_gulp_browserify_boilerplate$View_Components$label = function (str) {
-	return A3(
-		_elm_lang$html$Html$node,
-		'fieldlabel',
-		{ctor: '[]'},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html$text(str),
-			_1: {ctor: '[]'}
-		});
-};
-var _Chadtech$elm_gulp_browserify_boilerplate$View_Components$container = F2(
-	function (labelText, input_) {
-		return A2(
-			_elm_lang$html$Html$div,
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$class('field-container'),
-				_1: {ctor: '[]'}
-			},
-			{
-				ctor: '::',
-				_0: _Chadtech$elm_gulp_browserify_boilerplate$View_Components$label(labelText),
-				_1: {
-					ctor: '::',
-					_0: input_,
-					_1: {ctor: '[]'}
-				}
-			});
-	});
-var _Chadtech$elm_gulp_browserify_boilerplate$View_Components$ifEnter = function (msg) {
-	return A2(
-		_elm_lang$html$Html_Events$on,
-		'keydown',
-		A2(
-			_elm_lang$core$Json_Decode$map,
-			function (_p0) {
-				return msg(
-					A2(
-						F2(
-							function (x, y) {
-								return _elm_lang$core$Native_Utils.eq(x, y);
-							}),
-						13,
-						_p0));
-			},
-			_elm_lang$html$Html_Events$keyCode));
-};
-var _Chadtech$elm_gulp_browserify_boilerplate$View_Components$password = F4(
-	function (labelText, placeholder_, content, msg) {
-		return A2(
-			_Chadtech$elm_gulp_browserify_boilerplate$View_Components$container,
-			labelText,
-			A2(
-				_elm_lang$html$Html$input,
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$class('field'),
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$placeholder(placeholder_),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$value(content),
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$html$Html_Events$onInput(msg),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$type_('password'),
-									_1: {
-										ctor: '::',
-										_0: _Chadtech$elm_gulp_browserify_boilerplate$View_Components$ifEnter(
-											function (_p1) {
-												return _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$SignInWrapper(
-													_Chadtech$elm_gulp_browserify_boilerplate$SignIn_Message$HandleEnter(_p1));
-											}),
-										_1: {ctor: '[]'}
-									}
-								}
-							}
-						}
-					}
-				},
-				{ctor: '[]'}));
-	});
-var _Chadtech$elm_gulp_browserify_boilerplate$View_Components$field = F4(
-	function (labelText, placeholder_, content, msg) {
-		return A2(
-			_Chadtech$elm_gulp_browserify_boilerplate$View_Components$container,
-			labelText,
-			A2(
-				_elm_lang$html$Html$input,
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$class('field'),
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$placeholder(placeholder_),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$value(content),
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$html$Html_Events$onInput(msg),
-								_1: {ctor: '[]'}
-							}
-						}
-					}
-				},
-				{ctor: '[]'}));
-	});
-var _Chadtech$elm_gulp_browserify_boilerplate$View_Components$card = F2(
-	function (attributes, children) {
-		return A3(_elm_lang$html$Html$node, 'card', attributes, children);
-	});
-var _Chadtech$elm_gulp_browserify_boilerplate$View_Components$words = F2(
-	function (attributes, txt) {
-		return A3(
-			_elm_lang$html$Html$node,
-			'words',
-			attributes,
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html$text(txt),
-				_1: {ctor: '[]'}
-			});
-	});
-
 var _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$areSame = F2(
 	function (page, str) {
 		var _p0 = {ctor: '_Tuple2', _0: str, _1: page};
@@ -9411,7 +9317,7 @@ var _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$button = F2(
 			{
 				ctor: '::',
 				_0: A2(
-					_Chadtech$elm_gulp_browserify_boilerplate$View_Components$words,
+					_Chadtech$elm_gulp_browserify_boilerplate$View_Basics$words,
 					{
 						ctor: '::',
 						_0: _elm_lang$html$Html_Attributes$class(selected),
@@ -9462,13 +9368,126 @@ var _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$view = function (model
 		});
 };
 
+var _Chadtech$elm_gulp_browserify_boilerplate$View_Events$ifEnter = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'keydown',
+		A2(
+			_elm_lang$core$Json_Decode$map,
+			function (_p0) {
+				return msg(
+					A2(
+						F2(
+							function (x, y) {
+								return _elm_lang$core$Native_Utils.eq(x, y);
+							}),
+						13,
+						_p0));
+			},
+			_elm_lang$html$Html_Events$keyCode));
+};
+
+var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Components$buttonAttributes = F3(
+	function (label, ready, msg) {
+		return ready ? {
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('button'),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Events$onClick(msg),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$type_('submit'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$value(label),
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		} : {
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('button not-ready'),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$value(label),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$type_('submit'),
+					_1: {ctor: '[]'}
+				}
+			}
+		};
+	});
+var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Components$button = F3(
+	function (label, ready, msg) {
+		return A2(
+			_elm_lang$html$Html$input,
+			A3(_Chadtech$elm_gulp_browserify_boilerplate$SignIn_Components$buttonAttributes, label, ready, msg),
+			{ctor: '[]'});
+	});
+var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Components$password = F4(
+	function (labelText, placeholder_, content, msg) {
+		return A3(
+			_Chadtech$elm_gulp_browserify_boilerplate$View_Basics$container,
+			'sign-in',
+			labelText,
+			_Chadtech$elm_gulp_browserify_boilerplate$View_Basics$field(
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$placeholder(placeholder_),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$value(content),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onInput(msg),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$type_('password'),
+								_1: {
+									ctor: '::',
+									_0: _Chadtech$elm_gulp_browserify_boilerplate$View_Events$ifEnter(
+										function (_p0) {
+											return _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$SignInWrapper(
+												_Chadtech$elm_gulp_browserify_boilerplate$SignIn_Message$HandleEnter(_p0));
+										}),
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					}
+				}));
+	});
+var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Components$field = F4(
+	function (labelText, placeholder_, content, msg) {
+		return A3(
+			_Chadtech$elm_gulp_browserify_boilerplate$View_Basics$container,
+			'sign-in',
+			labelText,
+			_Chadtech$elm_gulp_browserify_boilerplate$View_Basics$field(
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$placeholder(placeholder_),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$value(content),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onInput(msg),
+							_1: {ctor: '[]'}
+						}
+					}
+				}));
+	});
+
 var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_View$ready = function (_p0) {
 	var _p1 = _p0;
 	return (!_elm_lang$core$Native_Utils.eq(_p1.usernameField, '')) && (!_elm_lang$core$Native_Utils.eq(_p1.passwordField, ''));
 };
 var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_View$view = function (model) {
 	return A2(
-		_Chadtech$elm_gulp_browserify_boilerplate$View_Components$card,
+		_Chadtech$elm_gulp_browserify_boilerplate$View_Basics$card,
 		{
 			ctor: '::',
 			_0: _elm_lang$html$Html_Attributes$class('solitary'),
@@ -9477,13 +9496,13 @@ var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_View$view = function (model
 		{
 			ctor: '::',
 			_0: A2(
-				_Chadtech$elm_gulp_browserify_boilerplate$View_Components$words,
+				_Chadtech$elm_gulp_browserify_boilerplate$View_Basics$words,
 				{ctor: '[]'},
 				'Log In'),
 			_1: {
 				ctor: '::',
 				_0: A4(
-					_Chadtech$elm_gulp_browserify_boilerplate$View_Components$field,
+					_Chadtech$elm_gulp_browserify_boilerplate$SignIn_Components$field,
 					'username',
 					'username',
 					model.usernameField,
@@ -9494,7 +9513,7 @@ var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_View$view = function (model
 				_1: {
 					ctor: '::',
 					_0: A4(
-						_Chadtech$elm_gulp_browserify_boilerplate$View_Components$password,
+						_Chadtech$elm_gulp_browserify_boilerplate$SignIn_Components$password,
 						'password',
 						'password',
 						model.passwordField,
@@ -9511,7 +9530,7 @@ var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_View$view = function (model
 						_1: {
 							ctor: '::',
 							_0: A3(
-								_Chadtech$elm_gulp_browserify_boilerplate$View_Components$button,
+								_Chadtech$elm_gulp_browserify_boilerplate$SignIn_Components$button,
 								'Sign In',
 								_Chadtech$elm_gulp_browserify_boilerplate$SignIn_View$ready(model),
 								_Chadtech$elm_gulp_browserify_boilerplate$Main_Message$SignInWrapper(_Chadtech$elm_gulp_browserify_boilerplate$SignIn_Message$SignIn)),
@@ -9523,6 +9542,98 @@ var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_View$view = function (model
 		});
 };
 
+var _Chadtech$elm_gulp_browserify_boilerplate$User_Components$buttonAttributes = F3(
+	function (label, ready, msg) {
+		return ready ? {
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('button'),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Events$onClick(msg),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$type_('submit'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$value(label),
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		} : {
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('button not-ready'),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$value(label),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$type_('submit'),
+					_1: {ctor: '[]'}
+				}
+			}
+		};
+	});
+var _Chadtech$elm_gulp_browserify_boilerplate$User_Components$button = F3(
+	function (label, ready, msg) {
+		return A2(
+			_elm_lang$html$Html$input,
+			A3(_Chadtech$elm_gulp_browserify_boilerplate$User_Components$buttonAttributes, label, ready, msg),
+			{ctor: '[]'});
+	});
+var _Chadtech$elm_gulp_browserify_boilerplate$User_Components$field = F4(
+	function (labelText, placeholder_, content, msg) {
+		return A3(
+			_Chadtech$elm_gulp_browserify_boilerplate$View_Basics$container,
+			'user',
+			labelText,
+			_Chadtech$elm_gulp_browserify_boilerplate$View_Basics$field(
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$placeholder(placeholder_),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$value(content),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onInput(msg),
+							_1: {ctor: '[]'}
+						}
+					}
+				}));
+	});
+
+var _Chadtech$elm_gulp_browserify_boilerplate$User_View$view = F2(
+	function (model, userModel) {
+		return _Chadtech$elm_gulp_browserify_boilerplate$View_Basics$page(
+			{
+				ctor: '::',
+				_0: _Chadtech$elm_gulp_browserify_boilerplate$View_Basics$leftContainer(
+					{
+						ctor: '::',
+						_0: A4(
+							_Chadtech$elm_gulp_browserify_boilerplate$User_Components$field,
+							'username',
+							'username',
+							'',
+							function (_p0) {
+								return _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$UserWrapper(
+									_Chadtech$elm_gulp_browserify_boilerplate$User_Message$UpdateUsernameField(_p0));
+							}),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			});
+	});
+
+var _Chadtech$elm_gulp_browserify_boilerplate$Main_View$page = function (model) {
+	var _p0 = model.page;
+	if (_p0.ctor === 'UsersPage') {
+		return A2(_Chadtech$elm_gulp_browserify_boilerplate$User_View$view, model, _p0._0);
+	} else {
+		return _elm_lang$html$Html$text('');
+	}
+};
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_View$view = function (model) {
 	return model.loggedIn ? A2(
 		_elm_lang$html$Html$div,
@@ -9534,7 +9645,11 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_View$view = function (model) 
 		{
 			ctor: '::',
 			_0: _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$view(model),
-			_1: {ctor: '[]'}
+			_1: {
+				ctor: '::',
+				_0: _Chadtech$elm_gulp_browserify_boilerplate$Main_View$page(model),
+				_1: {ctor: '[]'}
+			}
 		}) : A2(
 		_elm_lang$html$Html$div,
 		{
@@ -9724,6 +9839,11 @@ var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Update$update = F2(
 		}
 	});
 
+var _Chadtech$elm_gulp_browserify_boilerplate$User_Update$update = F3(
+	function (userMessage, state, model) {
+		return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+	});
+
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_SetPage$handle = F2(
 	function (str, page) {
 		var _p0 = str;
@@ -9732,7 +9852,8 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_SetPage$handle = F2(
 				return _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$UsersPage(
 					{
 						users: {ctor: '[]'},
-						current: _elm_lang$core$Maybe$Nothing
+						current: _elm_lang$core$Maybe$Nothing,
+						usernameField: ''
 					});
 			case 'Verifications':
 				return _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$VerificationsPage(
@@ -9746,7 +9867,7 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_SetPage$handle = F2(
 						projects: {ctor: '[]'},
 						current: _elm_lang$core$Maybe$Nothing
 					});
-			case 'Adminstrators':
+			case 'Administrators':
 				return _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$AdministratorsPage(
 					{
 						administrators: {ctor: '[]'},
@@ -9830,8 +9951,15 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Update$update = F2(
 					} else {
 						return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 					}
-				default:
+				case 'SignInWrapper':
 					return A2(_Chadtech$elm_gulp_browserify_boilerplate$SignIn_Update$update, _p0._0, model);
+				default:
+					var _p3 = model.page;
+					if (_p3.ctor === 'UsersPage') {
+						return A3(_Chadtech$elm_gulp_browserify_boilerplate$User_Update$update, _p0._0, _p3._0, model);
+					} else {
+						return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+					}
 			}
 		}
 	});
@@ -9877,14 +10005,15 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Init$model = {
 	page: _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$UsersPage(
 		{
 			users: {ctor: '[]'},
-			current: _elm_lang$core$Maybe$Nothing
+			current: _elm_lang$core$Maybe$Nothing,
+			usernameField: ''
 		}),
 	serversPublicKey: _elm_lang$core$Maybe$Nothing,
 	sessionToken: _elm_lang$core$Maybe$Nothing,
 	clientsPublicKey: _elm_lang$core$Maybe$Nothing,
 	usernameField: '',
 	passwordField: '',
-	loggedIn: false,
+	loggedIn: true,
 	withEncryption: _elm_lang$core$Basics$always(_elm_lang$core$Platform_Cmd$none),
 	withPlaintext: _elm_lang$core$Maybe$Nothing
 };

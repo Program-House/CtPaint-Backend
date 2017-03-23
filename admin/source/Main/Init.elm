@@ -13,13 +13,17 @@ model =
         UsersPage
             { users = []
             , current = Nothing
+            , usernameField = ""
             }
     , serversPublicKey = Nothing
     , sessionToken = Nothing
     , clientsPublicKey = Nothing
     , usernameField = ""
-    , passwordField = ""
-    , loggedIn = False
+    , passwordField =
+        ""
+        --, loggedIn =
+        --False
+    , loggedIn = True
     , withEncryption = always Cmd.none
     , withPlaintext = Nothing
     }

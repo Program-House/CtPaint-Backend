@@ -1,24 +1,19 @@
 module Main.Types
     exposing
         ( Page(..)
-        , UsersState
         , AdministratorsState
         , ProjectsState
         , VerificationsState
         )
 
+import User.Model as User
+
 
 type Page
-    = UsersPage UsersState
+    = UsersPage User.Model
     | VerificationsPage VerificationsState
     | ProjectsPage ProjectsState
     | AdministratorsPage AdministratorsState
-
-
-type alias UsersState =
-    { users : List User
-    , current : Maybe String
-    }
 
 
 type alias AdministratorsState =
@@ -36,13 +31,6 @@ type alias ProjectsState =
 type alias VerificationsState =
     { verifications : List Verification
     , current : Maybe String
-    }
-
-
-type alias User =
-    { username : String
-    , email : String
-    , verified : Bool
     }
 
 
