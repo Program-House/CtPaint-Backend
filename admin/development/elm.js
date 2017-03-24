@@ -6530,13 +6530,19 @@ var _elm_lang$http$Http$StringPart = F2(
 	});
 var _elm_lang$http$Http$stringPart = _elm_lang$http$Http$StringPart;
 
-var _Chadtech$elm_gulp_browserify_boilerplate$User_Model$User = F3(
-	function (a, b, c) {
-		return {username: a, email: b, verified: c};
+var _Chadtech$elm_gulp_browserify_boilerplate$User_Model$init = {
+	users: {ctor: '[]'},
+	current: _elm_lang$core$Maybe$Nothing,
+	usernameField: '',
+	searchField: ''
+};
+var _Chadtech$elm_gulp_browserify_boilerplate$User_Model$User = F4(
+	function (a, b, c, d) {
+		return {username: a, email: b, verified: c, frozen: d};
 	});
-var _Chadtech$elm_gulp_browserify_boilerplate$User_Model$Model = F3(
-	function (a, b, c) {
-		return {users: a, current: b, usernameField: c};
+var _Chadtech$elm_gulp_browserify_boilerplate$User_Model$Model = F4(
+	function (a, b, c, d) {
+		return {users: a, current: b, usernameField: c, searchField: d};
 	});
 
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$AdministratorsState = F2(
@@ -6592,6 +6598,12 @@ var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Message$SignInResult = func
 };
 var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Message$SignIn = {ctor: 'SignIn'};
 
+var _Chadtech$elm_gulp_browserify_boilerplate$User_Message$HandleEnter = function (a) {
+	return {ctor: 'HandleEnter', _0: a};
+};
+var _Chadtech$elm_gulp_browserify_boilerplate$User_Message$UpdateSearchField = function (a) {
+	return {ctor: 'UpdateSearchField', _0: a};
+};
 var _Chadtech$elm_gulp_browserify_boilerplate$User_Message$UpdateUsernameField = function (a) {
 	return {ctor: 'UpdateUsernameField', _0: a};
 };
@@ -9092,7 +9104,7 @@ var _Chadtech$elm_gulp_browserify_boilerplate$View_Basics$field = function (attr
 var _Chadtech$elm_gulp_browserify_boilerplate$View_Basics$label = function (str) {
 	return A3(
 		_elm_lang$html$Html$node,
-		'fieldlabel',
+		'field-label',
 		{ctor: '[]'},
 		{
 			ctor: '::',
@@ -9102,7 +9114,7 @@ var _Chadtech$elm_gulp_browserify_boilerplate$View_Basics$label = function (str)
 };
 var _Chadtech$elm_gulp_browserify_boilerplate$View_Basics$leftContainer = A2(
 	_elm_lang$html$Html$node,
-	'leftcontainer',
+	'left-container',
 	{ctor: '[]'});
 var _Chadtech$elm_gulp_browserify_boilerplate$View_Basics$container = F3(
 	function (extraClass, labelText, input) {
@@ -9303,7 +9315,7 @@ var _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$button = F2(
 		var selected = A2(_Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$areSame, currentPage, thisPage) ? ' selected' : '';
 		return A3(
 			_elm_lang$html$Html$node,
-			'appbarbutton',
+			'app-bar-button',
 			{
 				ctor: '::',
 				_0: _elm_lang$html$Html_Events$onClick(
@@ -9342,7 +9354,7 @@ var _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$button = F2(
 var _Chadtech$elm_gulp_browserify_boilerplate$View_AppBar$appbar = function (children) {
 	return A3(
 		_elm_lang$html$Html$node,
-		'appbar',
+		'app-bar',
 		{ctor: '[]'},
 		children);
 };
@@ -9542,67 +9554,169 @@ var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_View$view = function (model
 		});
 };
 
-var _Chadtech$elm_gulp_browserify_boilerplate$User_Components$buttonAttributes = F3(
-	function (label, ready, msg) {
-		return ready ? {
+var _Chadtech$elm_gulp_browserify_boilerplate$User_Components$separator = A3(
+	_elm_lang$html$Html$node,
+	'separator',
+	{ctor: '[]'},
+	{ctor: '[]'});
+var _Chadtech$elm_gulp_browserify_boilerplate$User_Components$field = F5(
+	function (labelText, placeholder_, content, disabled, msg) {
+		var attributes = disabled ? {
 			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('button'),
+			_0: _elm_lang$html$Html_Attributes$class('field disabled'),
 			_1: {
 				ctor: '::',
-				_0: _elm_lang$html$Html_Events$onClick(msg),
+				_0: _elm_lang$html$Html_Attributes$value('username'),
 				_1: {
 					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$type_('submit'),
+					_0: _elm_lang$html$Html_Attributes$readonly(true),
 					_1: {
 						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$value(label),
+						_0: _elm_lang$html$Html_Attributes$placeholder(placeholder_),
 						_1: {ctor: '[]'}
 					}
 				}
 			}
 		} : {
 			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('button not-ready'),
+			_0: _elm_lang$html$Html_Attributes$class('field'),
 			_1: {
 				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$value(label),
+				_0: _elm_lang$html$Html_Events$onInput(msg),
 				_1: {
 					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$type_('submit'),
-					_1: {ctor: '[]'}
+					_0: _elm_lang$html$Html_Attributes$value(content),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$placeholder(placeholder_),
+						_1: {ctor: '[]'}
+					}
 				}
 			}
 		};
-	});
-var _Chadtech$elm_gulp_browserify_boilerplate$User_Components$button = F3(
-	function (label, ready, msg) {
-		return A2(
-			_elm_lang$html$Html$input,
-			A3(_Chadtech$elm_gulp_browserify_boilerplate$User_Components$buttonAttributes, label, ready, msg),
-			{ctor: '[]'});
-	});
-var _Chadtech$elm_gulp_browserify_boilerplate$User_Components$field = F4(
-	function (labelText, placeholder_, content, msg) {
 		return A3(
 			_Chadtech$elm_gulp_browserify_boilerplate$View_Basics$container,
 			'user',
 			labelText,
-			_Chadtech$elm_gulp_browserify_boilerplate$View_Basics$field(
-				{
+			A2(
+				_elm_lang$html$Html$input,
+				attributes,
+				{ctor: '[]'}));
+	});
+var _Chadtech$elm_gulp_browserify_boilerplate$User_Components$email = function (str) {
+	return A3(
+		_Chadtech$elm_gulp_browserify_boilerplate$View_Basics$container,
+		'',
+		str,
+		_elm_lang$html$Html$text(''));
+};
+
+var _Chadtech$elm_gulp_browserify_boilerplate$User_SearchBar_Components$field = function (content) {
+	return A2(
+		_elm_lang$html$Html$input,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('field search'),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$value(content),
+				_1: {
 					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$placeholder(placeholder_),
+					_0: _elm_lang$html$Html_Events$onInput(
+						function (_p0) {
+							return _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$UserWrapper(
+								_Chadtech$elm_gulp_browserify_boilerplate$User_Message$UpdateSearchField(_p0));
+						}),
 					_1: {
 						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$value(content),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$html$Html_Events$onInput(msg),
-							_1: {ctor: '[]'}
-						}
+						_0: _Chadtech$elm_gulp_browserify_boilerplate$View_Events$ifEnter(
+							function (_p1) {
+								return _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$UserWrapper(
+									_Chadtech$elm_gulp_browserify_boilerplate$User_Message$HandleEnter(_p1));
+							}),
+						_1: {ctor: '[]'}
 					}
-				}));
-	});
+				}
+			}
+		},
+		{ctor: '[]'});
+};
+var _Chadtech$elm_gulp_browserify_boilerplate$User_SearchBar_Components$searchBar = function (_p2) {
+	return A3(
+		_elm_lang$html$Html$node,
+		'search-bar-container',
+		{ctor: '[]'},
+		_elm_lang$core$List$singleton(
+			A3(
+				_elm_lang$html$Html$node,
+				'search-bar-body',
+				{ctor: '[]'},
+				_p2)));
+};
+var _Chadtech$elm_gulp_browserify_boilerplate$User_SearchBar_Components$triangle = A3(
+	_elm_lang$html$Html$node,
+	'triangle',
+	{ctor: '[]'},
+	{ctor: '[]'});
+var _Chadtech$elm_gulp_browserify_boilerplate$User_SearchBar_Components$dropDownButton = A2(
+	_elm_lang$html$Html$node,
+	'drop-down-button',
+	{ctor: '[]'});
+var _Chadtech$elm_gulp_browserify_boilerplate$User_SearchBar_Components$parametersContainer = A2(
+	_elm_lang$html$Html$node,
+	'parameters-container',
+	{ctor: '[]'});
 
+var _Chadtech$elm_gulp_browserify_boilerplate$User_SearchBar_Parameters$view = function (model) {
+	return _Chadtech$elm_gulp_browserify_boilerplate$User_SearchBar_Components$parametersContainer(
+		{
+			ctor: '::',
+			_0: A2(
+				_Chadtech$elm_gulp_browserify_boilerplate$View_Basics$words,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('drop-down'),
+					_1: {ctor: '[]'}
+				},
+				'by email'),
+			_1: {
+				ctor: '::',
+				_0: _Chadtech$elm_gulp_browserify_boilerplate$User_SearchBar_Components$dropDownButton(
+					{
+						ctor: '::',
+						_0: _Chadtech$elm_gulp_browserify_boilerplate$User_SearchBar_Components$triangle,
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+
+var _Chadtech$elm_gulp_browserify_boilerplate$User_SearchBar$view = function (model) {
+	return _Chadtech$elm_gulp_browserify_boilerplate$User_SearchBar_Components$searchBar(
+		{
+			ctor: '::',
+			_0: _Chadtech$elm_gulp_browserify_boilerplate$View_Basics$label('search'),
+			_1: {
+				ctor: '::',
+				_0: _Chadtech$elm_gulp_browserify_boilerplate$User_SearchBar_Parameters$view(model),
+				_1: {
+					ctor: '::',
+					_0: _Chadtech$elm_gulp_browserify_boilerplate$User_SearchBar_Components$field(model.searchField),
+					_1: {ctor: '[]'}
+				}
+			}
+		});
+};
+
+var _Chadtech$elm_gulp_browserify_boilerplate$User_View$emailLine = function (model) {
+	var _p0 = model.current;
+	if (_p0.ctor === 'Nothing') {
+		return _Chadtech$elm_gulp_browserify_boilerplate$User_Components$email('no user loaded');
+	} else {
+		return _Chadtech$elm_gulp_browserify_boilerplate$User_Components$email('bonk');
+	}
+};
 var _Chadtech$elm_gulp_browserify_boilerplate$User_View$view = F2(
 	function (model, userModel) {
 		return _Chadtech$elm_gulp_browserify_boilerplate$View_Basics$page(
@@ -9611,18 +9725,31 @@ var _Chadtech$elm_gulp_browserify_boilerplate$User_View$view = F2(
 				_0: _Chadtech$elm_gulp_browserify_boilerplate$View_Basics$leftContainer(
 					{
 						ctor: '::',
-						_0: A4(
-							_Chadtech$elm_gulp_browserify_boilerplate$User_Components$field,
-							'username',
-							'username',
-							'',
-							function (_p0) {
-								return _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$UserWrapper(
-									_Chadtech$elm_gulp_browserify_boilerplate$User_Message$UpdateUsernameField(_p0));
-							}),
-						_1: {ctor: '[]'}
+						_0: _Chadtech$elm_gulp_browserify_boilerplate$User_View$emailLine(userModel),
+						_1: {
+							ctor: '::',
+							_0: A5(
+								_Chadtech$elm_gulp_browserify_boilerplate$User_Components$field,
+								'username',
+								'username',
+								userModel.usernameField,
+								_elm_lang$core$Native_Utils.eq(userModel.current, _elm_lang$core$Maybe$Nothing),
+								function (_p1) {
+									return _Chadtech$elm_gulp_browserify_boilerplate$Main_Message$UserWrapper(
+										_Chadtech$elm_gulp_browserify_boilerplate$User_Message$UpdateUsernameField(_p1));
+								}),
+							_1: {ctor: '[]'}
+						}
 					}),
-				_1: {ctor: '[]'}
+				_1: {
+					ctor: '::',
+					_0: _Chadtech$elm_gulp_browserify_boilerplate$User_Components$separator,
+					_1: {
+						ctor: '::',
+						_0: _Chadtech$elm_gulp_browserify_boilerplate$User_SearchBar$view(userModel),
+						_1: {ctor: '[]'}
+					}
+				}
 			});
 	});
 
@@ -9839,9 +9966,52 @@ var _Chadtech$elm_gulp_browserify_boilerplate$SignIn_Update$update = F2(
 		}
 	});
 
+var _Chadtech$elm_gulp_browserify_boilerplate$User_Update$packPage = F3(
+	function (model, cmds, userModel) {
+		return A2(
+			_elm_lang$core$Platform_Cmd_ops['!'],
+			_elm_lang$core$Native_Utils.update(
+				model,
+				{
+					page: _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$UsersPage(userModel)
+				}),
+			cmds);
+	});
 var _Chadtech$elm_gulp_browserify_boilerplate$User_Update$update = F3(
 	function (userMessage, state, model) {
-		return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+		var _p0 = userMessage;
+		switch (_p0.ctor) {
+			case 'UpdateUsernameField':
+				return A3(
+					_Chadtech$elm_gulp_browserify_boilerplate$User_Update$packPage,
+					model,
+					{ctor: '[]'},
+					_elm_lang$core$Native_Utils.update(
+						state,
+						{usernameField: _p0._0}));
+			case 'UpdateSearchField':
+				return A3(
+					_Chadtech$elm_gulp_browserify_boilerplate$User_Update$packPage,
+					model,
+					{ctor: '[]'},
+					_elm_lang$core$Native_Utils.update(
+						state,
+						{searchField: _p0._0}));
+			default:
+				if (_p0._0 === true) {
+					return A3(
+						_Chadtech$elm_gulp_browserify_boilerplate$User_Update$packPage,
+						model,
+						{ctor: '[]'},
+						state);
+				} else {
+					return A3(
+						_Chadtech$elm_gulp_browserify_boilerplate$User_Update$packPage,
+						model,
+						{ctor: '[]'},
+						state);
+				}
+		}
 	});
 
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_SetPage$handle = F2(
@@ -9849,12 +10019,7 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_SetPage$handle = F2(
 		var _p0 = str;
 		switch (_p0) {
 			case 'Users':
-				return _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$UsersPage(
-					{
-						users: {ctor: '[]'},
-						current: _elm_lang$core$Maybe$Nothing,
-						usernameField: ''
-					});
+				return _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$UsersPage(_Chadtech$elm_gulp_browserify_boilerplate$User_Model$init);
 			case 'Verifications':
 				return _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$VerificationsPage(
 					{
@@ -10002,12 +10167,7 @@ var _Chadtech$elm_gulp_browserify_boilerplate$Main_Init$cmd = _elm_lang$core$Pla
 		}
 	});
 var _Chadtech$elm_gulp_browserify_boilerplate$Main_Init$model = {
-	page: _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$UsersPage(
-		{
-			users: {ctor: '[]'},
-			current: _elm_lang$core$Maybe$Nothing,
-			usernameField: ''
-		}),
+	page: _Chadtech$elm_gulp_browserify_boilerplate$Main_Types$UsersPage(_Chadtech$elm_gulp_browserify_boilerplate$User_Model$init),
 	serversPublicKey: _elm_lang$core$Maybe$Nothing,
 	sessionToken: _elm_lang$core$Maybe$Nothing,
 	clientsPublicKey: _elm_lang$core$Maybe$Nothing,

@@ -1,7 +1,7 @@
 module User.Components exposing (..)
 
 import Html exposing (..)
-import Html.Attributes exposing (class, placeholder, value, type_)
+import Html.Attributes exposing (class, placeholder, value, type_, readonly)
 import Html.Events exposing (onInput, onClick, on, keyCode)
 import Main.Message exposing (Msg(..))
 import SignIn.Message exposing (SignInMsg(..))
@@ -10,31 +10,31 @@ import View.Events exposing (ifEnter)
 import Json.Decode as Json
 
 
-field : String -> String -> String -> (String -> Msg) -> Html Msg
-field labelText placeholder_ content msg =
-    [ placeholder placeholder_
-    , value content
-    , onInput msg
-    ]
-        |> View.field
-        |> View.container "user" labelText
+email : String -> Html Msg
+email str =
+    View.container "" str (Html.text "")
 
 
-button : String -> Bool -> Msg -> Html Msg
-button label ready msg =
-    input (buttonAttributes label ready msg) []
+field : String -> String -> String -> Bool -> (String -> Msg) -> Html Msg
+field labelText placeholder_ content disabled msg =
+    let
+        attributes =
+            if disabled then
+                [ class "field disabled"
+                , value "username"
+                , readonly True
+                , placeholder placeholder_
+                ]
+            else
+                [ class "field"
+                , onInput msg
+                , value content
+                , placeholder placeholder_
+                ]
+    in
+        View.container "user" labelText (input attributes [])
 
 
-buttonAttributes : String -> Bool -> Msg -> List (Attribute Msg)
-buttonAttributes label ready msg =
-    if ready then
-        [ class "button"
-        , onClick msg
-        , type_ "submit"
-        , value label
-        ]
-    else
-        [ class "button not-ready"
-        , value label
-        , type_ "submit"
-        ]
+separator : Html Msg
+separator =
+    node "separator" [] []

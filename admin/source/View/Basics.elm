@@ -31,12 +31,12 @@ container extraClass labelText input =
 
 leftContainer : List (Html Msg) -> Html Msg
 leftContainer =
-    node "leftcontainer" []
+    node "left-container" []
 
 
 label : String -> Html Msg
 label str =
-    node "fieldlabel" [] [ text str ]
+    node "field-label" [] [ text str ]
 
 
 field : List (Attribute Msg) -> Html Msg

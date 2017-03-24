@@ -1,5 +1,6 @@
 module Main.SetPage exposing (handle)
 
+import User.Model as User
 import Main.Types
     exposing
         ( Page(..)
@@ -13,11 +14,7 @@ handle : String -> Page -> Page
 handle str page =
     case str of
         "Users" ->
-            UsersPage
-                { users = []
-                , current = Nothing
-                , usernameField = ""
-                }
+            UsersPage User.init
 
         "Verifications" ->
             VerificationsPage

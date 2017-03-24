@@ -25,7 +25,7 @@ view model =
 
 appbar : List (Html Msg) -> Html Msg
 appbar children =
-    node "appbar" [] children
+    node "app-bar" [] children
 
 
 button : Page -> String -> Html Msg
@@ -38,7 +38,7 @@ button currentPage thisPage =
                 ""
     in
         node
-            "appbarbutton"
+            "app-bar-button"
             [ onClick (SetPage thisPage)
             , class selected
             ]

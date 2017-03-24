@@ -56,7 +56,7 @@ body {
 .logged-in {
   background: #2c2826;
 }
-appbarbutton {
+app-bar-button {
   border-top: 2px solid #57524f;
   border-left: 2px solid #57524f;
   border-right: 2px solid #131610;
@@ -71,10 +71,10 @@ appbarbutton {
   text-align: center;
   cursor: pointer;
 }
-appbarbutton:hover words {
+app-bar-button:hover words {
   color: #e0d6ca;
 }
-appbarbutton.selected words {
+app-bar-button.selected words {
   color: #e0d6ca;
 }
 .button-bottom-border {
@@ -88,7 +88,7 @@ appbarbutton.selected words {
 .button-bottom-border.selected {
   color: #2c2826;
 }
-appbar {
+app-bar {
   position: absolute;
   top: 0;
   left: 0;
@@ -164,7 +164,7 @@ card.solitary.register-success words {
   text-align: left;
   margin-bottom: 0px;
 }
-fieldlabel {
+field-label {
   float: left;
   font-family: hfnss;
   color: #b0a69a;
@@ -207,6 +207,16 @@ fieldlabel {
   border: 2px solid #f21d23;
   background: #143b2e;
 }
+.field.disabled {
+  background: #131610;
+  color: #57524f;
+}
+.field.search {
+  float: none;
+  position: absolute;
+  left: 302px;
+  width: calc(100% - 302px);
+}
 .input-field {
   font-family: Arial;
   color: almostBlack;
@@ -221,15 +231,26 @@ page {
   top: 34px;
   position: absolute;
 }
-leftcontainer {
+left-container {
   width: 600px;
-  height: 600px;
+  height: 300px;
   position: absolute;
   top: 16;
   left: 16;
 }
-leftcontainer .field-container {
+left-container .field-container {
   float: left;
+  width: 500px;
+}
+separator {
+  width: calc(100% - 32px);
+  height: 0px;
+  border-bottom: 2px solid #57524f;
+  border-top: 2px solid #131610;
+  margin-left: 16px;
+  display: block;
+  top: 300px;
+  position: absolute;
 }
 .point {
   font-family: Arial;
@@ -237,6 +258,64 @@ leftcontainer .field-container {
 }
 .point.big {
   font-size: 4em;
+}
+search-bar-container {
+  width: calc(100% - 32px);
+  height: 29px;
+  display: block;
+  position: absolute;
+  top: 316px;
+  left: 16px;
+}
+search-bar-body {
+  display: block;
+  position: relative;
+}
+search-label {
+  display: block;
+}
+parameters-container {
+  display: block;
+  height: 25px;
+  width: 200px;
+  border-bottom: 2px solid #57524f;
+  border-right: 2px solid #57524f;
+  border-top: 2px solid #131610;
+  border-left: 2px solid #131610;
+  left: 82px;
+  position: absolute;
+  top: 0px;
+  background: #06120e;
+}
+drop-down-button {
+  display: block;
+  height: 7px;
+  width: 21px;
+  padding-top: 13px;
+  border-bottom: 2px solid #131610;
+  border-right: 2px solid #131610;
+  border-top: 2px solid #57524f;
+  border-left: 2px solid #57524f;
+  background: #2c2826;
+  float: right;
+}
+drop-down-button:hover triangle {
+  border-top: 7px solid #e0d6ca;
+}
+drop-down-button:active {
+  border-bottom: 2px solid #57524f;
+  border-right: 2px solid #57524f;
+  border-top: 2px solid #131610;
+  border-left: 2px solid #131610;
+}
+triangle {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 7px solid #b0a69a;
+  border-bottom: 0px solid transparent;
+  margin-left: 5px;
 }
 words {
   font-family: hfnss;
@@ -248,4 +327,9 @@ words.vector {
   font-family: hfnss1;
   font-size: 8em;
   -webkit-font-smoothing: auto;
+}
+words.drop-down {
+  display: inline-block;
+  margin-top: 3px;
+  margin-left: 8px;
 }

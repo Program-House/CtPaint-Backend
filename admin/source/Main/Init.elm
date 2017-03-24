@@ -3,18 +3,14 @@ module Main.Init exposing (model, cmd)
 import Main.Model exposing (Model)
 import Main.Types exposing (Page(..))
 import Main.Message exposing (Msg(..))
+import User.Model as User
 import Api.PublicKey as PublicKey
 import Ports
 
 
 model : Model
 model =
-    { page =
-        UsersPage
-            { users = []
-            , current = Nothing
-            , usernameField = ""
-            }
+    { page = UsersPage User.init
     , serversPublicKey = Nothing
     , sessionToken = Nothing
     , clientsPublicKey = Nothing
