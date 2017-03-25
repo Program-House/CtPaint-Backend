@@ -19,6 +19,14 @@ module.exports.new_ = (connection, body, next) ->
             next (msg: "Successfully created user")
 
 
+module.exports.getAll = (connection, body, next) ->
+  db.table "user"
+    .run connection, (err, cursor) ->
+      if err then throw err
+      cursor.toArray (err, result) ->
+        console.log result
+
+
 emailExists = (connection, email, next) ->
   db.table "user" 
     .filter ((r.row "email").eq email)

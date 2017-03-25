@@ -5,7 +5,6 @@ import Main.Model exposing (Model)
 import Main.Types exposing (Page(..))
 import Api.PublicKey as PublicKey
 import Ports
-import Api.SignIn exposing (signIn)
 import Json.Encode as Encode
 import SignIn.Update as SignIn
 import User.Update as User
@@ -24,43 +23,14 @@ update message model =
                 ! []
 
         GetServersPublicKey (Ok key) ->
-            { model
-                | serversPublicKey = Just key
-            }
-                ! []
+            model ! []
 
         GetServersPublicKey (Err err) ->
             let
                 _ =
                     log "ERROR" err
             in
-                { model
-                    | serversPublicKey = Nothing
-                }
-                    ! [ PublicKey.get ]
-
-        GetClientsPublicKey key ->
-            { model
-                | clientsPublicKey = Just key
-            }
-                ! []
-
-        GetSessionToken token ->
-            { model
-                | sessionToken = Just token
-            }
-                ! []
-
-        GetEncryption cipher ->
-            ( model, model.withEncryption cipher )
-
-        GetPlaintext text ->
-            case model.withPlaintext of
-                Just msg ->
-                    update (msg text) model
-
-                Nothing ->
-                    ( model, Cmd.none )
+                model ! [ PublicKey.get ]
 
         SignInWrapper signInMessage ->
             SignIn.update signInMessage model

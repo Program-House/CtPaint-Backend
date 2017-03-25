@@ -11,17 +11,9 @@ import Ports
 model : Model
 model =
     { page = UsersPage User.init
-    , serversPublicKey = Nothing
-    , sessionToken = Nothing
-    , clientsPublicKey = Nothing
     , usernameField = ""
-    , passwordField =
-        ""
-        --, loggedIn =
-        --False
-    , loggedIn = True
-    , withEncryption = always Cmd.none
-    , withPlaintext = Nothing
+    , passwordField = ""
+    , loggedIn = False
     }
 
 

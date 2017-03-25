@@ -3,11 +3,8 @@ module SignIn.Update exposing (update)
 import Main.Model exposing (Model)
 import Main.Message exposing (Msg(..))
 import SignIn.Message exposing (SignInMsg(..))
-import SignIn.Handle as SignIn
-import Api.SignIn exposing (signIn)
 import Ports
 import Json.Decode as Json
-import SignIn.Result as Result
 
 
 update : SignInMsg -> Model -> ( Model, Cmd Msg )
@@ -26,18 +23,6 @@ update signInMessage model =
                 ! []
 
         SignIn ->
-            { model
-                | withEncryption = signIn
-            }
-                |> SignIn.handle
-
-        SignInResult (Ok json) ->
-            Result.handle json model
-
-        SignInPlaintext json ->
-            Result.plaintext json model
-
-        SignInResult (Err err) ->
             ( model, Cmd.none )
 
         HandleEnter True ->

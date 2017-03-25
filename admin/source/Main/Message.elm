@@ -10,9 +10,5 @@ import User.Message exposing (UserMsg(..))
 type Msg
     = SetPage String
     | GetServersPublicKey (Result Http.Error String)
-    | GetClientsPublicKey String
-    | GetSessionToken String
     | SignInWrapper SignInMsg
     | UserWrapper UserMsg
-    | GetEncryption String
-    | GetPlaintext String

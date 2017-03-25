@@ -7,9 +7,4 @@ import Ports
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.batch
-        [ Ports.getSessionToken GetSessionToken
-        , Ports.getEncryption GetEncryption
-        , Ports.getPublicKey GetClientsPublicKey
-        , Ports.getPlaintext GetPlaintext
-        ]
+    Sub.none

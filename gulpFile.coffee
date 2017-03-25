@@ -13,13 +13,13 @@ paths =
   elm: "./" + app + "/source/**/*.elm"
   mainCss: "./" + app + "/source/Styles/main.styl"
   css: "./" + app + "/source/**/*.styl"
-  mainJs: "./" + app + "/source/app.js"
-  js: "./" + app + "/source/*.js",
+  mainJs: "./" + app + "/source/app.coffee"
+  coffee: "./" + app + "/source/*.coffee",
   server: "./server/**/*.coffee",
   serverTests: "./tests/**/*.coffee"
 
 { mainJs, development } = paths
-gulp.task "js", browserify mainJs, development, production
+gulp.task "coffee", browserify mainJs, development, production
 
 gulp.task "stylus", stylus paths
 
@@ -47,9 +47,9 @@ gulp.task "watch", ->
 
   gulp.watch paths.elm, [ "elm" ]
   gulp.watch paths.css, [ "stylus" ]
-  gulp.watch paths.js, [ "js" ]
+  gulp.watch paths.coffee, [ "coffee" ]
   gulp.watch serverFiles, [ "server" ]
   gulp.watch paths.server, [ "server tests" ]
   gulp.watch paths.serverTests, [ "server tests"]
 
-gulp.task "default", [ "watch", "elm", "js", "stylus", "server", "server tests" ]
+gulp.task "default", [ "watch", "elm", "coffee", "stylus", "server", "server tests" ]
