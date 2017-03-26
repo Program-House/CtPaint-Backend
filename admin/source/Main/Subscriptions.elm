@@ -7,4 +7,7 @@ import Ports
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
+    Sub.batch
+        [ Ports.post Post
+        , Ports.signInResult SignInResult
+        ]

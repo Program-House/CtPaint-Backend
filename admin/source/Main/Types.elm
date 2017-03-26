@@ -7,6 +7,7 @@ module Main.Types
         )
 
 import User.Model as User
+import SignIn.Model as SignIn
 
 
 type Page
@@ -14,6 +15,7 @@ type Page
     | VerificationsPage VerificationsState
     | ProjectsPage ProjectsState
     | AdministratorsPage AdministratorsState
+    | SignInPage SignIn.Model
 
 
 type alias AdministratorsState =

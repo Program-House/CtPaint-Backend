@@ -13,23 +13,23 @@ import User.View as User
 
 view : Model -> Html Msg
 view model =
-    if model.loggedIn then
-        div
-            [ class "main logged-in" ]
-            [ AppBar.view model
-            , page model
-            ]
-    else
-        div
-            [ class "main" ]
-            [ SignIn.view model ]
-
-
-page : Model -> Html Msg
-page model =
     case model.page of
+        SignInPage state ->
+            div
+                [ class "main" ]
+                [ SignIn.view state ]
+
         UsersPage state ->
-            User.view model state
+            loggedIn model (User.view model state)
 
         _ ->
-            Html.text ""
+            loggedIn model (Html.text "")
+
+
+loggedIn : Model -> Html Msg -> Html Msg
+loggedIn model child =
+    div
+        [ class "main logged-in" ]
+        [ AppBar.view model
+        , child
+        ]

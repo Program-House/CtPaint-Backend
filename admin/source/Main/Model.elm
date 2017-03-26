@@ -5,8 +5,4 @@ import Main.Types exposing (Page(..))
 
 
 type alias Model =
-    { page : Page
-    , usernameField : String
-    , passwordField : String
-    , loggedIn : Bool
-    }
+    { page : Page }

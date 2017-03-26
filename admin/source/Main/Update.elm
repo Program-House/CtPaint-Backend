@@ -8,6 +8,7 @@ import Ports
 import Json.Encode as Encode
 import SignIn.Update as SignIn
 import User.Update as User
+import User.Model
 import Main.SetPage as SetPage
 import Debug exposing (log)
 
@@ -23,7 +24,7 @@ update message model =
                 ! []
 
         GetServersPublicKey (Ok key) ->
-            model ! []
+            model ! [ Ports.saveServersKey key ]
 
         GetServersPublicKey (Err err) ->
             let
@@ -33,7 +34,21 @@ update message model =
                 model ! [ PublicKey.get ]
 
         SignInWrapper signInMessage ->
-            SignIn.update signInMessage model
+            case model.page of
+                SignInPage signInModel ->
+                    SignIn.update signInMessage signInModel model
+
+                _ ->
+                    ( model, Cmd.none )
+
+        SignInResult True ->
+            { model
+                | page = UsersPage User.Model.init
+            }
+                ! []
+
+        SignInResult False ->
+            ( model, Cmd.none )
 
         UserWrapper userMessage ->
             case model.page of
@@ -42,3 +57,10 @@ update message model =
 
                 _ ->
                     ( model, Cmd.none )
+
+        Post ( dest, request ) ->
+            let
+                _ =
+                    log "DEST" ( dest, request )
+            in
+                ( model, Cmd.none )

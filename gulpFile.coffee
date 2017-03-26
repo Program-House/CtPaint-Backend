@@ -14,12 +14,12 @@ paths =
   mainCss: "./" + app + "/source/Styles/main.styl"
   css: "./" + app + "/source/**/*.styl"
   mainJs: "./" + app + "/source/app.coffee"
-  coffee: "./" + app + "/source/*.coffee",
+  coffee: "./" + app + "/source/**/*.coffee",
   server: "./server/**/*.coffee",
   serverTests: "./tests/**/*.coffee"
 
 { mainJs, development } = paths
-gulp.task "coffee", browserify mainJs, development, production
+gulp.task "coffee", (browserify mainJs, development, production)
 
 gulp.task "stylus", stylus paths
 

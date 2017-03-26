@@ -217,14 +217,6 @@ field-label {
   left: 302px;
   width: calc(100% - 302px);
 }
-.input-field {
-  font-family: Arial;
-  color: almostBlack;
-  font-size: 2em;
-  background-color: offWhite;
-  border: 2px solid lightGray;
-  outline: none;
-}
 page {
   width: 100%;
   height: calc(100vh - 30px);

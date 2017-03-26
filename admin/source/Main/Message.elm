@@ -11,4 +11,6 @@ type Msg
     = SetPage String
     | GetServersPublicKey (Result Http.Error String)
     | SignInWrapper SignInMsg
+    | SignInResult Bool
     | UserWrapper UserMsg
+    | Post ( String, String )

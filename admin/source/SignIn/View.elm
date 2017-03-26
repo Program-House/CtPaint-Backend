@@ -4,7 +4,7 @@ import Html exposing (Html, br)
 import Html.Attributes exposing (class)
 import Main.Message exposing (Msg(..))
 import SignIn.Message exposing (SignInMsg(..))
-import Main.Model exposing (Model)
+import SignIn.Model exposing (Model)
 import SignIn.Components exposing (field, password, button)
 import View.Basics exposing (card, words)
 

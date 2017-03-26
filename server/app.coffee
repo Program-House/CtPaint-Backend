@@ -21,6 +21,7 @@ r.connect rPack, (err, conn) ->
   start()
 
 app.use bodyParser.json()
+app.use (bodyParser.urlencoded (extended: true))
 app.use "/home", (express.static (join __dirname, "../home/development"))
 app.use "/app", (express.static (join __dirname, "../paint/development"))
 app.use "/admin", (express.static (join __dirname, "../admin/development"))

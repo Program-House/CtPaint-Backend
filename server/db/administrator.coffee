@@ -2,34 +2,43 @@ r = require "rethinkdb"
 db = r.db "ctpaint"
 hash = require "../hash"
 cryptico = require "cryptico"
-hash = require "../hash"
 
 
-module.exports.update = (connection, body, next) ->
-  adminExists connection, body.username, (result) ->
+module.exports.certify = (connection, body, next) ->
+  getAdmins connection, body.username, (result) ->
+    if result.length > 1
+      tooManyResults = new Error "More than one admin with that username"
+      throw tooManyResults
 
-    if result.length > 0
-      if (hash.get body.password) is result[0].hash
-        db.table "administrator"
-          .update (session : body.sessionToken)
-          .run connection, (err, result) ->
-            if err then throw err
+    if result.length is 0
+      next (msg: "admin does not exist")
 
-            reply =
-              msg: "Success"
-              salt: hash.salt()
+    admin = result[0]
 
-            stringifiedReply = JSON.stringify reply
+    if (hash.get body.password) is admin.hash
+      token = hash.salt()
 
-            encryption = cryptico.encrypt stringifiedReply, body.publicKey
-            next (cipher: encryption.cipher)
-      else
-        next (msg : "Failure")
-    else
-      next (msg : "Failure")
+      updates =
+        session: token
+        publicKey: body.clientsKey
+
+      db.table "administrator"
+        .filter ((r.row "username").eq body.username)
+        .update updates
+        .run connection, (err, result) ->
+          if err then throw err
+          
+          if result.replaced isnt 1
+            replacedTooMany = new Error "Replaced too many administrators in update"
+            throw replacedTooMany
+
+          next 
+            msg: "success"
+            sessionToken: token
+            clientsKey: body.clientsKey
 
 
-adminExists = (connection, username, next) ->
+getAdmins = (connection, username, next) ->
   db.table "administrator"
     .filter ((r.row "username").eq username)
     .run connection, (err, cursor) ->
