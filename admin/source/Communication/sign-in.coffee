@@ -1,8 +1,8 @@
 cryptico = require "cryptico"
 decrypt = require "../Security/decrypt"
 Random = require "../Security/random"
-Requests = require "../Api/Requests"
-Model = require "../Main/Model"
+Http = require "./http"
+Model = require "./model"
 
 module.exports = (next) ->
     (payload) ->
@@ -24,7 +24,7 @@ module.exports = (next) ->
             dest = "http://localhost:2984/api/admin/signin"
             body = JSON.stringify cipher: encryption.cipher
 
-            Requests.post dest, body, (cipher) ->
+            Http.post dest, body, (cipher) ->
                 decrypt cipher, (handleDecryption next)
 
                 (plaintext) ->

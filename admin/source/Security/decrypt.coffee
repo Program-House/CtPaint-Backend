@@ -1,5 +1,5 @@
 cryptico = require "cryptico"
-Model = require "../Main/Model"
+Model = require "../Communication/model"
 
 module.exports = (cipher, next) ->
     result = cryptico.decrypt cipher, Model.state.rsa
