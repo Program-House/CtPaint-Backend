@@ -1,6 +1,6 @@
 r = require "rethinkdb"
 db = r.db "ctpaint"
-hash = require "../hash"
+random = require "../random"
 cryptico = require "cryptico"
 
 
@@ -15,8 +15,8 @@ module.exports.certify = (connection, body, next) ->
 
     admin = result[0]
 
-    if (hash.get body.password) is admin.hash
-      token = hash.salt()
+    if (random.hash body.password) is admin.hash
+      token = random.getString()
 
       updates =
         session: token

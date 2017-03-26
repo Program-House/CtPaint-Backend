@@ -1,7 +1,7 @@
 r = require "rethinkdb"
 db = r.db "ctpaint"
 email = require "../email"
-hash = require "../hash"
+random = require "../random"
 verification = require "./verification"
 
 module.exports.new_ = (connection, body, next) ->
@@ -13,9 +13,9 @@ module.exports.new_ = (connection, body, next) ->
         .insert [ makeUser body ]
         .run connection, (err, result) ->
           if err then throw err
-          code = hash.salt() + hash.salt()
-          email.sendVerification body.email, code
-          verification.new_ connection, body.email, code, ->
+          token = random.getString() + random.getString()
+          email.sendVerification body.email, token
+          verification.new_ connection, body.email, token, ->
             next (msg: "Successfully created user")
 
 
@@ -38,13 +38,13 @@ emailExists = (connection, email, next) ->
 
 
 makeUser = (body) ->
-  salt = hash.salt()
+  salt = random.getString()
 
   username: body.username
   email: body.email
   verified: false
   salt: salt
-  hash: hash.get (salt + body.password)
+  hash: random.hash (salt + body.password)
 
 
 
