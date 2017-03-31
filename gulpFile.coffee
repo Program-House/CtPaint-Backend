@@ -52,4 +52,4 @@ gulp.task "watch", ->
   gulp.watch paths.server, [ "server tests" ]
   gulp.watch paths.serverTests, [ "server tests"]
 
-gulp.task "default", [ "watch", "elm", "coffee", "stylus", "server", "server tests" ]
+gulp.task "default", [ "watch", "elm", "coffee", "stylus", "server" ]
