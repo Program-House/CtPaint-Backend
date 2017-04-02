@@ -29,8 +29,6 @@
     "lodash": "^4.17.4",
     "mocha": "^3.2.0",
     "nodemailer": "^3.1.7",
-    "passport": "^0.3.2",
-    "passport-local": "^1.0.0",
     "rethinkdb": "^2.3.3",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
