@@ -19,14 +19,14 @@ view model =
 body : Model -> List (Html Msg)
 body { searchParameterDropped, searchParameter } =
     if searchParameterDropped == True then
-        List.append (unexpandedEls searchParameter)
+        List.append (unexpandedContent searchParameter)
             [ options [ ByEmail, ByUsername ] ]
     else
-        (unexpandedEls searchParameter)
+        (unexpandedContent searchParameter)
 
 
-unexpandedEls : SearchParameter -> List (Html Msg)
-unexpandedEls parameter =
+unexpandedContent : SearchParameter -> List (Html Msg)
+unexpandedContent parameter =
     [ dropDownWords parameter
     , dropDownButton [ triangle ]
     ]
