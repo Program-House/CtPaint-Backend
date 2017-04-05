@@ -1,4 +1,10 @@
-module User.Model exposing (Model, User, init)
+module User.Model
+    exposing
+        ( Model
+        , User
+        , SearchParameter(..)
+        , init
+        )
 
 
 type alias User =
@@ -9,11 +15,18 @@ type alias User =
     }
 
 
+type SearchParameter
+    = ByEmail
+    | ByUsername
+
+
 type alias Model =
     { users : List User
     , current : Maybe String
     , usernameField : String
     , searchField : String
+    , searchParameter : SearchParameter
+    , searchParameterDropped : Bool
     }
 
 
@@ -23,4 +36,6 @@ init =
     , current = Nothing
     , usernameField = ""
     , searchField = ""
+    , searchParameter = ByEmail
+    , searchParameterDropped = False
     }

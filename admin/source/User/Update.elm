@@ -28,6 +28,20 @@ update userMessage state model =
         HandleEnter False ->
             packPage model [] state
 
+        DropSearchParameters ->
+            { state
+                | searchParameterDropped =
+                    not state.searchParameterDropped
+            }
+                |> packPage model []
+
+        SetDropDown parameter ->
+            { state
+                | searchParameter = parameter
+                , searchParameterDropped = False
+            }
+                |> packPage model []
+
 
 packPage : Model -> List (Cmd Msg) -> User.Model -> ( Model, Cmd Msg )
 packPage model cmds userModel =
