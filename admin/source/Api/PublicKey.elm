@@ -1,11 +1,11 @@
 module Api.PublicKey exposing (get)
 
 import Http
-import Main.Message exposing (Msg(..))
+import Main.Message exposing (Message(..))
 import Api.Util exposing (root)
 
 
-get : Cmd Msg
+get : Cmd Message
 get =
     root "/api/key"
         |> Http.getString

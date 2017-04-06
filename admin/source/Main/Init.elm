@@ -2,7 +2,7 @@ module Main.Init exposing (model, cmd)
 
 import Main.Model exposing (Model)
 import Main.Types exposing (Page(..))
-import Main.Message exposing (Msg(..))
+import Main.Message exposing (Message(..))
 import SignIn.Model as SignIn
 import User.Model as User
 import Api.PublicKey as PublicKey
@@ -18,7 +18,7 @@ model =
 --{ page = SignInPage SignIn.init }
 
 
-cmd : Cmd Msg
+cmd : Cmd Message
 cmd =
     Cmd.batch
         [ PublicKey.get

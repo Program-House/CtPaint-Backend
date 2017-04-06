@@ -1,6 +1,6 @@
 module Main.Update exposing (update)
 
-import Main.Message exposing (Msg(..))
+import Main.Message exposing (Message(..))
 import Main.Model exposing (Model)
 import Main.Types exposing (Page(..))
 import Api.PublicKey as PublicKey
@@ -13,7 +13,7 @@ import Main.SetPage as SetPage
 import Debug exposing (log)
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
+update : Message -> Model -> ( Model, Cmd Message )
 update message model =
     case message of
         SetPage page ->

@@ -3,14 +3,14 @@ module SignIn.Components exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (class, placeholder, value, type_)
 import Html.Events exposing (onInput, onClick, on, keyCode)
-import Main.Message exposing (Msg(..))
-import SignIn.Message exposing (SignInMsg(..))
+import Main.Message exposing (Message(..))
+import SignIn.Message exposing (SignInMessage(..))
 import View.Basics as View
 import View.Events exposing (ifEnter)
 import Json.Decode as Json
 
 
-field : String -> String -> String -> (String -> Msg) -> Html Msg
+field : String -> String -> String -> (String -> Message) -> Html Message
 field labelText placeholder_ content msg =
     [ placeholder placeholder_
     , value content
@@ -20,7 +20,7 @@ field labelText placeholder_ content msg =
         |> View.container "sign-in" labelText
 
 
-password : String -> String -> String -> (String -> Msg) -> Html Msg
+password : String -> String -> String -> (String -> Message) -> Html Message
 password labelText placeholder_ content msg =
     [ placeholder placeholder_
     , value content
@@ -32,12 +32,12 @@ password labelText placeholder_ content msg =
         |> View.container "sign-in" labelText
 
 
-button : String -> Bool -> Msg -> Html Msg
+button : String -> Bool -> Message -> Html Message
 button label ready msg =
     input (buttonAttributes label ready msg) []
 
 
-buttonAttributes : String -> Bool -> Msg -> List (Attribute Msg)
+buttonAttributes : String -> Bool -> Message -> List (Attribute Message)
 buttonAttributes label ready msg =
     if ready then
         [ class "button"

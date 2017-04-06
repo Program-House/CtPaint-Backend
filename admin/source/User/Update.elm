@@ -1,13 +1,13 @@
 module User.Update exposing (update)
 
-import User.Message exposing (UserMsg(..))
+import User.Message exposing (UserMessage(..))
 import Main.Model exposing (Model)
-import Main.Message exposing (Msg(..))
+import Main.Message exposing (Message(..))
 import Main.Types exposing (Page(..))
 import User.Model as User
 
 
-update : UserMsg -> User.Model -> Model -> ( Model, Cmd Msg )
+update : UserMessage -> User.Model -> Model -> ( Model, Cmd Message )
 update userMessage state model =
     case userMessage of
         UpdateUsernameField str ->
@@ -43,7 +43,7 @@ update userMessage state model =
                 |> packPage model []
 
 
-packPage : Model -> List (Cmd Msg) -> User.Model -> ( Model, Cmd Msg )
+packPage : Model -> List (Cmd Message) -> User.Model -> ( Model, Cmd Message )
 packPage model cmds userModel =
     { model
         | page = UsersPage userModel

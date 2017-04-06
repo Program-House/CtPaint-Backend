@@ -1,27 +1,27 @@
 port module Ports exposing (..)
 
 
-port saveServersKey : String -> Cmd msg
+port saveServersKey : String -> Cmd message
 
 
-port makeClientKey : () -> Cmd msg
+port makeClientKey : () -> Cmd message
 
 
 port signIn : ( String, String ) -> Cmd smg
 
 
-port post : (( String, String ) -> msg) -> Sub msg
+port post : (( String, String ) -> message) -> Sub message
 
 
-port signInResult : (Bool -> msg) -> Sub msg
+port signInResult : (Bool -> message) -> Sub message
 
 
 
---port requestSessionToken : () -> Cmd msg
---port getSessionToken : (String -> msg) -> Sub msg
---port requestPublicKey : () -> Cmd msg
---port getPublicKey : (String -> msg) -> Sub msg
---port encrypt : ( String, String ) -> Cmd msg
---port getEncryption : (String -> msg) -> Sub msg
---port decrypt : String -> Cmd msg
---port getPlaintext : (String -> msg) -> Sub msg
+--port requestSessionToken : () -> Cmd message
+--port getSessionToken : (String -> message) -> Sub message
+--port requestPublicKey : () -> Cmd message
+--port getPublicKey : (String -> message) -> Sub message
+--port encrypt : ( String, String ) -> Cmd message
+--port getEncryption : (String -> message) -> Sub message
+--port decrypt : String -> Cmd message
+--port getPlaintext : (String -> message) -> Sub message

@@ -3,7 +3,7 @@ module Main.View exposing (view)
 import Html exposing (Html, div)
 import Html.Attributes exposing (..)
 import Main.Model exposing (Model)
-import Main.Message exposing (Msg(..))
+import Main.Message exposing (Message(..))
 import Main.Types exposing (Page(..))
 import View.Basics exposing (words)
 import View.AppBar as AppBar
@@ -11,7 +11,7 @@ import SignIn.View as SignIn
 import User.View as User
 
 
-view : Model -> Html Msg
+view : Model -> Html Message
 view model =
     case model.page of
         SignInPage state ->
@@ -26,7 +26,7 @@ view model =
             loggedIn model (Html.text "")
 
 
-loggedIn : Model -> Html Msg -> Html Msg
+loggedIn : Model -> Html Message -> Html Message
 loggedIn model child =
     div
         [ class "main logged-in" ]

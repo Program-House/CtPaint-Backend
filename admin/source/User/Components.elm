@@ -2,8 +2,8 @@ module User.Components exposing (..)
 
 import Html exposing (..)
 import Html.Events exposing (onInput, onClick, on, keyCode)
-import Main.Message exposing (Msg(..))
-import SignIn.Message exposing (SignInMsg(..))
+import Main.Message exposing (Message(..))
+import SignIn.Message exposing (SignInMessage(..))
 import View.Basics as View
 import View.Events exposing (ifEnter)
 import Json.Decode as Json
@@ -18,17 +18,17 @@ import Html.Attributes
         )
 
 
-searchItems : List (Html Msg) -> Html Msg
+searchItems : List (Html Message) -> Html Message
 searchItems =
     node "search-items" []
 
 
-email : String -> Html Msg
+email : String -> Html Message
 email str =
     View.container "" str (Html.text "")
 
 
-field : String -> String -> String -> Bool -> (String -> Msg) -> Html Msg
+field : String -> String -> String -> Bool -> (String -> Message) -> Html Message
 field labelText placeholder_ content disabled msg =
     let
         attributes =
@@ -50,6 +50,6 @@ field labelText placeholder_ content disabled msg =
         View.container "user" labelText (input attributes [])
 
 
-separator : Html Msg
+separator : Html Message
 separator =
     node "separator" [] []

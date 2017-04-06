@@ -2,14 +2,14 @@ module SignIn.View exposing (view)
 
 import Html exposing (Html, br)
 import Html.Attributes exposing (class)
-import Main.Message exposing (Msg(..))
-import SignIn.Message exposing (SignInMsg(..))
+import Main.Message exposing (Message(..))
+import SignIn.Message exposing (SignInMessage(..))
 import SignIn.Model exposing (Model)
 import SignIn.Components exposing (field, password, button)
 import View.Basics exposing (card, words)
 
 
-view : Model -> Html Msg
+view : Model -> Html Message
 view model =
     card
         [ class "solitary" ]

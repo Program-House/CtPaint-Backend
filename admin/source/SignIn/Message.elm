@@ -1,10 +1,10 @@
-module SignIn.Message exposing (SignInMsg(..))
+module SignIn.Message exposing (SignInMessage(..))
 
 import Http
 import Json.Decode as Decode
 
 
-type SignInMsg
+type SignInMessage
     = SignIn
     | UpdateUsernameField String
     | UpdatePasswordField String

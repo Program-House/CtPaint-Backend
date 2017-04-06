@@ -2,13 +2,13 @@ module User.DetailsArea exposing (view)
 
 import Html exposing (Html)
 import View.Basics exposing (leftContainer)
-import Main.Message exposing (Msg(..))
+import Main.Message exposing (Message(..))
 import User.Model exposing (Model)
-import User.Message exposing (UserMsg(..))
+import User.Message exposing (UserMessage(..))
 import User.Components exposing (field, email)
 
 
-view : Model -> Html Msg
+view : Model -> Html Message
 view model =
     leftContainer
         [ emailLine model
@@ -21,7 +21,7 @@ view model =
         ]
 
 
-emailLine : Model -> Html Msg
+emailLine : Model -> Html Message
 emailLine model =
     case model.current of
         Nothing ->

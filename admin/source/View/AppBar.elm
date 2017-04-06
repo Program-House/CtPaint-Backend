@@ -3,13 +3,13 @@ module View.AppBar exposing (view)
 import Html exposing (Html, node, hr)
 import Html.Attributes exposing (style, class)
 import Html.Events exposing (onClick)
-import Main.Message exposing (Msg(..))
+import Main.Message exposing (Message(..))
 import Main.Model exposing (Model)
 import Main.Types exposing (Page(..))
 import View.Basics exposing (words)
 
 
-view : Model -> Html Msg
+view : Model -> Html Message
 view model =
     let
         button_ =
@@ -23,12 +23,12 @@ view model =
             ]
 
 
-appbar : List (Html Msg) -> Html Msg
+appbar : List (Html Message) -> Html Message
 appbar children =
     node "app-bar" [] children
 
 
-button : Page -> String -> Html Msg
+button : Page -> String -> Html Message
 button currentPage thisPage =
     let
         selected =

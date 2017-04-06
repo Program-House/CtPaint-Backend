@@ -1,16 +1,16 @@
-module Main.Message exposing (Msg(..))
+module Main.Message exposing (Message(..))
 
 import Main.Types exposing (Page(..))
 import Http
 import Json.Decode as Decode
-import SignIn.Message exposing (SignInMsg(..))
-import User.Message exposing (UserMsg(..))
+import SignIn.Message exposing (SignInMessage(..))
+import User.Message exposing (UserMessage(..))
 
 
-type Msg
+type Message
     = SetPage String
     | GetServersPublicKey (Result Http.Error String)
-    | SignInWrapper SignInMsg
+    | SignInWrapper SignInMessage
     | SignInResult Bool
-    | UserWrapper UserMsg
+    | UserWrapper UserMessage
     | Post ( String, String )
