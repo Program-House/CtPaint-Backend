@@ -5,27 +5,27 @@ import Html.Attributes exposing (class)
 import Main.Message exposing (Message(..))
 import SignIn.Message exposing (SignInMessage(..))
 import SignIn.Model exposing (Model)
-import SignIn.Components exposing (field, password, button)
-import Components.Basics exposing (card, words)
+import SignIn.Components as Components
+import Components.Basics as Basics
 
 
 view : Model -> Html Message
 view model =
-    card
+    Basics.card
         [ class "solitary" ]
-        [ words [] "Log In"
-        , field
+        [ Basics.words [] "Log In"
+        , Components.field
             "username"
             "username"
             model.usernameField
             (SignInWrapper << UpdateUsernameField)
-        , password
+        , Components.password
             "password"
             "password"
             model.passwordField
             (SignInWrapper << UpdatePasswordField)
         , br [] []
-        , button
+        , Components.button
             "Sign In"
             (ready model)
             (SignInWrapper SignIn)

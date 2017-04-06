@@ -2,12 +2,11 @@ module SignIn.Components exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (class, placeholder, value, type_)
-import Html.Events exposing (onInput, onClick, on, keyCode)
+import Html.Events exposing (onInput, onClick)
 import Main.Message exposing (Message(..))
 import SignIn.Message exposing (SignInMessage(..))
-import Components.Basics as View
+import Components.Basics as Components
 import Html.Events.Extra exposing (onEnter)
-import Json.Decode as Json
 
 
 field : String -> String -> String -> (String -> Message) -> Html Message
@@ -16,8 +15,8 @@ field labelText placeholder_ content msg =
     , value content
     , onInput msg
     ]
-        |> View.field
-        |> View.container "sign-in" labelText
+        |> Components.field
+        |> Components.container "sign-in" labelText
 
 
 password : String -> String -> String -> (String -> Message) -> Html Message
@@ -28,8 +27,8 @@ password labelText placeholder_ content msg =
     , type_ "password"
     , onEnter (SignInWrapper HandleEnter)
     ]
-        |> View.field
-        |> View.container "sign-in" labelText
+        |> Components.field
+        |> Components.container "sign-in" labelText
 
 
 button : String -> Bool -> Message -> Html Message

@@ -2,7 +2,6 @@ module Main.Message exposing (Message(..), Handler)
 
 import Main.Types exposing (Page(..))
 import Http
-import Json.Decode as Decode
 import SignIn.Message exposing (SignInMessage(..))
 import User.Message exposing (UserMessage(..))
 

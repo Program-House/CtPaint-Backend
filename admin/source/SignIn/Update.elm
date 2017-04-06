@@ -6,8 +6,6 @@ import Main.Types exposing (Page(..))
 import SignIn.Message exposing (SignInMessage(..))
 import SignIn.Model as SignIn
 import Ports
-import Json.Decode as Json
-import Debug exposing (log)
 
 
 update : SignInMessage -> SignIn.Model -> Model -> ( Model, Cmd Message )

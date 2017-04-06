@@ -1,18 +1,18 @@
 module User.DetailsArea exposing (view)
 
 import Html exposing (Html)
-import Components.Basics exposing (leftContainer)
+import Components.Basics as Basics
 import Main.Message exposing (Message(..))
 import User.Model exposing (Model)
 import User.Message exposing (UserMessage(..))
-import User.Components exposing (field, email)
+import User.Components as Components
 
 
 view : Model -> Html Message
 view model =
-    leftContainer
+    Basics.leftContainer
         [ emailLine model
-        , field
+        , Components.field
             "username"
             "username"
             model.usernameField
@@ -25,7 +25,7 @@ emailLine : Model -> Html Message
 emailLine model =
     case model.current of
         Nothing ->
-            email "no user loaded"
+            Components.email "no user loaded"
 
         Just user ->
-            email "bonk"
+            Components.email "bonk"

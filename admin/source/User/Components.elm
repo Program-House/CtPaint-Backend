@@ -1,11 +1,10 @@
 module User.Components exposing (..)
 
 import Html exposing (..)
-import Html.Events exposing (onInput, onClick, on, keyCode)
+import Html.Events exposing (onInput, onClick)
 import Main.Message exposing (Message(..))
 import SignIn.Message exposing (SignInMessage(..))
 import Components.Basics as View
-import Json.Decode as Json
 import Html.Attributes
     exposing
         ( class

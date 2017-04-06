@@ -1,7 +1,7 @@
 module Components.AppBar exposing (view)
 
 import Html exposing (Html, node, hr)
-import Html.Attributes exposing (style, class)
+import Html.Attributes exposing (class)
 import Html.Events exposing (onClick)
 import Main.Message exposing (Message(..))
 import Main.Model exposing (Model)
