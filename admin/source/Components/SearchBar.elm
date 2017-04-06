@@ -1,4 +1,4 @@
-module Components.SearchBar exposing (view)
+module Components.SearchBar exposing (view, Payload)
 
 import Html exposing (Html)
 import Main.Message exposing (Message(..), Handler)
@@ -8,18 +8,30 @@ import Components.Basics exposing (label)
 import Components.DropDown as DropDown
 
 
-view : Bool -> Message -> List a -> Handler a -> a -> Handler String -> Message -> String -> Html Message
-view dropped drop parameters onSelectDropDown currentParameter onInput onEnter searchContent =
+type alias Payload a =
+    { dropped : Bool
+    , drop : Message
+    , options : List a
+    , handleOptionSelect : Handler a
+    , selectedOption : a
+    , onEnter : Message
+    , onInput : Handler String
+    , searchField : String
+    }
+
+
+view : Payload a -> Html Message
+view p =
     searchBar
         [ label "search"
         , DropDown.view
-            dropped
-            drop
-            onSelectDropDown
-            currentParameter
-            parameters
+            p.dropped
+            p.drop
+            p.handleOptionSelect
+            p.selectedOption
+            p.options
         , field
-            onInput
-            onEnter
-            searchContent
+            p.onInput
+            p.onEnter
+            p.searchField
         ]

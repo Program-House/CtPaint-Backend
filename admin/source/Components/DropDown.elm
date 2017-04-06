@@ -6,22 +6,22 @@ import Components.DropDown.Basics as DropDown
 
 
 view : Bool -> Message -> Handler a -> a -> List a -> Html Message
-view dropped drop parameterHandler currentParameter parameters =
+view dropped drop optionHandler selectedOption options =
     let
         wrap_ =
-            wrap drop currentParameter
+            wrap drop selectedOption
     in
         if dropped then
-            wrap_ [ DropDown.options parameterHandler parameters ]
+            wrap_ [ DropDown.options optionHandler options ]
         else
             wrap_ []
 
 
 wrap : Message -> a -> List (Html Message) -> Html Message
-wrap dropMessage parameter options =
+wrap dropMessage selectedOption options =
     options
         |> List.append
-            [ DropDown.words parameter
+            [ DropDown.words selectedOption
             , DropDown.button dropMessage
             ]
         |> DropDown.container

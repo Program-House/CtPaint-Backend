@@ -17,16 +17,22 @@ view model userModel =
     Basics.page
         [ DetailsArea.view userModel
         , Components.separator
-        , SearchBar.view
-            userModel.searchParameterDropped
-            (UserWrapper DropSearchParameters)
-            [ ByEmail
-            , ByUsername
-            ]
-            (UserWrapper << SetDropDown)
-            userModel.searchParameter
-            (UserWrapper << UpdateSearchField)
-            (UserWrapper HandleEnter)
-            userModel.searchField
+        , SearchBar.view (toPayload userModel)
         , Components.searchItems []
         ]
+
+
+toPayload : User.Model -> SearchBar.Payload SearchParameter
+toPayload model =
+    { dropped = model.searchParameterDropped
+    , drop = UserWrapper DropSearchParameters
+    , options =
+        [ ByEmail
+        , ByUsername
+        ]
+    , handleOptionSelect = UserWrapper << SetDropDown
+    , selectedOption = model.searchParameter
+    , onEnter = UserWrapper HandleEnter
+    , onInput = UserWrapper << UpdateSearchField
+    , searchField = model.searchField
+    }
