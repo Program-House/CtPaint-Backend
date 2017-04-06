@@ -1,38 +1,20 @@
 module User.View exposing (view)
 
 import Html exposing (Html, div)
-import Html.Attributes exposing (class)
 import Main.Model exposing (Model)
 import Main.Message exposing (Msg(..))
-import View.Basics exposing (page, leftContainer, words)
+import View.Basics as Basics
 import User.Model as User
-import User.Message exposing (UserMsg(..))
-import User.Components exposing (field, email, separator)
+import User.Components exposing (separator, searchItems)
 import User.SearchBar as SearchBar
+import User.DetailsArea as DetailsArea
 
 
 view : Model -> User.Model -> Html Msg
 view model userModel =
-    page
-        [ leftContainer
-            [ emailLine userModel
-            , field
-                "username"
-                "username"
-                userModel.usernameField
-                (userModel.current == Nothing)
-                (UserWrapper << UpdateUsernameField)
-            ]
+    Basics.page
+        [ DetailsArea.view userModel
         , separator
         , SearchBar.view userModel
+        , searchItems []
         ]
-
-
-emailLine : User.Model -> Html Msg
-emailLine model =
-    case model.current of
-        Nothing ->
-            email "no user loaded"
-
-        Just user ->
-            email "bonk"

@@ -18,6 +18,11 @@ import Html.Attributes
         )
 
 
+searchItems : List (Html Msg) -> Html Msg
+searchItems =
+    node "search-items" []
+
+
 email : String -> Html Msg
 email str =
     View.container "" str (Html.text "")
