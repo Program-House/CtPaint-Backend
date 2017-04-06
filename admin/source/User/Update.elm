@@ -22,10 +22,7 @@ update userMessage state model =
             }
                 |> packPage model []
 
-        HandleEnter True ->
-            packPage model [] state
-
-        HandleEnter False ->
+        HandleEnter ->
             packPage model [] state
 
         DropSearchParameters ->

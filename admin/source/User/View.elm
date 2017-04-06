@@ -3,7 +3,7 @@ module User.View exposing (view)
 import Html exposing (Html, div)
 import Main.Model exposing (Model)
 import Main.Message exposing (Message(..))
-import View.Basics as Basics
+import Components.Basics as Basics
 import User.Model exposing (SearchParameter(..))
 import User.Model as User
 import User.Message exposing (UserMessage(..))
@@ -26,7 +26,7 @@ view model userModel =
             (UserWrapper << SetDropDown)
             userModel.searchParameter
             (UserWrapper << UpdateSearchField)
-            (UserWrapper << HandleEnter)
+            (UserWrapper HandleEnter)
             userModel.searchField
         , searchItems []
         ]

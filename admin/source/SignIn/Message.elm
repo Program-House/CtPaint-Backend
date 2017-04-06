@@ -8,4 +8,4 @@ type SignInMessage
     = SignIn
     | UpdateUsernameField String
     | UpdatePasswordField String
-    | HandleEnter Bool
+    | HandleEnter

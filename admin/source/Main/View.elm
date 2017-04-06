@@ -5,8 +5,8 @@ import Html.Attributes exposing (..)
 import Main.Model exposing (Model)
 import Main.Message exposing (Message(..))
 import Main.Types exposing (Page(..))
-import View.Basics exposing (words)
-import View.AppBar as AppBar
+import Components.Basics exposing (words)
+import Components.AppBar as AppBar
 import SignIn.View as SignIn
 import User.View as User
 

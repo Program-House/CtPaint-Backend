@@ -10,7 +10,7 @@ import Html exposing (Html, node)
 import Html.Events exposing (onInput, onClick)
 import Html.Attributes exposing (class)
 import Main.Message exposing (Message(..), Handler)
-import View.Basics as Basics
+import Components.Basics as Basics
 import String.Extra
 
 

@@ -1,7 +1,7 @@
 module User.DetailsArea exposing (view)
 
 import Html exposing (Html)
-import View.Basics exposing (leftContainer)
+import Components.Basics exposing (leftContainer)
 import Main.Message exposing (Message(..))
 import User.Model exposing (Model)
 import User.Message exposing (UserMessage(..))

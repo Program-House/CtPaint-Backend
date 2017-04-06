@@ -6,6 +6,6 @@ import User.Model exposing (SearchParameter(..))
 type UserMessage
     = UpdateUsernameField String
     | UpdateSearchField String
-    | HandleEnter Bool
+    | HandleEnter
     | DropSearchParameters
     | SetDropDown SearchParameter

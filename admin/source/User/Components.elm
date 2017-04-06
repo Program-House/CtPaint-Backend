@@ -4,8 +4,7 @@ import Html exposing (..)
 import Html.Events exposing (onInput, onClick, on, keyCode)
 import Main.Message exposing (Message(..))
 import SignIn.Message exposing (SignInMessage(..))
-import View.Basics as View
-import View.Events exposing (ifEnter)
+import Components.Basics as View
 import Json.Decode as Json
 import Html.Attributes
     exposing

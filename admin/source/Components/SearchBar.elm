@@ -4,12 +4,12 @@ import Html exposing (Html)
 import Main.Message exposing (Message(..), Handler)
 import User.Message exposing (UserMessage(..))
 import Components.SearchBar.Basics exposing (searchBar, field)
-import View.Basics exposing (label)
+import Components.Basics exposing (label)
 import Components.DropDown as DropDown
 
 
-view : Bool -> Message -> List a -> Handler a -> a -> Handler String -> Handler Bool -> String -> Html Message
-view dropped drop parameters onSelectDropDown currentParameter onInput ifEnter searchContent =
+view : Bool -> Message -> List a -> Handler a -> a -> Handler String -> Message -> String -> Html Message
+view dropped drop parameters onSelectDropDown currentParameter onInput onEnter searchContent =
     searchBar
         [ label "search"
         , DropDown.view
@@ -20,6 +20,6 @@ view dropped drop parameters onSelectDropDown currentParameter onInput ifEnter s
             parameters
         , field
             onInput
-            ifEnter
+            onEnter
             searchContent
         ]

@@ -1,4 +1,4 @@
-module View.Basics exposing (..)
+module Components.Basics exposing (..)
 
 import Html exposing (Html, Attribute, node, text, div)
 import Html.Attributes exposing (class)

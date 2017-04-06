@@ -28,11 +28,8 @@ update signInMessage signInModel model =
         SignIn ->
             submit signInModel model
 
-        HandleEnter True ->
+        HandleEnter ->
             update SignIn signInModel model
-
-        HandleEnter False ->
-            ( model, Cmd.none )
 
 
 packPage : Model -> List (Cmd Message) -> SignIn.Model -> ( Model, Cmd Message )
