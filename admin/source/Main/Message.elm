@@ -1,4 +1,4 @@
-module Main.Message exposing (Message(..))
+module Main.Message exposing (Message(..), Handler)
 
 import Main.Types exposing (Page(..))
 import Http
@@ -14,3 +14,7 @@ type Message
     | SignInResult Bool
     | UserWrapper UserMessage
     | Post ( String, String )
+
+
+type alias Handler a =
+    a -> Message
