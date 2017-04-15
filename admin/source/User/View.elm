@@ -3,18 +3,17 @@ module User.View exposing (view)
 import Html exposing (Html)
 import Main.Model exposing (Model)
 import Main.Message exposing (Message(..))
-import Components.Basics as Basics
+import Components.Basics as Components
 import User.Model exposing (SearchParameter(..))
 import User.Model as User
 import User.Message exposing (UserMessage(..))
-import User.Components as Components
 import User.DetailsArea as DetailsArea
 import Components.SearchBar as SearchBar
 
 
 view : Model -> User.Model -> Html Message
 view model userModel =
-    Basics.page
+    Components.page
         [ DetailsArea.view userModel
         , Components.separator
         , SearchBar.view (toPayload userModel)

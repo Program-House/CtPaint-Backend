@@ -5,7 +5,7 @@ import Html.Attributes exposing (class, placeholder, value, type_)
 import Html.Events exposing (onInput, onClick)
 import Main.Message exposing (Message(..))
 import SignIn.Message exposing (SignInMessage(..))
-import Components.Basics as Components
+import Components.Field.Basics as Components
 import Html.Events.Extra exposing (onEnter)
 
 

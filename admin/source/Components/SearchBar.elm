@@ -4,7 +4,7 @@ import Html exposing (Html)
 import Main.Message exposing (Message(..), Handler)
 import User.Message exposing (UserMessage(..))
 import Components.SearchBar.Basics exposing (searchBar, field)
-import Components.Basics exposing (label)
+import Components.Field.Basics exposing (label)
 import Components.DropDown as DropDown
 
 
