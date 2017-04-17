@@ -3,6 +3,7 @@ module.exports.state = state =
     serversKey: ""
     clientsKey: ""
     sessionToken: ""
+    username: ""
 
 
 module.exports.setState = (key, value) ->

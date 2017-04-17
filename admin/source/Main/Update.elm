@@ -10,6 +10,7 @@ import SignIn.Update as SignIn
 import User.Update as User
 import User.Model
 import Main.SetPage as SetPage
+import Ports
 import Debug exposing (log)
 
 
@@ -41,14 +42,11 @@ update message model =
                 _ ->
                     ( model, Cmd.none )
 
-        SignInResult True ->
+        SignInResult username ->
             { model
                 | page = UsersPage User.Model.init
             }
-                ! []
-
-        SignInResult False ->
-            ( model, Cmd.none )
+                ! [ Ports.setUsername username ]
 
         UserWrapper userMessage ->
             case model.page of

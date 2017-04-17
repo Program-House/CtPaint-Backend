@@ -10,13 +10,16 @@ port makeClientKey : () -> Cmd message
 port signIn : ( String, String ) -> Cmd message
 
 
-port signInResult : (Bool -> message) -> Sub message
+port signInResult : (String -> message) -> Sub message
 
 
 port searchUser : ( String, String ) -> Cmd message
 
 
 port userSearchResult : (Bool -> message) -> Sub message
+
+
+port setUsername : String -> Cmd message
 
 
 

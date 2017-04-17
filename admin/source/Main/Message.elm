@@ -10,7 +10,7 @@ type Message
     = SetPage String
     | GetServersPublicKey (Result Http.Error String)
     | SignInWrapper SignInMessage
-    | SignInResult Bool
+    | SignInResult String
     | UserWrapper UserMessage
 
 

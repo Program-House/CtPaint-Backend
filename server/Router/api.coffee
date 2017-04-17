@@ -1,12 +1,13 @@
 crypto = require "../crypto"
 log = (require "../log").log
+path = (require "./path")("/api")
 user = require "../db/user"
 
-SignIn = require "./sign-in"
+Admin = require "./Admin"
 
 module.exports = (app, dbConnection) ->
 
-    SignIn app, dbConnection
+    Admin (path "Admin"), app, dbConnection
 
     app.post "/api/register", (req, res) ->
         decryption = crypto.decrypt req.body.cipher, (result) ->

@@ -17,17 +17,8 @@ module.exports = (dest, body, next) ->
         body = JSON.stringify cipher: encryption.cipher
 
         Http.post dest, body, (cipher) ->
-            decrypt cipher, (handleDecryption next)
-
+            decrypt cipher, (plaintext) ->
+                json = JSON.parse plaintext
+                next json
     else
         console.error "Encryption was not a success"
-
-
-handleDecryption = (next) ->
-    (plaintext) ->
-        json = JSON.parse plaintext
-
-        if json.msg is "success"
-            Model.setState "sessionToken", json.sessionToken
-
-            next true

@@ -1,5 +1,7 @@
 Root = require "./root"
 Post = require "./post"
+Model = require "./model"
+
 
 module.exports = (next) ->
     (payload) ->
@@ -11,5 +13,7 @@ module.exports = (next) ->
             username: payload[0]
             password: payload[1]
 
-        Post dest, body, next
+        Post dest, body, (json) -> 
+            if json.msg is "success"
+                next payload[0]
 
