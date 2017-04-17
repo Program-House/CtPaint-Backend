@@ -4,28 +4,41 @@ random = require "../random"
 cryptico = require "cryptico"
 
 
-module.exports.certify = (connection, body, next) ->
-    getAdmins connection, body.username, (result) ->
-        if result.length > 1
-            tooManyResults = new Error "More than one admin with that username"
-            throw tooManyResults
+module.exports.verify = 
+    password : (connection, body, next) ->
+        getAdmin connection, body.username, (admin) ->
+            if (random.hash body.password) is admin.hash
+                token = random.getString()
 
-        if result.length is 0
-            next (msg: "admin does not exist")
+                updates =
+                    sessionToken: token
+                    publicKey: body.clientsKey
+                    lastActivity: Date.now()
 
-        admin = result[0]
+                updateAdmin body.username, updates, connection, ->
+                    next 
+                        msg: "success"
+                        sessionToken: updates.sessionToken
+                        clientsKey: body.clientsKey
 
-        if (random.hash body.password) is admin.hash
-            token = random.getString()
+            else
+                next (msg: "Incorrect username and password")
 
-            updateAdmin body, next, connection,
-                session: token
-                publicKey: body.clientsKey
+    session : (connection, body, next) ->
+        getAdmin connection, body.username, (admin) ->
+            if body.sessionToken is admin.sessionToken
+                if 900000 > Date.now() - admin.lastActivity 
+                    updates =
+                        lastActivity: Date.now()
+
+                    updateAdmin body.username, updates, connection, ->
+                        next admin.publicKey
 
 
-updateAdmin = (body, next, connection, updates) ->
+
+updateAdmin = (username, updates, connection, next) ->
     db.table "administrator"
-        .filter ((r.row "username").eq body.username)
+        .filter ((r.row "username").eq username)
         .update updates
         .run connection, (err, result) ->
             if err then throw err
@@ -34,17 +47,28 @@ updateAdmin = (body, next, connection, updates) ->
                 replacedTooMany = new Error "Replaced too many administrators in update"
                 throw replacedTooMany
 
-            next 
-                msg: "success"
-                sessionToken: updates.token
-                clientsKey: body.clientsKey
+            next()
 
 
-getAdmins = (connection, username, next) ->
+
+
+getAdmin = (connection, username, next) ->
     db.table "administrator"
         .filter ((r.row "username").eq username)
         .run connection, (err, cursor) ->
             if err then throw err
             cursor.toArray (err, result) ->
                 if err then throw err
-                next result
+
+                if result.length > 1
+                    tooManyResults = new Error "More than one admin with that username"
+                    throw tooManyResults
+
+                if result.length is 0
+                    next (msg: "Incorrect username and password")
+
+                next result[0]
+
+
+
+

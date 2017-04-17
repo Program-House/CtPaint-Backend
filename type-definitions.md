@@ -8,6 +8,6 @@ user
 
 administrator
     username : String
-    lastLogin : Number
     session : String
     publicKey : String
+    lastActivity : Number

@@ -15,5 +15,6 @@ module.exports = (next) ->
 
         Post dest, body, (json) -> 
             if json.msg is "success"
+                Model.setState "sessionToken", json.sessionToken
                 next payload[0]
 

@@ -11,11 +11,8 @@ import Ports
 
 model : Model
 model =
-    { page = UsersPage User.init }
-
-
-
---{ page = SignInPage SignIn.init }
+    --{ page = UsersPage User.init }
+    { page = SignInPage SignIn.init }
 
 
 cmd : Cmd Message
