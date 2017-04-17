@@ -1,8 +1,8 @@
 get = require "./get"
-update: require "./update"
+update = require "./update"
 random = require "../../random"
 
-moduel.exports.password = (connection, body, next) ->
+module.exports.password = (connection, body, next) ->
     get connection, body.username, (admin) ->
         if (random.hash body.password) is admin.hash
             token = random.getString()

@@ -1,5 +1,4 @@
 crypto = require "../../crypto"
-admin = require "../../db/administrator"
 verify = require "../../db/Admin/verify"
 
 module.exports = (path, app, dbConnection) ->
