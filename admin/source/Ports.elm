@@ -10,9 +10,6 @@ port makeClientKey : () -> Cmd message
 port signIn : ( String, String ) -> Cmd smg
 
 
-port post : (( String, String ) -> message) -> Sub message
-
-
 port signInResult : (Bool -> message) -> Sub message
 
 

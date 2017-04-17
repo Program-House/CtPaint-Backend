@@ -1,5 +1,6 @@
 cryptico = require "cryptico"
 secrets = require "../secrets"
+log = (require "./log").log
 
 RSAKey = cryptico.generateRSAKey secrets.passPhrase, 1024
 

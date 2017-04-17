@@ -57,10 +57,3 @@ update message model =
 
                 _ ->
                     ( model, Cmd.none )
-
-        Post ( dest, request ) ->
-            let
-                _ =
-                    log "DEST" ( dest, request )
-            in
-                ( model, Cmd.none )

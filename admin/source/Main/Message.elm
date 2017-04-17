@@ -12,7 +12,6 @@ type Message
     | SignInWrapper SignInMessage
     | SignInResult Bool
     | UserWrapper UserMessage
-    | Post ( String, String )
 
 
 type alias Handler a =
