@@ -7,10 +7,16 @@ port saveServersKey : String -> Cmd message
 port makeClientKey : () -> Cmd message
 
 
-port signIn : ( String, String ) -> Cmd smg
+port signIn : ( String, String ) -> Cmd message
 
 
 port signInResult : (Bool -> message) -> Sub message
+
+
+port searchUser : ( String, String ) -> Cmd message
+
+
+port userSearchResult : (Bool -> message) -> Sub message
 
 
 

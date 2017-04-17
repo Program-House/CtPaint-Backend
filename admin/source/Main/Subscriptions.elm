@@ -8,5 +8,4 @@ import Ports
 subscriptions : Model -> Sub Message
 subscriptions model =
     Sub.batch
-        [ Ports.signInResult SignInResult
-        ]
+        [ Ports.signInResult SignInResult ]

@@ -5,6 +5,8 @@ import Main.Model exposing (Model)
 import Main.Message exposing (Message(..))
 import Main.Types exposing (Page(..))
 import User.Model as User
+import Ports
+import Debug exposing (log)
 
 
 update : UserMessage -> User.Model -> Model -> ( Model, Cmd Message )
@@ -23,7 +25,17 @@ update userMessage state model =
                 |> packPage model []
 
         HandleEnter ->
-            packPage model [] state
+            let
+                pack =
+                    state.searchParameter
+                        |> toString
+                        |> (,) state.searchField
+                        |> log "PAYLOAD"
+                        |> Ports.searchUser
+                        |> List.singleton
+                        |> packPage model
+            in
+                pack state
 
         DropSearchParameters ->
             { state

@@ -3,7 +3,6 @@ Post = require "./post"
 
 module.exports = (next) ->
     (payload) ->
-
         dest =
             Root.url "api/admin/user"
 

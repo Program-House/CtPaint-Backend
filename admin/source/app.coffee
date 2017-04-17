@@ -8,4 +8,4 @@ Keys.makeClientKey app
 
 app.ports.signIn.subscribe (signIn app.ports.signInResult.send)
 
-app.ports.userSeearch.subcribe (user app.ports.userSearchResult.send)
+app.ports.searchUser.subscribe (user app.ports.userSearchResult.send)
