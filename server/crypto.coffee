@@ -7,5 +7,10 @@ publicKey = cryptico.publicKeyString RSAKey
 
 module.exports.publicKey = publicKey
 
-module.exports.decrypt = (cipher) ->
-  cryptico.decrypt cipher, RSAKey
+module.exports.decrypt = (cipher, onSuccess) ->
+    decryption = cryptico.decrypt cipher, RSAKey
+
+    if decryption.status isnt "success"
+        log decryption
+    else
+        onSuccess (JSON.parse decryption.plaintext)
