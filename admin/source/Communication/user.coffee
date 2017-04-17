@@ -5,11 +5,10 @@ module.exports = (next) ->
     (payload) ->
 
         dest =
-            Root.url "api/admin/signin"
+            Root.url "api/admin/user"
 
         body =
-            username: payload[0]
-            password: payload[1]
+            field: payload[0]
+            parameter: payload[1]
 
         Post dest, body, next
-

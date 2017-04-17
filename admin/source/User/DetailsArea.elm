@@ -9,9 +9,6 @@ import User.Model exposing (Model)
 import User.Message exposing (UserMessage(..))
 
 
---import User.Components as Components
-
-
 view : Model -> Html Message
 view model =
     Components.leftContainer
