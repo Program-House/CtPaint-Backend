@@ -8,8 +8,8 @@ connection = (require "../../Main").getConnection()
 
 
 module.exports = (body, next) ->
-    exists body.email, (exists) ->
-        if exists
+    exists body.email, (itExists) ->
+        if itExists
             next (msg: "Email already exists")
         else
             db.table "user"

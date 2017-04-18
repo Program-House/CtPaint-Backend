@@ -19,6 +19,7 @@
     "coffee-script": "^1.12.4",
     "coffeeify": "^2.1.0",
     "coffeelint": "^1.16.0",
+    "coffeescope2": "^0.4.5",
     "cryptico": "^1.0.2",
     "express": "^4.13.4",
     "gulp": "^3.9.1",
@@ -34,7 +35,9 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp-coffeelint": "^0.6.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "gulp"

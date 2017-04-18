@@ -1,7 +1,6 @@
 get = require "./get"
 update = require "./update"
 random = require "../../random"
-connection = (require "../../Main").getConnection()
 
 module.exports.password = (body, next) ->
     get body.username, (admin) ->
@@ -18,10 +17,8 @@ module.exports.password = (body, next) ->
                     msg: "success"
                     sessionToken: updates.sessionToken
                     clientsKey: body.clientsKey
-
         else
             next (msg: "Incorrect username and password")
-
 
 module.exports.session = (body, next) ->
     get body.username, (admin) ->

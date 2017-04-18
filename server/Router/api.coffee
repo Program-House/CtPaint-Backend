@@ -1,7 +1,5 @@
 crypto = require "../crypto"
-log = (require "../log").log
 path = (require "./path")("/api")
-newUser = require "../db/User/new"
 
 Admin = require "./Admin"
 User = require "./User"

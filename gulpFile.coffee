@@ -3,6 +3,7 @@ stylus = require "./gulp-processes/stylus"
 browserify = require "./gulp-processes/browserify"
 elm = require "./gulp-processes/elm"
 tests = require "./gulp-processes/tests"
+coffeelint = require "gulp-coffeelint"
 {app} = require "./config"
 
 production = false
@@ -32,6 +33,11 @@ gulp.task "server tests", tests
 gulp.task "server", ->
   require "./server/Main.coffee"
 
+gulp.task "lint", ->
+  gulp.src paths.server
+    .pipe(coffeelint())
+    .pipe(coffeelint.reporter())
+
 gulp.task "distribution", ->
   production = true
   gulp.start "default"
@@ -48,8 +54,8 @@ gulp.task "watch", ->
   gulp.watch paths.elm, [ "elm" ]
   gulp.watch paths.css, [ "stylus" ]
   gulp.watch paths.coffee, [ "coffee" ]
-  gulp.watch serverFiles, [ "server" ]
-  gulp.watch paths.server, [ "server tests" ]
+  gulp.watch serverFiles, [ "server", "lint" ]
+  # gulp.watch paths.server, [ "server tests" ]
   gulp.watch paths.serverTests, [ "server tests"]
 
 gulp.task "default", [ "watch", "elm", "coffee", "stylus", "server" ]

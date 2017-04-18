@@ -1,5 +1,4 @@
 crypto = require "../../crypto"
-log = (require "../../log").log
 verify = require "../../db/Admin/verify"
 cryptico = require "cryptico"
 main = require "../../Main"

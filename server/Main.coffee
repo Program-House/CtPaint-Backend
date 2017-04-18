@@ -1,6 +1,4 @@
-fs = require "fs"
 express = require "express"
-app = express()
 http = require "http"
 join = (require "path").join
 bodyParser = require "body-parser"
@@ -8,8 +6,7 @@ r = require "rethinkdb"
 log = (require "./log").log
 router = require "./router"
 
-dbConnection = null
-module.exports.getConnection = -> dbConnection
+app = express()
 module.exports.getApp = -> app
 
 PORT = process.argv[3] or 2984
@@ -17,7 +14,7 @@ PORT = process.argv[3] or 2984
 rPack = host: "localhost", port: 28015
 r.connect rPack, (err, connection) ->
     if err then throw err
-    dbConnection = connection
+    module.exports.getConnection = -> connection
     log "Connected to database"
     start()
 
