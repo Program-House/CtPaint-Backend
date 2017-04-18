@@ -16,10 +16,10 @@ PORT = process.argv[3] or 2984
 
 rPack = host: "localhost", port: 28015
 r.connect rPack, (err, connection) ->
-  if err then throw err
-  dbConnection = connection
-  log "Connected to database"
-  start()
+    if err then throw err
+    dbConnection = connection
+    log "Connected to database"
+    start()
 
 app.use bodyParser.json()
 app.use (bodyParser.urlencoded (extended: true))
@@ -33,6 +33,6 @@ start = ->
     httpServer = http.createServer app
 
     httpServer.listen PORT, ->
-      log ("Running on " + PORT)
+        log ("Running on " + PORT)
 
 

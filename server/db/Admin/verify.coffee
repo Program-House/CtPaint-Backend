@@ -8,13 +8,13 @@ module.exports.password = (body, next) ->
         if (random.hash body.password) is admin.hash
             token = random.getString()
 
-            updates = 
+            updates =
                 sessionToken: token
                 publicKey: body.clientsKey
                 lastActivity: Date.now()
 
             update body.username, updates, ->
-                next 
+                next
                     msg: "success"
                     sessionToken: updates.sessionToken
                     clientsKey: body.clientsKey

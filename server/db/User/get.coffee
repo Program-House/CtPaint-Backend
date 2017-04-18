@@ -7,4 +7,4 @@ module.exports.all = (body, next) ->
         .run connection, (err, cursor) ->
             if err then throw err
             cursor.toArray (err, result) ->
-                console.log result
+                console.log "db/User/get.coffee", result

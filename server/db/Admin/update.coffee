@@ -10,7 +10,8 @@ module.exports = (username, updates, next) ->
             if err then throw err
             
             if result.replaced isnt 1
-                replacedTooMany = new Error "Replaced too many administrators in update"
+                msg = "Replaced too many administrators in update"
+                replacedTooMany = new Error msg
                 throw replacedTooMany
 
             next()

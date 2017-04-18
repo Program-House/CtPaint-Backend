@@ -11,7 +11,8 @@ module.exports = (username, next) ->
                 if err then throw err
 
                 if result.length > 1
-                    tooManyResults = new Error "More than one admin with that username"
+                    msg = "More than one admin with that username"
+                    tooManyResults = new Error msg
                     throw tooManyResults
 
                 if result.length is 0

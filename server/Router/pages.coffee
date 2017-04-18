@@ -4,18 +4,20 @@ app = (require "../Main").getApp()
 
 
 homeAppPaths = [
-  "/"
-  "/register"
+    "/"
+    "/register"
 ]
 
 homeApp = (req, res) ->
-  (res.status 200).sendFile (join __dirname, "../../home/development/index.html")
+    home = join __dirname, "../../home/development/index.html"
+    (res.status 200).sendFile home
 
 
 module.exports = ->
 
-  _.forEach homeAppPaths, (path) -> app.get path, homeApp
+    _.forEach homeAppPaths, (path) -> app.get path, homeApp
 
-  app.get "/app", (req, res) ->
-    (res.status 200).sendFile (join __dirname, "../../paint/development/index.html")
+    app.get "/app", (req, res) ->
+        paint = join __dirname, "../../paint/development/index.html"
+        (res.status 200).sendFile paint
 
