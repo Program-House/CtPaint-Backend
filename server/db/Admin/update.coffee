@@ -1,7 +1,8 @@
 r = require "rethinkdb"
 db = r.db "ctpaint"
+connection = (require "../../Main").getConnection()
 
-module.exports = (connection, username, updates, next) ->
+module.exports = (username, updates, next) ->
     db.table "administrator"
         .filter ((r.row "username").eq username)
         .update updates

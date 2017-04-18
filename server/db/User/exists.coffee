@@ -1,7 +1,9 @@
 r = require "rethinkdb"
 db = r.db "ctpaint"
+connection = (require "../../Main").getConnection()
 
-module.exports = (connection, email, next) ->
+
+module.exports = (email, next) ->
     db.table "user"
         .filter ((r.row "email").eq email)
         .run connection, (err, cursor) ->

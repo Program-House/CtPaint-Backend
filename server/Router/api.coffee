@@ -6,16 +6,13 @@ newUser = require "../db/User/new"
 Admin = require "./Admin"
 User = require "./User"
 
-module.exports = (app, dbConnection) ->
+app = (require "../Main").getApp()
 
-    Admin (path "Admin"), app, dbConnection
+module.exports = ->
 
-    User path, app, dbConnection
+    Admin (path "Admin")
 
-    app.post "/api/register", (req, res) ->
-        decryption = crypto.decrypt req.body.cipher, (result) ->
-            newUser dbConnection, result, (pack) ->
-                res.send (JSON.stringify pack)
+    User path
 
-     app.get "/api/key", (req, res) ->
-          res.send crypto.publicKey
+    app.get "/api/key", (req, res) ->
+        res.send crypto.publicKey

@@ -30,7 +30,7 @@ gulp.task "elm-make", elm.make app
 gulp.task "server tests", tests
 
 gulp.task "server", ->
-  require "./server/app.coffee"
+  require "./server/Main.coffee"
 
 gulp.task "distribution", ->
   production = true

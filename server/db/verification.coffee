@@ -1,7 +1,9 @@
 r = require "rethinkdb"
 db = r.db "ctpaint"
+connection = (require "../Main").getConnection()
 
-module.exports.new_ = (connection, email, code, next) ->
+
+module.exports.new_ = (email, code, next) ->
   db.table "verification"
     .insert [ (make email, code) ]
     .run connection, (err, result) ->

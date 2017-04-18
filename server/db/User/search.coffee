@@ -1,8 +1,9 @@
 r = require "rethinkdb"
 db = r.db "ctpaint"
+connection = (require "../../Main").getConnection()
 
 
-module.exports = search = (connection, filterBy, next) ->
+module.exports = search = (filterBy, next) ->
     db.table "user"
         .filter filterBy
         .run connection, (err, cursor) ->
@@ -13,6 +14,6 @@ module.exports = search = (connection, filterBy, next) ->
                 next result
 
 
-module.exports.byUsername = (connection, username, next) ->
-    search connection ((r.row "username").eq username) next
+module.exports.byUsername = (username, next) ->
+    search ((r.row "username").eq username) next
 

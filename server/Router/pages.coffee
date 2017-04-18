@@ -1,5 +1,6 @@
 _ = require "lodash"
 join = (require "path").join
+app = (require "../Main").getApp()
 
 
 homeAppPaths = [
@@ -11,7 +12,7 @@ homeApp = (req, res) ->
   (res.status 200).sendFile (join __dirname, "../../home/development/index.html")
 
 
-module.exports = (app) ->
+module.exports = ->
 
   _.forEach homeAppPaths, (path) -> app.get path, homeApp
 

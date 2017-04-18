@@ -9,13 +9,15 @@ log = (require "./log").log
 router = require "./router"
 
 dbConnection = null
+module.exports.getConnection = -> dbConnection
+module.exports.getApp = -> app
+
 PORT = process.argv[3] or 2984
-dir = process.argv[2]
 
 rPack = host: "localhost", port: 28015
-r.connect rPack, (err, conn) ->
+r.connect rPack, (err, connection) ->
   if err then throw err
-  dbConnection = conn
+  dbConnection = connection
   log "Connected to database"
   start()
 
@@ -26,8 +28,7 @@ app.use "/app", (express.static (join __dirname, "../paint/development"))
 app.use "/admin", (express.static (join __dirname, "../admin/development"))
 
 start = ->
-
-    router app, dbConnection
+    router()
 
     httpServer = http.createServer app
 

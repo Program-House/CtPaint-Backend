@@ -1,7 +1,8 @@
 r = require "rethinkdb"
 db = r.db "ctpaint"
+connection = (require "../../Main").getConnection()
 
-module.exports.all = (connection, body, next) ->
+module.exports.all = (body, next) ->
     db.table "user"
         .run connection, (err, cursor) ->
             if err then throw err

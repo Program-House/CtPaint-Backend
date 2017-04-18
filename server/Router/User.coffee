@@ -1,5 +1,5 @@
 Register = require "./User/register"
 
-module.exports = (path, app, dbConnection) ->
+module.exports = (path) ->
 
-    Register (path "register"), app, dbConnection
+    Register (path "register")

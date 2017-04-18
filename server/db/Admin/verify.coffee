@@ -1,9 +1,10 @@
 get = require "./get"
 update = require "./update"
 random = require "../../random"
+connection = (require "../../Main").getConnection()
 
-module.exports.password = (connection, body, next) ->
-    get connection, body.username, (admin) ->
+module.exports.password = (body, next) ->
+    get body.username, (admin) ->
         if (random.hash body.password) is admin.hash
             token = random.getString()
 
@@ -12,7 +13,7 @@ module.exports.password = (connection, body, next) ->
                 publicKey: body.clientsKey
                 lastActivity: Date.now()
 
-            update connection, body.username, updates, ->
+            update body.username, updates, ->
                 next 
                     msg: "success"
                     sessionToken: updates.sessionToken
@@ -22,13 +23,13 @@ module.exports.password = (connection, body, next) ->
             next (msg: "Incorrect username and password")
 
 
-module.exports.session = (connection, body, next) ->
-    get connection, body.username, (admin) ->
+module.exports.session = (body, next) ->
+    get body.username, (admin) ->
         if body.sessionToken is admin.sessionToken
             if 900000 > Date.now() - admin.lastActivity
                 updates =
                     lastActivity: Date.now()
 
-                update connection, body.username, updates, ->
+                update body.username, updates, ->
                     next admin.publicKey
 

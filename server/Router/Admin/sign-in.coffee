@@ -2,12 +2,15 @@ crypto = require "../../crypto"
 log = (require "../../log").log
 verify = require "../../db/Admin/verify"
 cryptico = require "cryptico"
+main = require "../../Main"
 
+app = main.getApp()
+connection = main.getConnection()
 
-module.exports = (path, app, dbConnection) ->
+module.exports = (path) ->
     app.post path.get, (req, res) ->
         crypto.decrypt req.body.cipher, (json) ->
-            verify.password dbConnection, json, (result) ->
+            verify.password connection, json, (result) ->
                 if result.msg is "success"
                     reply result, res
 

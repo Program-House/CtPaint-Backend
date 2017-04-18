@@ -4,10 +4,11 @@ exists = require "./exists"
 sendVerification = (require "../../email").sendVerification
 verification = require "../verification"
 random = require "../../random"
+connection = (require "../../Main").getConnection()
 
 
-module.exports = (connection, body, next) ->
-    exists connection, body.email, (exists) ->
+module.exports = (body, next) ->
+    exists body.email, (exists) ->
         if exists
             next (msg: "Email already exists")
         else
@@ -15,13 +16,13 @@ module.exports = (connection, body, next) ->
                 .insert [ make body ]
                 .run connection, (err, result) ->
                     if err then throw err
-                    insert connection, body.email, result, next
+                    insert body.email, result, next
 
 
-insert = (connection, email, result, next) ->
+insert = (email, result, next) ->
     token = random.getString() + random.getString()
     sendVerification email, token
-    verification.new_ connection, email, token, ->
+    verification.new_ email, token, ->
         next (msg: "Successfully created user")
 
 
