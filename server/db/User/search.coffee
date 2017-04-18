@@ -17,3 +17,7 @@ module.exports = search = (filterBy, next) ->
 module.exports.byUsername = (username, next) ->
     search ((r.row "username").eq username) next
 
+
+module.exports.byEmail = (email, next) ->
+    search ((r.row "email").eq email) next
+
