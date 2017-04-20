@@ -15,7 +15,8 @@ homeApp = (req, res) ->
 
 module.exports = ->
 
-    _.forEach homeAppPaths, (path) -> app.get path, homeApp
+    _.forEach homeAppPaths, (path) -> 
+        app.get path, homeApp
 
     app.get "/app", (req, res) ->
         paint = join __dirname, "../../paint/development/index.html"

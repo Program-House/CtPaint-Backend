@@ -1,23 +1,20 @@
 crypto = require "../../crypto"
 verify = require "../../db/Admin/verify"
-main = require "../../Main"
 User = require "../../db/User/search"
-
-app = main.getApp()
-connection = main.getConnection()
+app = (require "../../Main").getApp()
 
 module.exports = (path) ->
-    app.post path.get, (req, res) ->
-        crypto.decrypt req.body.cipher, (json) ->
-            verify.session connection, json, (publickKey) ->
+    app.post path.get, ({body}, res) ->
+        crypto.decrypt body.cipher, (json) ->
+            verify.session json, (publickKey) ->
                 search json, publickKey
 
-search = (json, publickKey) ->
-    switch json.parameters
+search = ({parameter}, publickKey) ->
+    switch parameter
         when "ByEmail"
-            User.byEmail json.parameter, (result) ->
+            User.byEmail parameter, (result) ->
                 console.log "RESULT", result
 
         when "ByUsername"
-            User.byUsername json.parameter, (result) ->
+            User.byUsername parameter, (result) ->
                 console.log "USERNAME RESULT", result

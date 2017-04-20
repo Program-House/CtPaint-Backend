@@ -26,11 +26,11 @@ insert = (email, result, next) ->
         next (msg: "Successfully created user")
 
 
-module.exports.make = make =  (body) ->
+module.exports.make = make =  ({username, email, password}) ->
     salt = random.getString()
 
-    username: body.username
-    email: body.email
+    username: username
+    email: email
     verified: false
     salt: salt
-    hash: random.hash (salt + body.password)
+    hash: random.hash (salt + password)

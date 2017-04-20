@@ -1,6 +1,5 @@
 cryptico = require "cryptico"
 secrets = require "../secrets"
-log = (require "./log").log
 
 RSAKey = cryptico.generateRSAKey secrets.passPhrase, 1024
 
@@ -9,9 +8,9 @@ publicKey = cryptico.publicKeyString RSAKey
 module.exports.publicKey = publicKey
 
 module.exports.decrypt = (cipher, onSuccess) ->
-    decryption = cryptico.decrypt cipher, RSAKey
+    { plaintext, status } = cryptico.decrypt cipher, RSAKey
 
-    if decryption.status isnt "success"
-        log decryption
+    if status isnt "success"
+        console.log "Descryption failed : ", status
     else
-        onSuccess (JSON.parse decryption.plaintext)
+        onSuccess (JSON.parse plaintext)

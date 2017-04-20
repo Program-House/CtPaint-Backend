@@ -11,14 +11,14 @@ module.exports = (path) ->
                     reply result, res
 
 
-reply = (result, res) ->
+reply = ({clientsKey, sessionToken}, res) ->
     body = JSON.stringify
         msg: "success"
-        sessionToken: result.sessionToken
+        sessionToken: sessionToken
 
-    encryption = cryptico.encrypt body, result.clientsKey
+    { cipher, status } = cryptico.encrypt body, clientsKey
 
-    if encryption.status is "success"
-        res.send (JSON.stringify (cipher: encryption.cipher))
+    if status is "success"
+        res.send (JSON.stringify {cipher})
     else
         console.error "Encryption failed"
