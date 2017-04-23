@@ -5,15 +5,9 @@
   "main": "gulpFile.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Program-House/CtPaint"
+    "url": "https://github.com/Program-House/CtPaint-backend"
   },
-  "keywords": [
-    "elm",
-    "elmlang",
-    "gulp",
-    "boilerplate",
-    "browserify"
-  ],
+  "keywords": [],
   "dependencies": {
     "browserify": "^13.0.0",
     "coffee-script": "^1.12.4",

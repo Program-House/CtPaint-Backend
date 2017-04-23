@@ -8,16 +8,8 @@ coffeelint = require "gulp-coffeelint"
 
 production = false
 paths =
-  development: "./" + app + "/development"
-  distribution: "./" + app + "/distribution"
-  mainElm: "./" + app + "/source/Main.elm"
-  elm: "./" + app + "/source/**/*.elm"
-  mainCss: "./" + app + "/source/Styles/main.styl"
-  css: "./" + app + "/source/**/*.styl"
-  mainJs: "./" + app + "/source/app.coffee"
-  coffee: "./" + app + "/source/**/*.coffee",
   server: "./server/**/*.coffee",
-  serverTests: "./tests/**/*.coffee"
+  tests: "./tests/**/*.coffee"
 
 { mainJs, development } = paths
 gulp.task "coffee", (browserify mainJs, development, production)
@@ -56,6 +48,6 @@ gulp.task "watch", ->
   gulp.watch paths.coffee, [ "coffee" ]
   gulp.watch serverFiles, [ "server", "lint" ]
   # gulp.watch paths.server, [ "server tests" ]
-  gulp.watch paths.serverTests, [ "server tests"]
+  gulp.watch paths.rests, [ "server tests"]
 
 gulp.task "default", [ "watch", "elm", "coffee", "stylus", "server" ]
