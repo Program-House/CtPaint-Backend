@@ -9,7 +9,6 @@ module.exports = (path) ->
         p = cp.exec ("go build -o build/server " + path)
 
         p.stdout.on "data", (data) ->
-            console.log "DATA"
             lines = data.toStrign().split("\n")
             lines.pop()
 

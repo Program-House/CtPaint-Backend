@@ -1,25 +1,15 @@
 package main
 
 import "github.com/go-martini/martini"
-import "io/ioutil"
+import router "./router"
 // import "fmt"
 
 
 func main() {
     m := martini.Classic()
 
-    // m.Use(martini.Static("./"))
-    
-    m.Get("/", func() string {
-        s, err := ioutil.ReadFile("./apps/test.html")
-
-        if err == nil {
-            return string(s)
-        } else {
-            return "dank memes"
-        }
-    })
-
+    router.Make(m)
 
     m.Run()
 }
+

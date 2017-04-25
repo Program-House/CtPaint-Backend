@@ -4,12 +4,13 @@ cp = require "child_process"
 server = require "./gulp/server"
 
 paths =
-    app: "./source/main.go",
+    main: "./source/main.go"
+    go: "./source/**/*.go"
 
-gulp.task "server", (server paths.app)
+gulp.task "server", (server paths.main)
 
 gulp.task "watch", ->
-    gulp.watch paths.app, [ "server" ]
+    gulp.watch paths.go, [ "server" ]
 
 
 gulp.task "default", [ "watch", "server" ]
