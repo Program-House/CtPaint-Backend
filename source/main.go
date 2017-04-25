@@ -2,11 +2,11 @@
 package main
 
 import (
-    "io"
     "log"
     "net/http"
     "os"
-    "io/ioutil"
+    . "./types"
+    Router "./router"
 )
 
 var (
@@ -15,48 +15,24 @@ var (
 )
 
 
-type Server struct {
-    ListenHost string
-    ListenPort string
-    Logger     *log.Logger
-}
-
-
 func main() {
 
     server := Server{
-        ListenHost: ip,
-        ListenPort: port,
-        Logger:     log.New(os.Stdout, "server> ", log.Ltime|log.Lshortfile)}
+        Host: ip,
+        Port: port,
+        Logger: log.New(os.Stdout, "server> ", log.Ltime|log.Lshortfile),
+    }
 
-    http.HandleFunc("/", server.HandleIndex)
-
-    server.Serve()
+    Router.SetUp()
+    Serve(server)
 }
 
 
-func (server *Server) Serve() {
+func Serve(server Server) {
 
-    listenString := server.ListenHost + ":" + server.ListenPort
+    listenString := server.Host + ":" + server.Port
     server.Logger.Println("Serving http://" + listenString)
     server.Logger.Fatal(http.ListenAndServe(listenString, nil))
-}
-
-
-func (server *Server) HandleIndex(res http.ResponseWriter, req *http.Request) {
-    server.httpHeaders(res)
-    webpage, err := ioutil.ReadFile("./apps/test.html")
-
-    if err == nil {
-        io.WriteString(res, string(webpage))  
-    } else {
-        io.WriteString(res, "Error!")
-    }
-}
-
-
-func (s *Server) httpHeaders(res http.ResponseWriter) {
-    res.Header().Set("Content-Type", "text/html; charset=UTF-8")
 }
 
 
