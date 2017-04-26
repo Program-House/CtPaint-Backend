@@ -23,6 +23,7 @@ func Home(res http.ResponseWriter, req *http.Request) {
         } else {
             io.WriteString(res, "Error!")
         }
+        
     default:
         io.WriteString(res, "bop")
     }
