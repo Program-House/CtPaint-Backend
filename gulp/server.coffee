@@ -41,5 +41,5 @@ module.exports = (path) ->
                 lines = data.toString().split("\n")
                 lines.pop()
 
-                lines.forEach "data", (l) -> 
+                lines.forEach (l) -> 
                     util.log (util.colors.red l)

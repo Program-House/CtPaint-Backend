@@ -4,9 +4,11 @@ import (
     "io"
     "io/ioutil"
     "net/http"
+    . "./admin/sign-in"
 )
 
 func SetUp() {
+    http.HandleFunc("/api/admin/signin", SignIn)
     http.HandleFunc("/", Home)
 }
 
@@ -23,8 +25,6 @@ func Home(res http.ResponseWriter, req *http.Request) {
         } else {
             io.WriteString(res, "Error!")
         }
-        
-    default:
-        io.WriteString(res, "bop")
     }
 }
+

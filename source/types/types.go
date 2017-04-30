@@ -33,3 +33,6 @@ type User struct {
     salt string
 }
 
+type Test struct {
+    Content string
+}
