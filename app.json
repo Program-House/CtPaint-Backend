@@ -8,7 +8,7 @@
     "example"
   ],
   "image": "heroku/go:1.6",
-  "mount_dir": "src/github.com/Program-House/CtPaint-Backend-1",
-  "website": "http://github.com/Program-House/CtPaint-Backend-1",
-  "repository": "http://github.com/Program-House/CtPaint-Backend-1"
+  "mount_dir": "src/github.com/Program-House/CtPaint-Backend",
+  "website": "http://github.com/Program-House/CtPaint-Backend",
+  "repository": "http://github.com/Program-House/CtPaint-Backend"
 }
