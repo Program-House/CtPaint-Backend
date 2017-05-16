@@ -1,0 +1,14 @@
+{
+  "name": "Start on Heroku: Go",
+  "description": "Go Getting Started Example App",
+  "keywords": [
+    "getting-started",
+    "go",
+    "sample",
+    "example"
+  ],
+  "image": "heroku/go:1.6",
+  "mount_dir": "src/github.com/Program-House/CtPaint-Backend",
+  "website": "http://github.com/Program-House/CtPaint-Backend",
+  "repository": "http://github.com/Program-House/CtPaint-Backend"
+}
