@@ -7,8 +7,11 @@ import (
     "os"
     . "./types"
     Router "./router"
+    "database/sql"
+    _ "github.com/go-sql-driver/mysql"
 )
 
+var db *sql.DB 
 var (
     port = "2976"
     ip = "localhost"
