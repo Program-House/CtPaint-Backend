@@ -1,1 +1,1 @@
-web: ctpaint-backend
+web: CtPaint-Backend
