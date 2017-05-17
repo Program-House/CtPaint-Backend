@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -12,9 +11,11 @@ import (
 	Auth "./Auth"
 )
 
+
 var (
     db *sql.DB
 )
+
 
 func main() {
 	port := os.Getenv("PORT")

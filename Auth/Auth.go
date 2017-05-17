@@ -1,15 +1,17 @@
 package auth
 
+
 import (
     "fmt"
     "net/http"
     "github.com/gin-gonic/gin"
+    // . "crypto/sha512"
+    Hash "../Crypto/Hash"
+    Salt "../Crypto/Salt"
+    Models "./Models"
 )
 
-type Login struct {
-    User string
-    Password string
-}
+
 
 func Set(router *gin.Engine) {
 
@@ -18,10 +20,15 @@ func Set(router *gin.Engine) {
     })
 
     router.POST("/auth", func(c *gin.Context) {
-        var json Login
+        var json Models.Login
         if c.BindJSON(&json) == nil {
+            // fmt.
+            fmt.Println(Hash.Password(json.Password))
+            fmt.Println(Salt.New())
             fmt.Println(json)
         }
     })
 
 }
+
+// func hashpassword(password string) string
