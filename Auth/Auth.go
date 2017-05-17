@@ -2,13 +2,13 @@ package auth
 
 
 import (
-    "fmt"
+    // "fmt"
     "net/http"
     "github.com/gin-gonic/gin"
     // . "crypto/sha512"
-    Hash "../Crypto/Hash"
-    Salt "../Crypto/Salt"
-    Models "./Models"
+    // Hash "../Crypto/Hash"
+    // Salt "../Crypto/Salt"
+    // Models "./Models"
 )
 
 
@@ -19,15 +19,17 @@ func Set(router *gin.Engine) {
         c.String(http.StatusOK, "Authorized! Yeah!")
     })
 
-    router.POST("/auth", func(c *gin.Context) {
-        var json Models.Login
-        if c.BindJSON(&json) == nil {
-            // fmt.
-            fmt.Println(Hash.Password(json.Password))
-            fmt.Println(Salt.New())
-            fmt.Println(json)
-        }
-    })
+    // router.POST("/auth", func(c *gin.Context) {
+    //     var json Models.Login
+    //     if c.BindJSON(&json) == nil {
+    //         // fmt.
+    //         fmt.Println(Hash.Password(json.Password))
+    //         fmt.Println(Salt.New())
+    //         fmt.Println(json)
+    //     }
+
+    //     c.String
+    // })
 
 }
 
