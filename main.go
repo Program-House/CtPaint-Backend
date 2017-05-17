@@ -8,7 +8,7 @@ import (
 
 	_ "github.com/lib/pq"
 	"database/sql"
-	Auth "./Auth"
+	Auth "github.com/Program-House/CtPaint-Backend/Auth"
 )
 
 
