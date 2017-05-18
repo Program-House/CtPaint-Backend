@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+
 	"github.com/gin-gonic/gin"
 
 	_ "github.com/lib/pq"
@@ -33,7 +34,7 @@ func main() {
 	router := gin.New()
 	router.Use(gin.Logger())
 
-	Auth.Set(router)
+	Auth.Set(db, router)
 
 	router.Run(":" + port)
 }
