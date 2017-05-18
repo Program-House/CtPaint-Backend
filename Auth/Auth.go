@@ -40,9 +40,9 @@ func Set(db *sql.DB, router *gin.Engine) {
 
             // var lastInsertId int
             result, err := db.Exec(
-                "INSERT INTO users(email, username, verified, frozen, hash, salt) VALUES($1, $2, $3, $4, $5, $6)",
-                json.Username,
+                "INSERT INTO users(email, username, verified, frozen, hash, salt, creationDate) VALUES($1, $2, $3, $4, $5, $6, $7)",
                 json.Email,
+                json.Username,
                 false,
                 false,
                 Hash.Password(salt + json.Password),
